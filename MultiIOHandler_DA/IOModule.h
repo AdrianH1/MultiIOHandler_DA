@@ -12,7 +12,10 @@ public:
 	virtual void send() = 0;
 	virtual void recv() = 0;
 
+	int getId();
+	void setId(int id);
+
 private:
 	std::vector<IOModule> ListenerTable;
-
+	static int m_id;
 };
