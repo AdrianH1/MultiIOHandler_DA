@@ -5,12 +5,21 @@
 class Serial : public IOModule
 {
 public:
-	std::string Port;
-	int Speed;
+
+
+	Serial() = default;
+	Serial(std::string Port, int Speed);
+	~Serial();
+
+	int m_id;
+
 
 private:
 	void init();
 	void send();
 	void recv();
+
+	std::string m_Port;
+	int m_Speed;
 
 };

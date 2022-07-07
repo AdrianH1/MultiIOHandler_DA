@@ -6,12 +6,16 @@
 class Socket : public IOModule
 {
 public:
-	std::string IP;
-	int Port;
+	Socket() = default;
+	Socket(std::string IP, int Port);
+	~Socket();
+	int m_id;
 
 private:
+	std::string m_IP;
+	int m_Port;
+
 	void init();
 	void send();
 	void recv();
-
 };
