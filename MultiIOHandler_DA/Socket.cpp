@@ -34,6 +34,10 @@ void Socket::init()
     //std::vector<char> vBuffer(bytes)
     //socket.read_some(asio::buffer)
 
+    //TIMING async needed (async_read_some)
+    //Context in own thread
+    //javidx simple example  https://github.com/OneLoneCoder/olcPixelGameEngine/tree/master/Videos/Networking/Parts1%262
+
 }
 
 void Socket::send()
