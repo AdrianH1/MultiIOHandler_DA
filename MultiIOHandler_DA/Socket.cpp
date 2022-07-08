@@ -14,6 +14,25 @@ Socket::~Socket()
 
 void Socket::init()
 {
+    //asio::error_code for error output
+
+    // Create a context - essentially the platform specific interface
+    // asio::io_context
+    
+    //asio tcp endpoint
+    //IP and port
+
+    //asio tcp socket
+
+    //socket.connect
+
+    //check error code to check status
+
+    //if socket.is_open()
+    // Check if bytes are available to read with socket.available()
+    
+    //std::vector<char> vBuffer(bytes)
+    //socket.read_some(asio::buffer)
 
 }
 
