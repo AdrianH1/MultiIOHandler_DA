@@ -8,18 +8,16 @@ public:
 
 
 	Serial() = default;
-	Serial(std::string Port, int Speed);
+	Serial(std::string port, int speed);
 	~Serial();
 
 	int m_id;
-
+	std::string m_Port;
+	int m_Speed;
 
 private:
 	void init();
 	void send();
 	void recv();
-
-	std::string m_Port;
-	int m_Speed;
-
+	void printInfo();
 };

@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="File.h" />
     <ClInclude Include="IOModule.h" />
     <ClInclude Include="Masterhub.h" />
     <ClInclude Include="Serial.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="File.cpp" />
     <ClCompile Include="IOModule.cpp" />
     <ClCompile Include="Masterhub.cpp" />
     <ClCompile Include="Serial.cpp" />

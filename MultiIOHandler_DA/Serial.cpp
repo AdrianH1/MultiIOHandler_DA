@@ -2,8 +2,8 @@
 #include "Serial.h"
 
 
-Serial::Serial(std::string Port, int Speed)
-    : m_Port(Port), m_Speed(Speed)
+Serial::Serial(std::string port, int speed)
+    : m_Port(port), m_Speed(speed)
 {
     m_id = ++m_idCounter;
 }
@@ -25,4 +25,9 @@ void Serial::send()
 void Serial::recv()
 {
 
+}
+
+void Serial::printInfo()
+{
+    std::cout << "ID: " << m_id << " | Port: " << m_Port << " | Spped: " << m_Speed << std::endl;
 }

@@ -3,19 +3,25 @@
 #include "Masterhub.h"
 #include "Socket.h"
 #include "Serial.h"
+#include "File.h"
 
-std::vector<IOModule*> modules;
-
-void createModule(Socket module)
+IOModule* createSocketModule(std::string ip, int port)
 {
-	std::cout << "socket " << module.m_id << std::endl;
+	Socket* socket = new Socket(ip, port);
+	return socket;
 }
 
-void createModule(Serial module)
+IOModule* createSerialModule(std::string port, int speed)
 {
-	std::cout << "serial " << module.m_id << std::endl;
+	Serial* serial = new Serial(port, speed);
+	return serial;
 }
 
+IOModule* createFileModule(std::string path)
+{
+	File* file = new File(path);
+	return file;
+}
 
 
 void connect(int id1, int id2)
@@ -30,12 +36,16 @@ void disconnect()
 
 int main(int argc, char* argv[])
 {
-	Socket socket("127.0.0.1", 123123);
-	Serial serial("COM1", 115200);
+	std::vector<IOModule*> modules;
 
-	createModule(socket);
-	createModule(serial);
-
+	modules.push_back(createSocketModule("127.0.0.1", 123123));
+	modules.push_back(createSerialModule("COM1", 115200));
+	modules.push_back(createFileModule("C:/asdf/jkl/"));
 	
+
+	for (IOModule* m : modules)
+	{
+		m->printInfo();
+	}
 
 }

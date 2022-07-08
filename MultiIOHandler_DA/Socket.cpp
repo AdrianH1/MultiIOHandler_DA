@@ -2,8 +2,8 @@
 #include "Socket.h"
 
 
-Socket::Socket(std::string IP, int Port)
-    : m_IP(IP), m_Port(Port)
+Socket::Socket(std::string ip, int port)
+    : m_IP(ip), m_Port(port)
 {
     m_id = ++m_idCounter;
 }
@@ -25,4 +25,9 @@ void Socket::send()
 void Socket::recv()
 {
 
+}
+
+void Socket::printInfo()
+{
+    std::cout << "ID: " << m_id << " | IP: " << m_IP << " | Port: " << m_Port << std::endl;
 }
