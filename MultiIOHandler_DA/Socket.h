@@ -1,5 +1,6 @@
 #pragma once
 
+#include "stdafx.h"
 #include "IOModule.h"
 
 class Socket : public IOModule

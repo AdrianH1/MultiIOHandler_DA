@@ -144,6 +144,8 @@
     <ClInclude Include="IOModule.h" />
     <ClInclude Include="Masterhub.h" />
     <ClInclude Include="Serial.h" />
+    <ClInclude Include="Server.h" />
+    <ClInclude Include="Session.h" />
     <ClInclude Include="Socket.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
@@ -152,6 +154,8 @@
     <ClCompile Include="IOModule.cpp" />
     <ClCompile Include="Masterhub.cpp" />
     <ClCompile Include="Serial.cpp" />
+    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="Session.cpp" />
     <ClCompile Include="Socket.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
