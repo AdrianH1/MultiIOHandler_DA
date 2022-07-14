@@ -16,9 +16,11 @@ void Session::do_read()
             if (!ec)
             {
                 do_write(length);
+                std::cout << "Bytes available: " << length << std::endl;
                 std::cout << "Reply is: ";
-                std::cout.write(data_, max_length);
+                std::cout.write(data_, length);
                 std::cout << std::endl;
+                //do_read();
             }
         });
 }

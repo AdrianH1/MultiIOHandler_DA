@@ -9,7 +9,7 @@ class IOModule
 {
 public:
 
-	virtual void init() = 0;
+	//virtual void init() = 0;
 	virtual void send() = 0;
 	virtual void recv() = 0;
 	virtual void printInfo() = 0;

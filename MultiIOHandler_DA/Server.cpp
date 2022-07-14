@@ -10,7 +10,7 @@ void Server::do_accept()
         {
             if (!ec)
             {
-                std::cout << "client connected";
+                std::cout << "client connected" << std::endl;
                 std::make_shared<Session>(std::move(socket_))->start();
             }
 

@@ -8,11 +8,11 @@ public:
 
 
 	Serial() = default;
-	Serial(std::string port, int speed);
+	Serial(int port, int speed);
 	~Serial();
 
 	int m_id;
-	std::string m_Port;
+	int m_Port;
 	int m_Speed;
 
 private:

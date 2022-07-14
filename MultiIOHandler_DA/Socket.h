@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "IOModule.h"
+#include "Server.h"
 
 class Socket : public IOModule
 {
@@ -14,7 +15,7 @@ public:
 private:
 	std::string m_IP;
 	int m_Port;
-	void init();
+	void init(std::string ip, int port);
 	void send();
 	void recv();
 	void printInfo();

@@ -21,7 +21,7 @@
     <ClInclude Include="IOModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Masterhub.h">
+    <ClInclude Include="IOHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Serial.h">
@@ -44,7 +44,7 @@
     <ClCompile Include="Socket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Masterhub.cpp">
+    <ClCompile Include="IOHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Serial.cpp">
