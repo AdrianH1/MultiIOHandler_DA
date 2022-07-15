@@ -15,12 +15,12 @@ void Session::do_read()
         {
             if (!ec)
             {
-                do_write(length);
+                //do_write(length);
                 std::cout << "Bytes available: " << length << std::endl;
-                std::cout << "Reply is: ";
+                std::cout << "Message is: ";
                 std::cout.write(data_, length);
                 std::cout << std::endl;
-                //do_read();
+                do_read();
             }
         });
 }
