@@ -1,25 +1,39 @@
 #include "Socket.h"
+#include "Session.h"
 
 
-Socket::Socket(std::string ip, int unsigned port)
-    : m_IP(ip), m_Port(port)
+//Socket::Socket(std::string ip, int unsigned port)
+//    : m_IP(ip), m_Port(port)
+//{
+//    m_id = ++m_idCounter;
+//    init(ip, port);
+//}
+
+Socket::Socket(asio::io_context& io_context, std::string ip, int unsigned port)
+    : m_IP(ip), m_Port(port), acceptor_(io_context, tcp::endpoint(asio::ip::make_address(ip), port)),
+    socket_(io_context)
 {
-    m_id = ++m_idCounter;
-    init(ip, port);
+    std::cout << "Server started, waiting for connection. Listen on " << ip << ":" << port << std::endl;
+    do_accept();
 }
 
 Socket::~Socket()
 {
 }
 
-void Socket::init (std::string ip, int unsigned port)
+void Socket::do_accept()
 {
-    asio::io_context io_context;
+    acceptor_.async_accept(socket_,
+        [this](std::error_code ec)
+        {
+            if (!ec)
+            {
+                std::cout << "client connected" << std::endl;
+                std::make_shared<Session>(std::move(socket_))->start();
+            }
 
-    Server s(io_context, ip, port);
-
-    io_context.run();
-
+            do_accept();
+        });
 }
 
 void Socket::send()

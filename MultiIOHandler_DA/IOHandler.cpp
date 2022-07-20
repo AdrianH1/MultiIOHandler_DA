@@ -10,11 +10,13 @@ std::vector<IOModule*> modules;
 
 void createModule(std::string ip, int unsigned port)
 {
-	Socket* socket = new Socket(ip, port);
+	asio::io_context io_context;
+	Socket* socket = new Socket(io_context, ip, port);
+	io_context.run();
 	modules.push_back(socket);
 }
 
-void createModule(int port, int speed)
+void createModule(std::string port, int speed)
 {
 	Serial* serial = new Serial(port, speed);
 	modules.push_back(serial);

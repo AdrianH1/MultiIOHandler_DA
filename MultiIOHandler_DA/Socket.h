@@ -8,7 +8,7 @@ class Socket : public IOModule
 {
 public:
 	Socket() = default;
-	Socket(std::string ip, int unsigned port);
+	Socket(asio::io_context& io_context, std::string ip, int unsigned port);
 	~Socket();
 	int m_id;
 
@@ -19,4 +19,8 @@ private:
 	void send();
 	void recv();
 	void printInfo();
+	void do_accept();
+
+	asio::ip::tcp::acceptor acceptor_;
+	asio::ip::tcp::socket socket_;
 };
