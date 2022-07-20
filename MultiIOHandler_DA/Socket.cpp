@@ -1,7 +1,7 @@
 #include "Socket.h"
 
 
-Socket::Socket(std::string ip, int port)
+Socket::Socket(std::string ip, int unsigned port)
     : m_IP(ip), m_Port(port)
 {
     m_id = ++m_idCounter;
@@ -12,7 +12,7 @@ Socket::~Socket()
 {
 }
 
-void Socket::init (std::string ip, int port)    
+void Socket::init (std::string ip, int unsigned port)
 {
     asio::io_context io_context;
 

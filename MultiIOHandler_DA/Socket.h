@@ -8,14 +8,14 @@ class Socket : public IOModule
 {
 public:
 	Socket() = default;
-	Socket(std::string ip, int port);
+	Socket(std::string ip, int unsigned port);
 	~Socket();
 	int m_id;
 
 private:
 	std::string m_IP;
-	int m_Port;
-	void init(std::string ip, int port);
+	int unsigned m_Port;
+	void init(std::string ip, int unsigned port);
 	void send();
 	void recv();
 	void printInfo();

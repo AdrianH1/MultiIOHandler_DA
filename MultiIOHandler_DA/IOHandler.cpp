@@ -8,7 +8,7 @@
 
 std::vector<IOModule*> modules;
 
-void createModule(std::string ip, int port)
+void createModule(std::string ip, int unsigned port)
 {
 	Socket* socket = new Socket(ip, port);
 	modules.push_back(socket);
@@ -43,17 +43,13 @@ void disconnect()
 
 int main(int argc, char* argv[])
 {
-	createModule("192.168.193.100", 23);
+	//createModule("192.168.193.100", 23);
 
-	std::thread t1(static_cast<void(*)(std::string, int)>(createModule), "192.168.193.100", 23);
-
-
+	std::thread t1(static_cast<void(*)(std::string, int unsigned)>(createModule), "192.168.193.100", 65000);
+	t1.join(); //waiting for thread t1 to finish before Main terminates
 
 	for (int i = 0; i < 10; i++)
 		std::cout << "test " << i << std::endl;
-
-	//t1.join(); //waiting for thread t1 to finish
-	//t2.join(); //waiting for thread t1 to finish
 
 	/*std::vector<IOModule*> modules;
 

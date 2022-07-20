@@ -6,7 +6,7 @@ using asio::ip::tcp;
 class Server
 {
 public:
-    Server(asio::io_context& io_context, std::string ip, short port)
+    Server(asio::io_context& io_context, std::string ip, int unsigned port)
         : acceptor_(io_context, tcp::endpoint(asio::ip::make_address(ip), port)),
         socket_(io_context)
     {

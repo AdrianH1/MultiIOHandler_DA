@@ -2,7 +2,7 @@
 #include "Serial.h"
 
 
-Serial::Serial(int port, int speed)
+Serial::Serial(std::string port, int speed)
     : m_Port(port), m_Speed(speed)
 {
     m_id = ++m_idCounter;
