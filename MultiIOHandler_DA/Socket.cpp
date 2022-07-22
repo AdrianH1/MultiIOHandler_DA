@@ -29,7 +29,7 @@ void Socket::accept()
             if (!ec)
             {
                 std::cout << "client connected" << std::endl;
-                std::make_shared<Session>(std::move(socket))->read();
+                std::make_shared<Session>(std::move(socket), std::move(readBuffer))->read();
             }
 
             accept();
@@ -44,7 +44,7 @@ void Socket::accept_write()
             if (!ec)
             {
                 std::cout << "client connected" << std::endl;
-                std::make_shared<Session>(std::move(socket))->write(512);
+                std::make_shared<Session>(std::move(socket), std::move(readBuffer))->write(512);
             }
 
             accept();

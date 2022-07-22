@@ -15,11 +15,22 @@ void Session::read()
         {
             if (!ec)
             {
-                //do_write(length);
                 std::cout << "Bytes available: " << length << std::endl;
                 std::cout << "Message is: ";
-                std::cout.write(data, length);
+                std::cout.write(data, length) << std::endl;
+                std::string message = "";
+                for (int i = 0; i < length; i++)
+                {
+                    message = message + data[i];
+                }
+                readBuffer.push_back(message);
+                std::cout << "buffer: ";
+                for (std::string s : readBuffer)
+                {
+                    std::cout << s;
+                }
                 std::cout << std::endl;
+                //write(length);
                 read();
             }
         });
@@ -33,7 +44,7 @@ void Session::write(std::size_t length)
         {
             if (!ec)
             {
-                write(512);
+                read();
             }
         });
 }

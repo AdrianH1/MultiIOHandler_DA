@@ -28,16 +28,27 @@ void Serial::handle_receive(const asio::error_code& error,
 
 void Serial::read()
 {
+    serial.async_read_some(asio::buffer(data, max_length),
+        [this](std::error_code ec, std::size_t length)
+        {
+            if (!ec)
+            {
+                std::cout << "Bytes available: " << length << std::endl;
+                std::cout << "Message is: ";
+                std::cout.write(data, length) << std::endl;
+                read();
+            }
+        });
 
     //char receive[max_length];
     //serial.async_read_some(asio::buffer(receive, 512), &Serial::handler);
-    serial.async_read_some(asio::buffer(data, max_length),
-        std::bind(&Serial::handle_receive,
-            this, std::placeholders::_1,
-            std::placeholders::_2));
-    std::cout << "Message is: ";
-    std::cout.write(data, max_length);
-    std::cout << std::endl;
+    //serial.async_read_some(asio::buffer(data, max_length),
+    //    std::bind(&Serial::handle_receive,
+    //        this, std::placeholders::_1,
+    //        std::placeholders::_2));
+    //std::cout << "Message is: ";
+    //std::cout.write(data, max_length);
+    //std::cout << std::endl;
 }
 
 void Serial::write()

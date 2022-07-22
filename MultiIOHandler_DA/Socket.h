@@ -12,6 +12,7 @@ public:
 	Socket(asio::io_context& io_context);
 	~Socket();
 	int m_id;
+	std::vector<std::string> readBuffer;
 
 private:
 	std::string m_IP;
