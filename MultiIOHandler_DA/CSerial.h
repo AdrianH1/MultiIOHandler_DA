@@ -1,5 +1,5 @@
 #pragma once
-#include "IOModule.h"
+#include "IIOModule.h"
 #include <string>
 
 class CSerial : public IIOModule

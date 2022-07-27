@@ -1,7 +1,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include "IOModule.h"
+#include "IIOModule.h"
 #include "Server.h"
 
 class CSocket : public IIOModule
