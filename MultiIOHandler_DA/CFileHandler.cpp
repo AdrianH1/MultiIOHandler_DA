@@ -17,12 +17,12 @@ void CFileHandler::init()
 
 }
 
-void CFileHandler::send()
+void CFileHandler::write()
 {
 
 }
 
-void CFileHandler::recv()
+void CFileHandler::read()
 {
 
 }

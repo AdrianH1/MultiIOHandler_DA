@@ -8,8 +8,8 @@ class IIOModule
 public:
 
 	//virtual void init() = 0;
-	virtual void send() = 0;
-	virtual void recv() = 0;
+	virtual void write() = 0;
+	virtual void read() = 0;
 	virtual void printInfo() = 0;
 	static int m_idCounter;
 

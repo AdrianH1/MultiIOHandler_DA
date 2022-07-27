@@ -72,12 +72,12 @@ void CSerialHandler::init()
 
 }
 
-void CSerialHandler::send()
+void CSerialHandler::write()
 {
 
 }
 
-void CSerialHandler::recv()
+void CSerialHandler::read()
 {
 
 }

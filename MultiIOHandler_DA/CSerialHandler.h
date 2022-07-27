@@ -18,8 +18,8 @@ public:
 
 private:
 	void init();
-	void send();
-	void recv();
+	void write();
+	void read();
 	void read();
 	void write();
 	void handler(const asio::error_code& error, std::size_t bytes_transferred);

@@ -12,7 +12,7 @@ public:
 private:
 	std::string m_Path;
 	void init();
-	void send();
-	void recv();
+	void write();
+	void read();
 	void printInfo();
 };

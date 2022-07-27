@@ -51,12 +51,12 @@ void CSocketHandler::accept_write()
         });
 }
 
-void CSocketHandler::send()
+void CSocketHandler::write()
 {
 
 }
 
-void CSocketHandler::recv()
+void CSocketHandler::send()
 {
 
 }

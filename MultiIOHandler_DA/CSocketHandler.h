@@ -18,8 +18,8 @@ private:
 	std::string m_IP;
 	int unsigned m_Port;
 	void init(std::string ip, int unsigned port);
-	void send();
-	void recv();
+	void write();
+	void read();
 	void printInfo();
 	void accept();
 	void accept_write();
