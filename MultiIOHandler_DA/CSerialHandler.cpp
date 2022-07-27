@@ -72,15 +72,6 @@ void CSerialHandler::init()
 
 }
 
-void CSerialHandler::write()
-{
-
-}
-
-void CSerialHandler::read()
-{
-
-}
 
 void CSerialHandler::printInfo()
 {

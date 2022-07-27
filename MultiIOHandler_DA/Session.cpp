@@ -10,7 +10,7 @@ void Session::start()
 void Session::read()
 {
     auto self(shared_from_this());
-    socket.async_read_some(asio::buffer(data, max_length),
+    m_socket.async_read_some(asio::buffer(data, max_length),
         [this, self](std::error_code ec, std::size_t length)
         {
             if (!ec)
@@ -39,7 +39,7 @@ void Session::read()
 void Session::write(std::size_t length)
 {
     auto self(shared_from_this());
-    asio::async_write(socket, asio::buffer(data, length),
+    asio::async_write(m_socket, asio::buffer(data, length),
         [this, self](std::error_code ec, std::size_t /*length*/)
         {
             if (!ec)

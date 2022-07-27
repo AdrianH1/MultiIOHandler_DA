@@ -20,8 +20,6 @@ private:
 	void init();
 	void write();
 	void read();
-	void read();
-	void write();
 	void handler(const asio::error_code& error, std::size_t bytes_transferred);
 	void handle_receive(const asio::error_code& error, std::size_t bytes_transferred);
 	void printInfo();

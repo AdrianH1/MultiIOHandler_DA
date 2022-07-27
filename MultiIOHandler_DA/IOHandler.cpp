@@ -9,20 +9,16 @@
 
 std::vector<IIOModule*> modules;
 
-void createModule(std::string ip, int unsigned port)
+void createSocket(std::string ip, int unsigned port)
 {
 	asio::io_context io_context;
-	CSocketHandler* socket = new CSocketHandler(io_context, ip, port);
-	io_context.run();
-	modules.push_back(socket);
-}
 
-void createModule()
-{
-	asio::io_context io_context;
-	CSocketHandler* socket = new CSocketHandler(io_context);
-	io_context.run();
-	modules.push_back(socket);
+	//VON THREAD ERBEN!!!!!
+	CSocketHandler socket;
+	std::thread th1(&CSocketHandler::CSocketHandler, &socket, ip, port);
+	std::thread th1(socket, io_context, ip, port);
+	//CSocketHandler* socket = new CSocketHandler(io_context, ip, port);
+	//modules.push_back(socket);
 }
 
 void createModule(std::string port, int bauderate)
@@ -56,8 +52,8 @@ void disconnect()
 int main(int argc, char* argv[])
 {
 	//------Socket Test
-	std::thread t1(static_cast<void(*)(std::string, int unsigned)>(createModule), "192.168.193.100", 65000);
-	std::thread t3(static_cast<void(*)()>(createModule));
+	createSocket("192.168.193.100", 65000);
+	//std::thread t1(static_cast<void(*)(std::string, int unsigned)>(createModule), "192.168.193.100", 65000);
 
 	//------Serial Test
 	//std::thread t2(static_cast<void(*)(std::string, int)>(createModule), "COM1", 115200);
@@ -74,5 +70,4 @@ int main(int argc, char* argv[])
 
 	t1.join(); //waiting for thread to finish before Main terminates
 	//t2.join(); //waiting for thread to finish before Main terminates
-	t3.join(); //waiting for thread to finish before Main terminates
 }
