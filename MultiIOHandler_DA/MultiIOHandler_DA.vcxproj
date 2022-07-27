@@ -140,23 +140,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="File.h" />
-    <ClInclude Include="IOModule.h" />
+    <ClInclude Include="CFile.h" />
+    <ClInclude Include="IIOModule.h" />
     <ClInclude Include="IOHandler.h" />
-    <ClInclude Include="Serial.h" />
+    <ClInclude Include="CSerial.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="Session.h" />
-    <ClInclude Include="Socket.h" />
+    <ClInclude Include="CSocket.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="File.cpp" />
+    <ClCompile Include="CFile.cpp" />
     <ClCompile Include="IOModule.cpp" />
     <ClCompile Include="IOHandler.cpp" />
-    <ClCompile Include="Serial.cpp" />
+    <ClCompile Include="CSerial.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="Session.cpp" />
-    <ClCompile Include="Socket.cpp" />
+    <ClCompile Include="CSocket.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

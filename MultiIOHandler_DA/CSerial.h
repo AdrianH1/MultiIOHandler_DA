@@ -2,14 +2,14 @@
 #include "IOModule.h"
 #include <string>
 
-class Serial : public IOModule
+class CSerial : public IIOModule
 {
 public:
 
 
-	Serial() = default;
-	Serial(asio::io_service& io_service, std::string port, int bauderate);
-	~Serial();
+	CSerial() = default;
+	CSerial(asio::io_service& io_service, std::string port, int bauderate);
+	~CSerial();
 
 	int m_id;
 	std::string m_Port;

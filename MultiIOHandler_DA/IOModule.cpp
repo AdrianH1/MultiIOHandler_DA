@@ -1,3 +1,3 @@
 #include "IOModule.h"
 
-int IOModule::m_idCounter = 0;
+int IIOModule::m_idCounter = 0;

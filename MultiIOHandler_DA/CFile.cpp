@@ -1,33 +1,33 @@
 #include "stdafx.h"
-#include "File.h"
+#include "CFile.h"
 
 
-File::File(std::string path)
+CFile::CFile(std::string path)
     : m_Path(path)
 {
     m_id = ++m_idCounter;
 }
 
-File::~File()
+CFile::~CFile()
 {
 }
 
-void File::init()
-{
-
-}
-
-void File::send()
+void CFile::init()
 {
 
 }
 
-void File::recv()
+void CFile::send()
 {
 
 }
 
-void File::printInfo()
+void CFile::recv()
+{
+
+}
+
+void CFile::printInfo()
 {
     std::cout << "ID: " << m_id << " | Path: " << m_Path << std::endl;
 }

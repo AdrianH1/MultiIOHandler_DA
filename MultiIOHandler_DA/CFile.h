@@ -1,12 +1,12 @@
 #pragma once
 #include "IOModule.h"
 
-class File : public IOModule
+class CFile : public IIOModule
 {
 public:
-	File() = default;
-	File(std::string path);
-	~File();
+	CFile() = default;
+	CFile(std::string path);
+	~CFile();
 	int m_id;
 
 private:

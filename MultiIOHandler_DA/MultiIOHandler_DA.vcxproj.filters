@@ -15,22 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Socket.h">
+    <ClInclude Include="CSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IOModule.h">
+    <ClInclude Include="IIOModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IOHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Serial.h">
+    <ClInclude Include="CSerial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="File.h">
+    <ClInclude Include="CFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Server.h">
@@ -41,19 +41,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Socket.cpp">
+    <ClCompile Include="CSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IOHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Serial.cpp">
+    <ClCompile Include="CSerial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IOModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="File.cpp">
+    <ClCompile Include="CFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Server.cpp">

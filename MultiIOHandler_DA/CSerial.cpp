@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "Serial.h"
+#include "cSerial.h"
 
 
-Serial::Serial(asio::io_service& io_service, std::string port, int bauderate)
+CSerial::CSerial(asio::io_service& io_service, std::string port, int bauderate)
     : m_Port(port), m_Baudrate(bauderate), serial(io_service)
 {
     m_id = ++m_idCounter;
@@ -12,12 +12,12 @@ Serial::Serial(asio::io_service& io_service, std::string port, int bauderate)
 
 }
 
-void Serial::handler(
+void CSerial::handler(
     const asio::error_code& error, // Result of operation.
     std::size_t bytes_transferred // Number of bytes read.
 ) {};
 
-void Serial::handle_receive(const asio::error_code& error,
+void CSerial::handle_receive(const asio::error_code& error,
     std::size_t bytes_transferred)
 {
     if (!error)
@@ -26,7 +26,7 @@ void Serial::handle_receive(const asio::error_code& error,
     }
 }
 
-void Serial::read()
+void CSerial::read()
 {
     serial.async_read_some(asio::buffer(data, max_length),
         [this](std::error_code ec, std::size_t length)
@@ -41,9 +41,9 @@ void Serial::read()
         });
 
     //char receive[max_length];
-    //serial.async_read_some(asio::buffer(receive, 512), &Serial::handler);
+    //serial.async_read_some(asio::buffer(receive, 512), &CSerial::handler);
     //serial.async_read_some(asio::buffer(data, max_length),
-    //    std::bind(&Serial::handle_receive,
+    //    std::bind(&CSerial::handle_receive,
     //        this, std::placeholders::_1,
     //        std::placeholders::_2));
     //std::cout << "Message is: ";
@@ -51,38 +51,38 @@ void Serial::read()
     //std::cout << std::endl;
 }
 
-void Serial::write()
+void CSerial::write()
 {
     std::cout << "Enter message: ";
     //char request[max_length];
     std::cin.getline(data, max_length);
     size_t request_length = std::strlen(data);
     serial.async_write_some(asio::buffer(data, max_length),
-        std::bind(&Serial::handle_receive,
+        std::bind(&CSerial::handle_receive,
             this, std::placeholders::_1,
             std::placeholders::_2));
 }
 
-Serial::~Serial()
+CSerial::~CSerial()
 {
 }
 
-void Serial::init()
-{
-
-}
-
-void Serial::send()
+void CSerial::init()
 {
 
 }
 
-void Serial::recv()
+void CSerial::send()
 {
 
 }
 
-void Serial::printInfo()
+void CSerial::recv()
+{
+
+}
+
+void CSerial::printInfo()
 {
     std::cout << "ID: " << m_id << " | Port: " << m_Port << " | Spped: " << m_Baudrate << std::endl;
 }

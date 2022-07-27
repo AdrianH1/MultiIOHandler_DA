@@ -1,17 +1,18 @@
 #include "stdafx.h"
 #include <iostream>
 //#include "IOHandler.h"
-#include "Socket.h"
-#include "Serial.h"
-#include "File.h"
-#include "Server.h"
+#include "CSocket.h"
+#include "CSerial.h"
+#include "CFile.h"
+#include "IIOModule.h"
+//#include "Server.h"
 
-std::vector<IOModule*> modules;
+std::vector<IIOModule*> modules;
 
 void createModule(std::string ip, int unsigned port)
 {
 	asio::io_context io_context;
-	Socket* socket = new Socket(io_context, ip, port);
+	CSocket* socket = new CSocket(io_context, ip, port);
 	io_context.run();
 	modules.push_back(socket);
 }
@@ -19,7 +20,7 @@ void createModule(std::string ip, int unsigned port)
 void createModule()
 {
 	asio::io_context io_context;
-	Socket* socket = new Socket(io_context);
+	CSocket* socket = new CSocket(io_context);
 	io_context.run();
 	modules.push_back(socket);
 }
@@ -27,13 +28,13 @@ void createModule()
 void createModule(std::string port, int bauderate)
 {
 	asio::io_service io_service;
-	Serial* serial = new Serial(io_service, port, bauderate);
+	CSerial* serial = new CSerial(io_service, port, bauderate);
 	modules.push_back(serial);
 }
 
 void createModule(std::string path)
 {
-	File* file = new File(path);
+	CFile* file = new CFile(path);
 	modules.push_back(file);
 }
 
@@ -66,7 +67,7 @@ int main(int argc, char* argv[])
 
 
 
-	for (IOModule* m : modules)
+	for (IIOModule* m : modules)
 	{
 		m->printInfo();
 	}

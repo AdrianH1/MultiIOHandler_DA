@@ -3,7 +3,7 @@
 
 
 
-class IOModule
+class IIOModule
 {
 public:
 
@@ -14,6 +14,6 @@ public:
 	static int m_idCounter;
 
 private:
-	std::vector<IOModule*> ListenerTable;
+	std::vector<IIOModule*> ListenerTable;
 	
 };
