@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include <iostream>
 //#include "IOHandler.h"
-#include "CSocket.h"
-#include "CSerial.h"
-#include "CFile.h"
+#include "CSocketHandler.h"
+#include "CSerialHandler.h"
+#include "CFileHandler.h"
 #include "IIOModule.h"
 //#include "Server.h"
 
@@ -12,7 +12,7 @@ std::vector<IIOModule*> modules;
 void createModule(std::string ip, int unsigned port)
 {
 	asio::io_context io_context;
-	CSocket* socket = new CSocket(io_context, ip, port);
+	CSocketHandler* socket = new CSocketHandler(io_context, ip, port);
 	io_context.run();
 	modules.push_back(socket);
 }
@@ -20,7 +20,7 @@ void createModule(std::string ip, int unsigned port)
 void createModule()
 {
 	asio::io_context io_context;
-	CSocket* socket = new CSocket(io_context);
+	CSocketHandler* socket = new CSocketHandler(io_context);
 	io_context.run();
 	modules.push_back(socket);
 }
@@ -28,13 +28,13 @@ void createModule()
 void createModule(std::string port, int bauderate)
 {
 	asio::io_service io_service;
-	CSerial* serial = new CSerial(io_service, port, bauderate);
+	CSerialHandler* serial = new CSerialHandler(io_service, port, bauderate);
 	modules.push_back(serial);
 }
 
 void createModule(std::string path)
 {
-	CFile* file = new CFile(path);
+	CFileHandler* file = new CFileHandler(path);
 	modules.push_back(file);
 }
 

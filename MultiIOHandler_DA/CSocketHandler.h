@@ -4,13 +4,13 @@
 #include "IIOModule.h"
 #include "Server.h"
 
-class CSocket : public IIOModule
+class CSocketHandler : public IIOModule
 {
 public:
-	CSocket() = default;
-	CSocket(asio::io_context& io_context, std::string ip, int unsigned port);
-	CSocket(asio::io_context& io_context);
-	~CSocket();
+	CSocketHandler() = default;
+	CSocketHandler(asio::io_context& io_context, std::string ip, int unsigned port);
+	CSocketHandler(asio::io_context& io_context);
+	~CSocketHandler();
 	int m_id;
 	std::vector<std::string> readBuffer;
 
