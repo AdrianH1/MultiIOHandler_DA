@@ -30,8 +30,8 @@ void Session::read()
                     std::cout << s;
                 }
                 std::cout << std::endl;
-                //write(length);
-                read();
+                write(length);
+                //read();
             }
         });
 }
