@@ -12,6 +12,7 @@ public:
 	~CSocketHandler();
 	int m_id;
 	std::vector<std::string> readBuffer;
+	void run();
 
 private:
 	std::string m_IP;
@@ -22,7 +23,7 @@ private:
 	void printInfo();
 	void accept();
 
-	asio::io_context m_ioContext;
+	asio::io_context &m_ioContext;
 	asio::ip::tcp::acceptor m_acceptor;
 	asio::ip::tcp::socket m_socket;
 
