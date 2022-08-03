@@ -16,7 +16,11 @@ public:
 	int m_Baudrate;
 	asio::serial_port serial;
 
+	void run();
+	void stop();
+
 private:
+
 	void init();
 	void write();
 	void read();

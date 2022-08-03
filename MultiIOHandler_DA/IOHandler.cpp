@@ -8,33 +8,16 @@
 //#include "Server.h"
 
 std::vector<IIOModule*> modules;
+
 //std::vector<std::thread*> asdf;
 //std::thread* th2;
 
 void createSocket(std::string ip, int unsigned port)
 {
 	std::cout << "thread id: " << std::this_thread::get_id() << std::endl;
-	asio::io_context io_context;
-	CSocketHandler socket(io_context, ip, port);
-	std::thread thrContext = std::thread([&]() {io_context.run(); });
-	thrContext.detach();
-	//io_context.run();
-
-	//std::thread th2(&CSocketHandler::run, &socket);
-
-	//std::thread* th1 = new std::thread(&CSocketHandler::run, new CSocketHandler(io_context, ip, port));
-	//asdf.push_back(th1);
-	//th1->join();
-	//io_context.run();
-
-	//CSocketHandler socket(io_context, ip, port);
-
-	//std::thread* th1 = new std::thread(&CSocketHandler::run, &socket);
-	//std::thread th1(&CSocketHandler::run, &socket);
-	//th1.detach();
-	//th1.join();
-	//th1->join();
-	//modules.push_back(socket);
+	CSocketHandler* socket = new CSocketHandler(ip, port);
+	socket->run();
+	modules.push_back(socket);
 }
 
 void createModule(std::string port, int bauderate)
@@ -68,7 +51,7 @@ void disconnect()
 int main(int argc, char* argv[])
 {
 	//------Socket Test
-	createSocket("192.168.193.100", 65000);
+	createSocket("192.168.0.218", 65123);
 	//std::thread t1(static_cast<void(*)(std::string, int unsigned)>(createSocket), "192.168.193.100", 65000);
 	//th2->detach();
 
@@ -80,13 +63,23 @@ int main(int argc, char* argv[])
 	for (int i = 0; i < 10; i++)
 		std::cout << "test " << i << std::endl;
 
+	std::this_thread::sleep_for(std::chrono::seconds(60));
+
+	for (IIOModule* m : modules)
+	{
+		m->stop();
+	}
+
+
+	//thr1.join();
+
 	//while (true)
 	//{
 	//	std::cout << "wait";
 	//	std::this_thread::sleep_for(std::chrono::seconds(10));
 	//}
 
-	//for (std::thread* t : asdf)
+	//for (std::thread t : runningThreads)
 	//{
 	//	if (!nullptr)
 	//		t->join();
@@ -98,10 +91,6 @@ int main(int argc, char* argv[])
 	//		delete t;
 	//}
 
-	//for (IIOModule* m : modules)
-	//{
-	//	m->printInfo();
-	//}
 
 
 	//t1.join(); //waiting for thread to finish before Main terminates

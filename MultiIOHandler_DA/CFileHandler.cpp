@@ -12,6 +12,16 @@ CFileHandler::~CFileHandler()
 {
 }
 
+void CFileHandler::run()
+{
+
+}
+
+void CFileHandler::stop()
+{
+
+}
+
 void CFileHandler::init()
 {
 

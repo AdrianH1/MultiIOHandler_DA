@@ -1,48 +1,67 @@
 #include "CSocketHandler.h"
 #include "Session.h"
 
-CSocketHandler::CSocketHandler(asio::io_context& io_context, std::string ip, int unsigned port)
-    : m_IP(ip), m_Port(port), m_ioContext(io_context), m_acceptor(io_context, tcp::endpoint(asio::ip::make_address(ip), port)),
-    m_socket(io_context)
-{ 
-    std::cout << "thread id: " << std::this_thread::get_id() << std::endl;
+CSocketHandler::CSocketHandler(std::string ip, int unsigned port)
+    : m_IP(ip), m_Port(port), m_acceptor(m_ioContext, asio::ip::tcp::endpoint(asio::ip::make_address(ip), port))
+    //: m_IP(ip), m_Port(port), m_acceptor(m_ioContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port))
+{
+    //std::cout << "thread id: " << std::this_thread::get_id() << std::endl;
     //std::thread th1(&CSocketHandler::accept, this);
     //std::thread* th1 = new std::thread(&CSocketHandler::accept, this);
     //th1->join();
     //run();
-    accept();
+    //accept();
 }
 
 CSocketHandler::~CSocketHandler()
 {
+    stop();
 }
 
 void CSocketHandler::run()
 {
-    //m_ioContext.run();
-    std::cout << "Server started, waiting for connection. Listen on " << m_IP << ":" << m_Port << std::endl;
-    accept();
+    try
+    {
+        accept();
+
+        m_threadContext = std::thread([this]() {m_ioContext.run(); });
+       
+    }
+    catch (const std::exception&)
+    {
+
+    }
+
+    std::cout << "Server started" << std::endl;
+}
+
+void CSocketHandler::stop()
+{
+    m_ioContext.stop();
+
+    if (m_threadContext.joinable()) m_threadContext.join();
+
+    std::cout << "Server stopped" << std::endl;
 }
 
 void CSocketHandler::accept()
 {
-    m_acceptor.async_accept(m_socket,
-        [this](std::error_code ec)
+    m_acceptor.async_accept(
+        [this](std::error_code ec, asio::ip::tcp::socket socket)
         {
             if (!ec)
             {
-                std::cout << "client connected" << std::endl;
-                //read();
-                //std::make_shared<Session>(std::move(m_socket), std::move(readBuffer))->read();
+                std::cout << "client connected: " << socket.remote_endpoint() << std::endl;
+                std::make_shared<Session>(std::move(socket), std::move(readBuffer))->read();
             }
-            accept();
+            //accept(); //Only one Client should be able to connect
         });
 }
 
 
 void CSocketHandler::read()
 {
-    //m_socket.async_read_some(asio::buffer(data, max_length),
+    //socket->async_read_some(asio::buffer(data, max_length),
     //    [this](std::error_code ec, std::size_t length)
     //    {
     //        if (!ec)

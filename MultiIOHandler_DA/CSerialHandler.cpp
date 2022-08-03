@@ -12,6 +12,16 @@ CSerialHandler::CSerialHandler(asio::io_service& io_service, std::string port, i
 
 }
 
+void CSerialHandler::run()
+{
+
+}
+
+void CSerialHandler::stop()
+{
+
+}
+
 void CSerialHandler::handler(
     const asio::error_code& error, // Result of operation.
     std::size_t bytes_transferred // Number of bytes read.
