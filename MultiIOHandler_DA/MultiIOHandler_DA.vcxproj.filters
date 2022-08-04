@@ -21,7 +21,7 @@
     <ClInclude Include="IIOModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IOHandler.h">
+    <ClInclude Include="CIOHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CSerialHandler.h">
@@ -47,7 +47,7 @@
     <ClCompile Include="CSocketHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IOHandler.cpp">
+    <ClCompile Include="CIOHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CSerialHandler.cpp">
