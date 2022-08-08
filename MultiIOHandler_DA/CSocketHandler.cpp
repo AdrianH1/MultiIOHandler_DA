@@ -2,15 +2,11 @@
 #include "Session.h"
 
 CSocketHandler::CSocketHandler(std::string ip, int unsigned port)
-    : m_IP(ip), m_Port(port), m_acceptor(m_ioContext, asio::ip::tcp::endpoint(asio::ip::make_address(ip), port))
-    //: m_IP(ip), m_Port(port), m_acceptor(m_ioContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port))
+    : m_IP(ip), m_port(port), m_socket(m_context), vBuffer(1*1024)
 {
-    //std::cout << "thread id: " << std::this_thread::get_id() << std::endl;
-    //std::thread th1(&CSocketHandler::accept, this);
-    //std::thread* th1 = new std::thread(&CSocketHandler::accept, this);
-    //th1->join();
-    //run();
-    //accept();
+    m_id = ++m_idCounter;
+    std::cout << "Created Socket: " << std::endl;
+    printInfo();
 }
 
 CSocketHandler::~CSocketHandler()
@@ -18,75 +14,85 @@ CSocketHandler::~CSocketHandler()
     stop();
 }
 
-void CSocketHandler::run()
+void CSocketHandler::init()
 {
     try
     {
-        accept();
+        asio::error_code ec;
 
-        m_threadContext = std::thread([this]() {m_ioContext.run(); });
-       
+        asio::io_context::work idleWork(m_context);
+
+        m_thrContext = std::thread([this]() {m_context.run(); });
+
+        asio::ip::tcp::endpoint endpoint(asio::ip::make_address(m_IP, ec), m_port);
+
+        m_socket.connect(endpoint, ec);
+
+        if (!ec)
+        {
+            std::cout << "Connected!" << std::endl;
+        }
+        else
+        {
+            std::cout << "Failed to connect!" << std::endl;
+        }
+
+        //run();
     }
     catch (const std::exception&)
     {
 
     }
+}
 
-    std::cout << "Server started" << std::endl;
+void CSocketHandler::run()
+{
+    if (m_socket.is_open())
+    {
+        getData(m_socket);
+
+        //socket.write_some(asio::buffer(sRequest.data(), sRequest.size()), ec);
+
+    }
+}
+
+void CSocketHandler::getData(asio::ip::tcp::socket& m_socket)
+{
+    m_socket.async_read_some(asio::buffer(vBuffer.data(), vBuffer.size()),
+        [&](std::error_code ec, std::size_t length)
+        {
+            if (!ec)
+            {
+                std::cout << "\n\nRead " << length << " bytes\n\n";
+
+                for (int i = 0; i < length; i++)
+                {
+                    std::cout << vBuffer[i];
+                }
+
+                getData(m_socket);
+            }
+        }
+    );
 }
 
 void CSocketHandler::stop()
 {
-    m_ioContext.stop();
+    m_context.stop();
 
-    if (m_threadContext.joinable()) m_threadContext.join();
+    if (m_thrContext.joinable()) m_thrContext.join();
 
-    std::cout << "Server stopped" << std::endl;
+    std::cout << "Disconnected!" << std::endl;
 }
 
 void CSocketHandler::accept()
 {
-    m_acceptor.async_accept(
-        [this](std::error_code ec, asio::ip::tcp::socket socket)
-        {
-            if (!ec)
-            {
-                std::cout << "client connected: " << socket.remote_endpoint() << std::endl;
-                std::make_shared<Session>(std::move(socket), std::move(readBuffer))->read();
-            }
-            //accept(); //Only one Client should be able to connect
-        });
+    
 }
 
 
 void CSocketHandler::read()
 {
-    //socket->async_read_some(asio::buffer(data, max_length),
-    //    [this](std::error_code ec, std::size_t length)
-    //    {
-    //        if (!ec)
-    //        {
-    //            std::cout << "Bytes available: " << length << std::endl;
-    //            std::cout << "Message is: ";
-    //            std::cout.write(data, length) << std::endl;
-
-    //            //std::string message = "";
-    //            //for (int i = 0; i < length; i++)
-    //            //{
-    //            //    message = message + data[i];
-    //            //}
-    //            //readBuffer.push_back(message);
-    //            //std::cout << "buffer: ";
-    //            //for (std::string s : readBuffer)
-    //            //{
-    //            //    std::cout << s;
-    //            //}
-    //            //std::cout << std::endl;
-    //            
-    //            //write();
-    //            read();
-    //        }
-    //    });
 }
 
 void CSocketHandler::write()
@@ -96,5 +102,5 @@ void CSocketHandler::write()
 
 void CSocketHandler::printInfo()
 {
-    std::cout << "ID: " << m_id << " | IP: " << m_IP << " | Port: " << m_Port << std::endl;
+    std::cout << "ID: " << m_id << " | IP: " << m_IP << " | Port: " << m_port << std::endl;
 }

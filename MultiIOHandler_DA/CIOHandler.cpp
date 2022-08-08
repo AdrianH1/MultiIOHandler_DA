@@ -9,9 +9,8 @@
 
 void CIOHandler::createSocket(std::string ip, int unsigned port)
 {
-	std::cout << "thread id: " << std::this_thread::get_id() << std::endl;
 	CSocketHandler* socket = new CSocketHandler(ip, port);
-	socket->run();
+	socket->init();
 	modules.push_back(socket);
 }
 
@@ -79,7 +78,7 @@ int main(int argc, char* argv[])
 		IOHandler.callFunction(&input);
 	}
 
-	std::this_thread::sleep_for(std::chrono::seconds(60));
+	std::this_thread::sleep_for(std::chrono::seconds(10));
 
 	/*
 	//------Socket Test

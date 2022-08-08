@@ -141,22 +141,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CFileHandler.h" />
+    <ClInclude Include="CServer.h" />
     <ClInclude Include="CUIHandler.h" />
     <ClInclude Include="IIOModule.h" />
     <ClInclude Include="CIOHandler.h" />
     <ClInclude Include="CSerialHandler.h" />
-    <ClInclude Include="Server.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="CSocketHandler.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFileHandler.cpp" />
+    <ClCompile Include="CServer.cpp" />
     <ClCompile Include="CUIHandler.cpp" />
     <ClCompile Include="IOModule.cpp" />
     <ClCompile Include="CIOHandler.cpp" />
     <ClCompile Include="CSerialHandler.cpp" />
-    <ClCompile Include="Server.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="CSocketHandler.cpp" />
   </ItemGroup>

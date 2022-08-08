@@ -14,7 +14,6 @@ std::vector<std::string> CUIHandler::readInput()
 
 	if (inputValid(&input))
 	{
-		callFunction(&input);
 		return input;
 	}
 	else
@@ -89,29 +88,6 @@ std::vector<std::string> CUIHandler::separateInput(std::string* inputLine)
 	}
 
 	return input;
-}
-
-void CUIHandler::callFunction(std::vector<std::string>* input)
-{
-	if (input->at(0) == "open")
-	{
-		std::cout << "open function called";
-	}
-	else if (input->at(0) == "show")
-	{
-		std::cout << "show function called";
-	}
-	else if (input->at(0) == "connect")
-	{
-	}
-	else if (input->at(0) == "help")
-	{
-		displayHelp();
-	}
-	else if (input->at(0) == "exit")
-	{
-		std::cout << "exit function called";
-	}
 }
 
 void CUIHandler::displayError(std::string ec)

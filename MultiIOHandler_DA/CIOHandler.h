@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 #include "IIOModule.h"
-#include "Server.h"
 
 class CIOHandler
 {
