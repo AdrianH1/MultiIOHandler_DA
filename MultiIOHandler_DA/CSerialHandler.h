@@ -26,6 +26,8 @@ private:
 	void read();
 	void handler(const asio::error_code& error, std::size_t bytes_transferred);
 	void handle_receive(const asio::error_code& error, std::size_t bytes_transferred);
+	void output();
+	int getId();
 	void printInfo();
 
 

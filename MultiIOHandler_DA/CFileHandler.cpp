@@ -37,6 +37,15 @@ void CFileHandler::read()
 
 }
 
+void CFileHandler::output()
+{
+}
+
+int CFileHandler::getId()
+{
+    return 0;
+}
+
 void CFileHandler::printInfo()
 {
     std::cout << "ID: " << m_id << " | Path: " << m_Path << std::endl;

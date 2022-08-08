@@ -10,7 +10,7 @@
 void CIOHandler::createSocket(std::string ip, int unsigned port)
 {
 	CSocketHandler* socket = new CSocketHandler(ip, port);
-	socket->init();
+	socket->run();
 	modules.push_back(socket);
 }
 
@@ -54,6 +54,28 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 		for (IIOModule* m : modules)
 		{
 			m->printInfo();
+		}
+	}
+	else if (input->at(0) == "init")
+	{
+		for (IIOModule* m : modules)
+		{
+			if (m->getId() == atoi(input->at(1).c_str()))
+			{
+				m->init();
+				break;
+			}
+		}
+	}
+	else if (input->at(0) == "output")
+	{
+		for (IIOModule* m : modules)
+		{
+			if (m->getId() == atoi(input->at(1).c_str()))
+			{
+				m->output();
+				break;
+			}
 		}
 	}
 	else if (input->at(0) == "connect")

@@ -13,18 +13,21 @@ public:
 	void run();
 	void stop();
 	void init();
+	void output();
+	int getId();
 
 private:
-	std::string m_IP;
+	std::string m_ip;
 	int unsigned m_port;
 
 	void read();
 	void write();
 	void printInfo();
 	void accept();
-	void getData(asio::ip::tcp::socket& m_socket);
+	void getData();
 
 	std::vector<char> vBuffer;
+	std::vector <std::string> readBuffer;
 	asio::io_context m_context;
 	asio::ip::tcp::socket m_socket;
 	std::thread m_thrContext;

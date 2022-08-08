@@ -24,7 +24,7 @@ std::vector<std::string> CUIHandler::readInput()
 
 bool CUIHandler::inputValid(std::vector<std::string>* input)
 {
-	int argsCount = input->size() - 1;
+	size_t argsCount = input->size() - 1;
 	std::string command = input->at(0);
 	asio::error_code ec;
 
@@ -40,6 +40,22 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 				{
 					return true;
 				}
+			}
+		}
+		//Command init takes one argument
+		else if (command == "init" && argsCount == 1)
+		{
+			if (!isInteger(input->at(1)))
+			{
+				return true;
+			}
+		}
+		//Command output takes one argument
+		else if (command == "output" && argsCount == 1)
+		{
+			if (!isInteger(input->at(1)))
+			{
+				return true;
 			}
 		}
 		//Command show doesn't take arguments
@@ -90,6 +106,10 @@ std::vector<std::string> CUIHandler::separateInput(std::string* inputLine)
 	return input;
 }
 
+bool CUIHandler::isInteger(const std::string s) {
+	return s.find_first_not_of("0123456789") == std::string::npos;
+}
+
 void CUIHandler::displayError(std::string ec)
 {
 	std::cout << "ERROR: -----------------" << std::endl;
@@ -103,6 +123,8 @@ void CUIHandler::displayHelp()
 		<< "\t\t Help ----------------------------------------" << std::endl << std::endl
 		<< "\t\t open \t\t -> \t This is a text for the open command" << std::endl
 		<< "\t\t show \t\t -> \t This is a text for the show command" << std::endl
+		<< "\t\t init \t\t -> \t This is a text for the init command" << std::endl
+		<< "\t\t output \t\t -> \t This is a text for the output command" << std::endl
 		<< "\t\t connect \t -> \t This is a text for the connect command" << std::endl
 		<< "\t\t help \t\t -> \t This is a text for the help command" << std::endl
 		<< "\t\t exit \t\t -> \t This is a text for the exit command" << std::endl << std::endl

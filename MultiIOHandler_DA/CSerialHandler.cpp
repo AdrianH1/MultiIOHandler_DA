@@ -36,6 +36,10 @@ void CSerialHandler::handle_receive(const asio::error_code& error,
     }
 }
 
+void CSerialHandler::output()
+{
+}
+
 void CSerialHandler::read()
 {
     serial.async_read_some(asio::buffer(data, max_length),
@@ -82,6 +86,11 @@ void CSerialHandler::init()
 
 }
 
+
+int CSerialHandler::getId()
+{
+    return 0;
+}
 
 void CSerialHandler::printInfo()
 {

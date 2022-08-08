@@ -16,5 +16,7 @@ private:
 	void init();
 	void write();
 	void read();
+	void output();
+	int getId();
 	void printInfo();
 };

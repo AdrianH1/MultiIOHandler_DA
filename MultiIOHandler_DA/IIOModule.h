@@ -12,6 +12,8 @@ public:
 	virtual void stop() = 0;
 	virtual void write() = 0;
 	virtual void read() = 0;
+	virtual void output() = 0;
+	virtual int getId() = 0;
 	virtual void printInfo() = 0;
 	static int m_idCounter;
 
