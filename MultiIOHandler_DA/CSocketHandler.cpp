@@ -2,7 +2,7 @@
 #include "Session.h"
 
 size_t bufferMax = 50;
-bool outputToConsole = false;
+
 
 CSocketHandler::CSocketHandler(std::string ip, int unsigned port)
     : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(1*512)
@@ -10,8 +10,6 @@ CSocketHandler::CSocketHandler(std::string ip, int unsigned port)
     m_id = ++m_idCounter;
     std::cout << "Created Socket: " << std::endl;
     printInfo();
-
-
 }
 
 CSocketHandler::~CSocketHandler()
@@ -21,15 +19,24 @@ CSocketHandler::~CSocketHandler()
 
 void CSocketHandler::run()
 {
-    asio::io_context::work idleWork(m_context);
+    //asio::io_context::work idleWork(m_context);
 
-    m_thrContext = std::thread([this]() {m_context.run(); });
+    //m_thrContext = std::thread([this]() {m_context.run(); });
 
-    init();
+    //init();
 }
 
 void CSocketHandler::init()
 {
+    if (m_context.stopped())
+    {
+        m_context.restart();
+    }
+
+    asio::io_context::work idleWork(m_context);
+
+    m_thrContext = std::thread([this]() {m_context.run(); });
+
     asio::error_code ec;
     asio::ip::tcp::endpoint endpoint(asio::ip::make_address(m_ip, ec), m_port);
 
@@ -38,11 +45,13 @@ void CSocketHandler::init()
     if (!ec)
     {
         std::cout << "Connected!" << std::endl;
-        getData();
+        read();
     }
     else
     {
         std::cout << "Failed to connect!" << std::endl;
+        m_context.stop();
+        if (m_thrContext.joinable()) m_thrContext.join();
     }
 }
 
@@ -55,7 +64,7 @@ void CSocketHandler::output()
     outputToConsole = true;
 }
 
-void CSocketHandler::getData()
+void CSocketHandler::read()
 {
     if (readBuffer.size() == bufferMax)
     {
@@ -79,34 +88,47 @@ void CSocketHandler::getData()
                 {
                     std::cout << message << std::endl;
                 }
-                getData();
+                if (writeToListener)
+                {
+                    for (IIOModule* m : listenerTable)
+                    {
+                        m->write(message);
+                    }
+                }
+                read();
             }
         }
     );
 }
 
+void CSocketHandler::write(std::string message)
+{
+    asio::error_code ec;
+    //std::string s = "asdf";
+    m_socket.write_some(asio::buffer(message.data(), message.size()), ec);
+}
+
+void CSocketHandler::connect()
+{
+    for (IIOModule* m : listenerTable)
+    {
+        m->printInfo();
+        writeToListener = true;
+    }
+}
+
 void CSocketHandler::stop()
 {
+    writeToListener = false;
+    outputToConsole = false;
+    m_socket.close();
     m_context.stop();
-
     if (m_thrContext.joinable()) m_thrContext.join();
-
-    std::cout << "Disconnected!" << std::endl;
 }
 
 void CSocketHandler::accept()
 {
     
-}
-
-
-void CSocketHandler::read()
-{
-}
-
-void CSocketHandler::write()
-{
-
 }
 
 int CSocketHandler::getId()

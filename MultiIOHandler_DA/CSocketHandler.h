@@ -9,6 +9,7 @@ public:
 	CSocketHandler() = default;
 	CSocketHandler(std::string ip, int unsigned port);
 	~CSocketHandler();
+
 	int m_id = -1;
 	void run();
 	void stop();
@@ -16,15 +17,20 @@ public:
 	void output();
 	int getId();
 
+
 private:
 	std::string m_ip;
 	int unsigned m_port;
 
-	void read();
-	void write();
+	void write(std::string message);
 	void printInfo();
 	void accept();
-	void getData();
+	void read();
+	void connect();
+	void exit();
+
+	bool writeToListener = false;
+	bool outputToConsole = false;
 
 	std::vector<char> vBuffer;
 	std::vector <std::string> readBuffer;

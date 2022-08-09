@@ -6,24 +6,20 @@ std::vector<std::string> CUIHandler::readInput()
 {
 	std::string inputLine;
 
+	std::vector<std::string> input;
 
-	std::cout << std::endl << ">>>";
-	std::getline(std::cin, inputLine);
-
-	std::vector<std::string> input = separateInput(&inputLine);
-
-	if (inputValid(&input))
+	while (!inputValid(&input))
 	{
-		return input;
+		std::cout << std::endl << ">>>";
+		std::getline(std::cin, inputLine);
+		input = separateInput(&inputLine);
 	}
-	else
-	{
-		readInput();
-	}
+	return input;
 }
 
 bool CUIHandler::inputValid(std::vector<std::string>* input)
 {
+	if (input->size() == 0) { return false; }
 	size_t argsCount = input->size() - 1;
 	std::string command = input->at(0);
 	asio::error_code ec;
@@ -40,6 +36,11 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 				{
 					return true;
 				}
+				else
+				{
+					displayError("Invalid Port!");
+					return false;
+				}
 			}
 		}
 		//Command init takes one argument
@@ -49,13 +50,23 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 			{
 				return true;
 			}
+			else
+			{
+				displayError("Invalid ID!");
+				return false;
+			}
 		}
 		//Command output takes one argument
 		else if (command == "output" && argsCount == 1)
 		{
-			if (!isInteger(input->at(1)))
+			if (isInteger(input->at(1)))
 			{
 				return true;
+			}
+			else
+			{
+				displayError("Invalid ID!");
+				return false;
 			}
 		}
 		//Command show doesn't take arguments
@@ -63,10 +74,36 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 		{
 			return true;
 		}
-		//Command connect....
-		else if (command == "connect")
+		//Command connect takes two argument
+		else if (command == "connect" && argsCount == 2)
 		{
-			//to do
+			if (isInteger(input->at(1)) && isInteger(input->at(2)))
+			{
+				return true;
+			}
+			else
+			{
+				displayError("Invalid IDs!");
+				return false;
+			}
+		}
+		//Command stop doesn't take arguments
+		else if (command == "stop" && argsCount == 0)
+		{
+			return true;
+		}
+		//Command remove takes one argument
+		else if (command == "remove" && argsCount == 1)
+		{
+			if (isInteger(input->at(1)))
+			{
+				return true;
+			}
+			else
+			{
+				displayError("Invalid ID!");
+				return false;
+			}
 		}
 		//Command help doesn't take arguments
 		else if (command == "help" && argsCount == 0)

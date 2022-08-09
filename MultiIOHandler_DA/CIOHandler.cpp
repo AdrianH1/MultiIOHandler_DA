@@ -7,24 +7,26 @@
 #include "IIOModule.h"
 #include "CUIHandler.h"
 
+bool running = true;
+
 void CIOHandler::createSocket(std::string ip, int unsigned port)
 {
 	CSocketHandler* socket = new CSocketHandler(ip, port);
-	socket->run();
+	socket->init();
 	modules.push_back(socket);
 }
 
 void CIOHandler::createModule(std::string port, int bauderate)
 {
-	asio::io_service io_service;
-	CSerialHandler* serial = new CSerialHandler(io_service, port, bauderate);
-	modules.push_back(serial);
+	//asio::io_service io_service;
+	//CSerialHandler* serial = new CSerialHandler(io_service, port, bauderate);
+	//modules.push_back(serial);
 }
 
 void CIOHandler::createModule(std::string path)
 {
-	CFileHandler* file = new CFileHandler(path);
-	modules.push_back(file);
+	//CFileHandler* file = new CFileHandler(path);
+	//modules.push_back(file);
 }
 
 void CIOHandler::connect(int id1, int id2)
@@ -80,9 +82,45 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 	}
 	else if (input->at(0) == "connect")
 	{
+		IIOModule* first{};
+		for (IIOModule* m : modules)
+		{
+			if (m->getId() == atoi(input->at(1).c_str()))
+			{
+				first = m;
+			}
+			if (m->getId() == atoi(input->at(2).c_str()) && first != nullptr)
+			{
+				first->listenerTable.push_back(m);
+				first->connect();
+			}
+		}
+	}
+	else if (input->at(0) == "remove")
+	{
+		for (int i = 0; i < modules.size(); i++)
+		{
+			if (modules.at(i)->getId() == atoi(input->at(1).c_str()))
+			{
+				modules.erase(modules.begin()+i);
+				break;
+			}
+		}
+	}
+	else if (input->at(0) == "stop")
+	{
+		for (IIOModule* m : modules)
+		{
+			m->stop();
+		}
 	}
 	else if (input->at(0) == "exit")
 	{
+		for (IIOModule* m : modules)
+		{
+			m->stop();
+		}
+		running = false;
 	}
 }
 
@@ -90,7 +128,6 @@ int main(int argc, char* argv[])
 {
 	CIOHandler IOHandler;
 
-	bool running = true;
 	std::vector<std::string> input;
 	CUIHandler ui;
 
@@ -100,7 +137,7 @@ int main(int argc, char* argv[])
 		IOHandler.callFunction(&input);
 	}
 
-	std::this_thread::sleep_for(std::chrono::seconds(10));
+	//std::this_thread::sleep_for(std::chrono::seconds(10));
 
 	/*
 	//------Socket Test
