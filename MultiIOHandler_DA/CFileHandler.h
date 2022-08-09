@@ -1,7 +1,7 @@
 #pragma once
-#include "IIOModule.h"
+//#include "IIOModule.h"
 
-class CFileHandler : public IIOModule
+class CFileHandler  /* : public IIOModule*/
 {
 public:
 	CFileHandler() = default;
@@ -14,9 +14,10 @@ public:
 private:
 	std::string m_Path;
 	void init();
-	void write();
+	void write(std::string message);
 	void read();
 	void output();
+	void connect();
 	int getId();
 	void printInfo();
 };

@@ -5,7 +5,7 @@
 CFileHandler::CFileHandler(std::string path)
     : m_Path(path)
 {
-    m_id = ++m_idCounter;
+    //m_id = ++m_idCounter;
 }
 
 CFileHandler::~CFileHandler()
@@ -27,7 +27,7 @@ void CFileHandler::init()
 
 }
 
-void CFileHandler::write()
+void CFileHandler::write(std::string message)
 {
 
 }
@@ -38,6 +38,10 @@ void CFileHandler::read()
 }
 
 void CFileHandler::output()
+{
+}
+
+void CFileHandler::connect()
 {
 }
 

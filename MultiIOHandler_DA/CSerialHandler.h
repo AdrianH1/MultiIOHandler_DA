@@ -1,8 +1,8 @@
 #pragma once
-#include "IIOModule.h"
+//#include "IIOModule.h"
 #include <string>
 
-class CSerialHandler : public IIOModule
+class CSerialHandler /* : public IIOModule*/
 {
 public:
 
@@ -22,8 +22,9 @@ public:
 private:
 
 	void init();
-	void write();
+	void write(std::string message);
 	void read();
+	void connect();
 	void handler(const asio::error_code& error, std::size_t bytes_transferred);
 	void handle_receive(const asio::error_code& error, std::size_t bytes_transferred);
 	void output();

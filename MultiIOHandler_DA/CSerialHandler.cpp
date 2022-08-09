@@ -5,10 +5,10 @@
 CSerialHandler::CSerialHandler(asio::io_service& io_service, std::string port, int bauderate)
     : m_Port(port), m_Baudrate(bauderate), serial(io_service)
 {
-    m_id = ++m_idCounter;
-    serial.open(port);
-    serial.set_option(asio::serial_port_base::baud_rate(bauderate));
-    read();
+    //m_id = ++m_idCounter;
+    //serial.open(port);
+    //serial.set_option(asio::serial_port_base::baud_rate(bauderate));
+    //read();
 
 }
 
@@ -65,7 +65,11 @@ void CSerialHandler::read()
     //std::cout << std::endl;
 }
 
-void CSerialHandler::write()
+void CSerialHandler::connect()
+{
+}
+
+void CSerialHandler::write(std::string message)
 {
     std::cout << "Enter message: ";
     //char request[max_length];
