@@ -2,6 +2,7 @@
 #include "Session.h"
 
 size_t bufferMax = 50;
+bool outputToConsole = false;
 
 CSocketHandler::CSocketHandler(std::string ip, int unsigned port)
     : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(1*512)
@@ -51,6 +52,7 @@ void CSocketHandler::output()
     {
         std::cout << s << std::endl;
     }
+    outputToConsole = true;
 }
 
 void CSocketHandler::getData()
@@ -73,6 +75,10 @@ void CSocketHandler::getData()
                     //std::cout << vBuffer[i];
                 }
                 readBuffer.push_back(message);
+                if (outputToConsole)
+                {
+                    std::cout << message << std::endl;
+                }
                 getData();
             }
         }
