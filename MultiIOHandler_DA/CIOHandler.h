@@ -15,7 +15,7 @@ private:
 	std::vector<IIOModule*> modules;
 
 	void createSocket(std::string ip, int unsigned port);
-	void createModule(std::string port, int bauderate);
+	void createSerial(std::string port, int bauderate);
 	void createFile(std::string path);
 	void connect(int id1, int id2);
 	void disconnect();

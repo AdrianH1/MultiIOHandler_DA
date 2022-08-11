@@ -55,7 +55,16 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 				}
 				else if (type == "file")
 				{
-
+					std::ifstream file(input->at(2));
+					if (file)
+					{
+						return true;
+					}
+					else
+					{
+						displayError("File does not exist!");
+						return false;
+					}
 				}
 
 			}

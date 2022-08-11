@@ -16,7 +16,7 @@ void CIOHandler::createSocket(std::string ip, int unsigned port)
 	modules.push_back(socket);
 }
 
-void CIOHandler::createModule(std::string port, int bauderate)
+void CIOHandler::createSerial(std::string port, int bauderate)
 {
 	//asio::io_service io_service;
 	//CSerialHandler* serial = new CSerialHandler(io_service, port, bauderate);
@@ -48,9 +48,20 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 {
 	if (input->at(0) == "open")
 	{
-		std::string ip = input->at(2);
-		unsigned int port = atoi(input->at(3).c_str());
-		createSocket(ip, port);
+		if (input->at(1) == "socket")
+		{
+			std::string ip = input->at(2);
+			unsigned int port = atoi(input->at(3).c_str());
+			createSocket(ip, port);
+		}
+		else if (input->at(1) == "serial")
+		{
+		}
+		else if (input->at(1) == "file")
+		{
+			std::string path = input->at(2);
+			createFile(path);
+		}
 	}
 	else if (input->at(0) == "show")
 	{
