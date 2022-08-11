@@ -28,12 +28,12 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 	if (std::find(validCmd.begin(), validCmd.end(), command) != validCmd.end())
 	{
 		//Command open allows three arguments
-		if (command == "open" && argsCount == 3)
+		if (command == "open")
 		{
 			std::string type = input->at(1);
-			if (std::find(validCmd.begin(), validCmd.end(), type) != validCmd.end())
+			if (std::find(validModules.begin(), validModules.end(), type) != validModules.end())
 			{
-				if (type == "socket")
+				if (type == "socket" && argsCount == 3)
 				{
 					asio::ip::address::from_string(input->at(1), ec);
 					if (!ec)
@@ -48,12 +48,17 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 							return false;
 						}
 					}
+					else
+					{
+						displayError("Invalid IP!");
+						return false;
+					}
 				}
 				else if (type == "serial")
 				{
 
 				}
-				else if (type == "file")
+				else if (type == "file" && argsCount == 2)
 				{
 					std::ifstream file(input->at(2));
 					if (file)
@@ -66,7 +71,11 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 						return false;
 					}
 				}
-
+				else
+				{
+					displayError("Invalid arguments!");
+					return false;
+				}
 			}
 		}
 		//Command init takes one argument

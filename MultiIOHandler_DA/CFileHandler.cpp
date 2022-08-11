@@ -29,13 +29,20 @@ void CFileHandler::stop()
 void CFileHandler::init()
 {
     //open file
+
     m_fs.open(m_Path, std::ios::out | std::ios::in);
-    
+
     char data[100];
+
     std::cout << "write to file: " << std::endl;
     std::cin.getline(data, 100);
-
     m_fs << data << std::endl;
+    
+    std::cout << "read from file" << std::endl;
+    m_fs >> data;
+    std::cout << data << std::endl; 
+    
+
 
     m_fs.close();
 }
