@@ -23,10 +23,11 @@ void CIOHandler::createModule(std::string port, int bauderate)
 	//modules.push_back(serial);
 }
 
-void CIOHandler::createModule(std::string path)
+void CIOHandler::createFile(std::string path)
 {
-	//CFileHandler* file = new CFileHandler(path);
-	//modules.push_back(file);
+	CFileHandler* file = new CFileHandler(path);
+	file->init();
+	modules.push_back(file);
 }
 
 void CIOHandler::connect(int id1, int id2)
@@ -47,8 +48,8 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 {
 	if (input->at(0) == "open")
 	{
-		std::string ip = input->at(1);
-		unsigned int port = atoi(input->at(2).c_str());
+		std::string ip = input->at(2);
+		unsigned int port = atoi(input->at(3).c_str());
 		createSocket(ip, port);
 	}
 	else if (input->at(0) == "show")

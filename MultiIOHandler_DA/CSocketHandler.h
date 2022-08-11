@@ -11,7 +11,7 @@ public:
 	~CSocketHandler();
 
 	int m_id = -1;
-	void run();
+	//void run();
 	void stop();
 	void init();
 	void output();
@@ -27,7 +27,6 @@ private:
 	void accept();
 	void read();
 	void connect();
-	void exit();
 
 	bool writeToListener = false;
 	bool outputToConsole = false;

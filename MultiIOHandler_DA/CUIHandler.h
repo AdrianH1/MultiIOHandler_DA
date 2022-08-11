@@ -8,6 +8,7 @@ public:
 
 private:
 	std::vector<std::string> validCmd = { "open", "connect", "show" , "init", "output", "stop", "remove", "help", "exit" };
+	std::vector<std::string> validModules = { "socket", "file", "serial" };
 
 	bool inputValid(std::vector<std::string>*);
 	std::vector<std::string> separateInput(std::string* inputLine);

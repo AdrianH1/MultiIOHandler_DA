@@ -27,21 +27,37 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 
 	if (std::find(validCmd.begin(), validCmd.end(), command) != validCmd.end())
 	{
-		//Command open allows two arguments
-		if (command == "open" && argsCount == 2)
+		//Command open allows three arguments
+		if (command == "open" && argsCount == 3)
 		{
-			asio::ip::address::from_string(input->at(1), ec);
-			if (!ec)
+			std::string type = input->at(1);
+			if (std::find(validCmd.begin(), validCmd.end(), type) != validCmd.end())
 			{
-				if (atoi(input->at(2).c_str()) < 65535)
+				if (type == "socket")
 				{
-					return true;
+					asio::ip::address::from_string(input->at(1), ec);
+					if (!ec)
+					{
+						if (atoi(input->at(2).c_str()) < 65535)
+						{
+							return true;
+						}
+						else
+						{
+							displayError("Invalid Port!");
+							return false;
+						}
+					}
 				}
-				else
+				else if (type == "serial")
 				{
-					displayError("Invalid Port!");
-					return false;
+
 				}
+				else if (type == "file")
+				{
+
+				}
+
 			}
 		}
 		//Command init takes one argument

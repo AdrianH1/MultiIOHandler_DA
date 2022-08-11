@@ -16,7 +16,7 @@ private:
 
 	void createSocket(std::string ip, int unsigned port);
 	void createModule(std::string port, int bauderate);
-	void createModule(std::string path);
+	void createFile(std::string path);
 	void connect(int id1, int id2);
 	void disconnect();
 

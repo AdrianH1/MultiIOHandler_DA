@@ -17,14 +17,14 @@ CSocketHandler::~CSocketHandler()
     stop();
 }
 
-void CSocketHandler::run()
-{
-    //asio::io_context::work idleWork(m_context);
-
-    //m_thrContext = std::thread([this]() {m_context.run(); });
-
-    //init();
-}
+//void CSocketHandler::run()
+//{
+//    //asio::io_context::work idleWork(m_context);
+//
+//    //m_thrContext = std::thread([this]() {m_context.run(); });
+//
+//    //init();
+//}
 
 void CSocketHandler::init()
 {
