@@ -1,23 +1,26 @@
 #pragma once
-//#include "IIOModule.h"
+#include "IIOModule.h"
 
-class CFileHandler  /* : public IIOModule*/
+class CFileHandler : public IIOModule
 {
 public:
 	CFileHandler() = default;
 	CFileHandler(std::string path);
 	~CFileHandler();
+
 	int m_id;
-	void run();
+	//void run();
 	void stop();
+	void init();
+	void output();
+	int getId();
 
 private:
 	std::string m_Path;
-	void init();
+	std::fstream m_fs;
+
 	void write(std::string message);
 	void read();
-	void output();
 	void connect();
-	int getId();
 	void printInfo();
 };
