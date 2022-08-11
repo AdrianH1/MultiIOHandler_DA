@@ -104,7 +104,6 @@ void CSocketHandler::read()
 void CSocketHandler::write(std::string message)
 {
     asio::error_code ec;
-    //std::string s = "asdf";
     m_socket.write_some(asio::buffer(message.data(), message.size()), ec);
 }
 
@@ -112,7 +111,6 @@ void CSocketHandler::connect()
 {
     for (IIOModule* m : listenerTable)
     {
-        m->printInfo();
         writeToListener = true;
     }
 }

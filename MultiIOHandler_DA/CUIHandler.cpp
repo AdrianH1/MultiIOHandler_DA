@@ -46,7 +46,7 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 		//Command init takes one argument
 		else if (command == "init" && argsCount == 1)
 		{
-			if (!isInteger(input->at(1)))
+			if (isInteger(input->at(1)))
 			{
 				return true;
 			}
@@ -108,6 +108,7 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 		//Command help doesn't take arguments
 		else if (command == "help" && argsCount == 0)
 		{
+			displayHelp();
 			return true;
 		}
 		//Command exit doesn't take arguments
