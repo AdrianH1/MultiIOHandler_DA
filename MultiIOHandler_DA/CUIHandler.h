@@ -12,6 +12,7 @@ private:
 	bool inputValid(std::vector<std::string>*);
 	std::vector<std::string> separateInput(std::string* inputLine);
 	bool isInteger(const std::string s);
+	std::string lowerCase(std::string inputline);
 	void displayError(std::string);
 	void displayHelp();
 };

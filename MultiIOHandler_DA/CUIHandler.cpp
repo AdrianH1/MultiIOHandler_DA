@@ -12,6 +12,7 @@ std::vector<std::string> CUIHandler::readInput()
 	{
 		std::cout << std::endl << ">>>";
 		std::getline(std::cin, inputLine);
+		inputLine = lowerCase(inputLine);
 		input = separateInput(&inputLine);
 	}
 	return input;
@@ -147,6 +148,18 @@ std::vector<std::string> CUIHandler::separateInput(std::string* inputLine)
 bool CUIHandler::isInteger(const std::string s) {
 	return s.find_first_not_of("0123456789") == std::string::npos;
 }
+
+std::string CUIHandler::lowerCase(std::string inputline)
+{
+	std::string result = "";
+	for (char c : inputline)
+	{
+		result += std::tolower(c);
+	}
+	return result;
+}
+
+
 
 void CUIHandler::displayError(std::string ec)
 {
