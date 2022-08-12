@@ -8,7 +8,7 @@ CSocketHandler::CSocketHandler(std::string ip, int unsigned port)
     : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(1*512)
 {
     m_id = ++m_idCounter;
-    std::cout << "Created Socket: " << std::endl;
+    std::cout << "Created Socket Module: " << std::endl;
     printInfo();
 }
 

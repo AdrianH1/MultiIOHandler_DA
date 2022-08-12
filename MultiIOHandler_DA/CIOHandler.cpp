@@ -101,6 +101,9 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 			{
 				first = m;
 			}
+		}
+		for (IIOModule* m : modules)
+		{
 			if (m->getId() == atoi(input->at(2).c_str()) && first != nullptr)
 			{
 				first->listenerTable.push_back(m);

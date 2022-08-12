@@ -35,10 +35,10 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 			{
 				if (type == "socket" && argsCount == 3)
 				{
-					asio::ip::address::from_string(input->at(1), ec);
+					asio::ip::address::from_string(input->at(2), ec);
 					if (!ec)
 					{
-						if (atoi(input->at(2).c_str()) < 65535)
+						if (atoi(input->at(3).c_str()) < 65535)
 						{
 							return true;
 						}
