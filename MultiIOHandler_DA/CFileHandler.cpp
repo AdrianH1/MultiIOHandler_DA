@@ -28,21 +28,7 @@ void CFileHandler::stop()
 
 void CFileHandler::init()
 {
-    //open file
-
-    //m_fs.open(m_Path, std::ios::out | std::ios::in);
-
-    //char data[100];
-
-    //std::cout << "write to file: " << std::endl;
-    //std::cin.getline(data, 100);
-    //m_fs << data << std::endl;
-    
-    //std::cout << "read from file" << std::endl;
-    //m_fs >> data;
-    //std::cout << data << std::endl; 
-    
-    //m_fs.close();
+    m_thrRead = std::thread([this]() {read(); });
 }
 
 void CFileHandler::write(std::string message)
@@ -57,11 +43,27 @@ void CFileHandler::read()
 {
     m_fs.open(m_Path, std::ios::in);
     std::string message;
-    while (writeToListener && std::getline(m_fs, message))
+    while (true)
     {
-        for (IIOModule* m : listenerTable)
+        if (std::getline(m_fs, message))
         {
-            m->write(message);
+            if (outputToConsole)
+            {
+                std::cout << message << std::endl;
+            }
+            if (writeToListener)
+            {
+                for (IIOModule* m : listenerTable)
+                {
+                    m->write(message);
+                }
+            }
+        }
+        else
+        {
+            //Set file pointer to the start of the file
+            m_fs.clear();
+            m_fs.seekg(0);
         }
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
@@ -70,15 +72,7 @@ void CFileHandler::read()
 
 void CFileHandler::output()
 {
-    m_fs.open(m_Path, std::ios::in);
-    std::string line;
-    std::cout << "read from file" << std::endl;
-    while (std::getline(m_fs, line))
-    {
-        std::cout << line << std::endl;
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
-    m_fs.close();
+    outputToConsole = true;
 }
 
 void CFileHandler::connect()
@@ -88,7 +82,6 @@ void CFileHandler::connect()
     {
         writeToListener = true;
     }
-    m_thrRead = std::thread([this]() {read(); });
 }
 
 int CFileHandler::getId()
