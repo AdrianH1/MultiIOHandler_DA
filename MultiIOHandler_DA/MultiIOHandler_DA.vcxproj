@@ -78,7 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Adrian\source\lib\asio-1.22.2\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Adrian\source\repos\AdrianH1\MultiIOHandler_DA\MultiIOHandler_DA\include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFileHandler.cpp" />
+    <ClCompile Include="CJSONHandler.cpp" />
     <ClCompile Include="CServer.cpp" />
     <ClCompile Include="CUIHandler.cpp" />
     <ClCompile Include="IOModule.cpp" />
