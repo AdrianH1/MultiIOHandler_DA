@@ -6,6 +6,7 @@
 #include "CFileHandler.h"
 #include "IIOModule.h"
 #include "CUIHandler.h"
+#include "CJSONHandler.h"
 
 bool running = true;
 
@@ -145,6 +146,9 @@ int main(int argc, char* argv[])
 
 	std::vector<std::string> input;
 	CUIHandler ui;
+
+	CJSONHandler json;
+	json.test();
 
 	while (running)
 	{

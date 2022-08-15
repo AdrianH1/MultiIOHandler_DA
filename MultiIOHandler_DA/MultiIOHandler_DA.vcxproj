@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CFileHandler.h" />
+    <ClInclude Include="CJSONHandler.h" />
     <ClInclude Include="CServer.h" />
     <ClInclude Include="CUIHandler.h" />
     <ClInclude Include="IIOModule.h" />
