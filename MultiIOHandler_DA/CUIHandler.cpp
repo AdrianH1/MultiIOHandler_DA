@@ -122,6 +122,34 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 				return false;
 			}
 		}
+		//Command save takes one argument
+		else if (command == "save" && argsCount == 1)
+		{
+			std::ifstream file(input->at(1));
+			if (file)
+			{
+				return true;
+			}
+			else
+			{
+				displayError("File does not exist!");
+				return false;
+			}
+		}
+		//Command load takes one argument
+		else if (command == "load" && argsCount == 1)
+		{
+			std::ifstream file(input->at(1));
+			if (file)
+			{
+				return true;
+			}
+			else
+			{
+				displayError("File does not exist!");
+				return false;
+			}
+		}
 		//Command stop doesn't take arguments
 		else if (command == "stop" && argsCount == 0)
 		{
