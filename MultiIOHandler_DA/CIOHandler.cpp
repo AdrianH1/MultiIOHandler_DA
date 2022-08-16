@@ -126,12 +126,12 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 	else if (input->at(0) == "save")
 	{
 		CJSONHandler json;
-		json.save(input->at(1));
+		json.save(input->at(1), modules);
 	}
 	else if (input->at(0) == "load")
 	{
 		CJSONHandler json;
-		json.load(input->at(1));
+		json.load(input->at(1), modules);
 	}
 	else if (input->at(0) == "stop")
 	{
