@@ -157,9 +157,6 @@ int main(int argc, char* argv[])
 	std::vector<std::string> input;
 	CUIHandler ui;
 
-	CJSONHandler json;
-	json.test();
-
 	while (running)
 	{
 		input = ui.readInput();
