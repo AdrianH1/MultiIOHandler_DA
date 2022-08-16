@@ -8,6 +8,7 @@ CSocketHandler::CSocketHandler(std::string ip, int unsigned port)
     : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(1*512)
 {
     m_id = ++m_idCounter;
+    m_type = 1; // Type 1 = Socket TCP
     std::cout << "Created Socket Module: " << std::endl;
     printInfo();
 }
@@ -132,6 +133,21 @@ void CSocketHandler::accept()
 int CSocketHandler::getId()
 {
     return m_id;
+}
+
+std::string CSocketHandler::getIp()
+{
+    return m_ip;
+}
+
+int unsigned CSocketHandler::getPort()
+{
+    return m_port;
+}
+
+int CSocketHandler::getType()
+{
+    return m_type;
 }
 
 void CSocketHandler::printInfo()

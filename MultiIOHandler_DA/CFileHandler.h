@@ -14,6 +14,8 @@ public:
 	void init();
 	void output();
 	int getId();
+	int getType();
+	std::string getPath();
 
 private:
 	std::string m_Path;

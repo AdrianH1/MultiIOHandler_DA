@@ -16,7 +16,9 @@ public:
 	void init();
 	void output();
 	int getId();
-
+	std::string getIp();
+	int unsigned getPort();
+	int getType();
 
 private:
 	std::string m_ip;
