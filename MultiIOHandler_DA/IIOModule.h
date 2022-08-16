@@ -15,20 +15,9 @@ public:
 	virtual void connect() = 0;
 	virtual void output() = 0;
 	virtual int getId() = 0;
-	virtual int getType() = 0;
 	virtual void printInfo() = 0;
 	static int m_idCounter;
 	std::vector<IIOModule*> listenerTable;
-
-
-	/*Type
-	1 -> Socket TCP
-	2 -> Socket UDP
-	3 -> File
-	4 -> Serial
-	*/
-	int m_type;
-
 private:
 	
 };
