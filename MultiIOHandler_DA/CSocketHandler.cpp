@@ -8,6 +8,7 @@ CSocketHandler::CSocketHandler(std::string ip, int unsigned port)
     : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(1*512)
 {
     m_id = ++m_idCounter;
+    m_type = 1; // Type 1 = Socket TCP
     std::cout << "Created Socket Module: " << std::endl;
     printInfo();
 }
@@ -105,6 +106,16 @@ void CSocketHandler::write(std::string message)
 {
     asio::error_code ec;
     m_socket.write_some(asio::buffer(message.data(), message.size()), ec);
+}
+
+std::vector<std::string> CSocketHandler::getInfo()
+{
+    std::vector<std::string> info;
+    info.push_back(std::to_string(m_id));
+    info.push_back(std::to_string(m_type));
+    info.push_back(m_ip);
+    info.push_back(std::to_string(m_port));
+    return info;
 }
 
 void CSocketHandler::connect()

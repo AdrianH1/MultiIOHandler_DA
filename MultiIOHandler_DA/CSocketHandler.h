@@ -23,6 +23,7 @@ private:
 	int unsigned m_port;
 
 	void write(std::string message);
+	std::vector<std::string> getInfo();
 	void printInfo();
 	void accept();
 	void read();

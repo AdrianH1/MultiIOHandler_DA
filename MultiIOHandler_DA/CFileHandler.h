@@ -28,5 +28,6 @@ private:
 	void write(std::string message);
 	void read();
 	void connect();
+	std::vector<std::string> getInfo();
 	void printInfo();
 };

@@ -6,6 +6,7 @@ CFileHandler::CFileHandler(std::string path)
     : m_Path(path)
 {
     m_id = ++m_idCounter;
+    m_type = 3; // Type 3 = File
     std::cout << "Created File Module: " << std::endl;
     printInfo();
 }
@@ -82,6 +83,15 @@ void CFileHandler::connect()
     {
         writeToListener = true;
     }
+}
+
+std::vector<std::string> CFileHandler::getInfo()
+{
+    std::vector<std::string> info;
+    info.push_back(std::to_string(m_id));
+    info.push_back(std::to_string(m_type));
+    info.push_back(m_Path);
+    return info;
 }
 
 int CFileHandler::getId()
