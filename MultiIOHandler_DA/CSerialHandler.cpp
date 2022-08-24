@@ -2,101 +2,128 @@
 #include "cSerialHandler.h"
 
 
-CSerialHandler::CSerialHandler(asio::io_service& io_service, std::string port, int bauderate)
-    : m_Port(port), m_Baudrate(bauderate), serial(io_service)
+CSerialHandler::CSerialHandler(std::string port, int bauderate)
+    : m_port(port), m_baudrate(bauderate), m_serial(m_context)
 {
-    //m_id = ++m_idCounter;
-    //serial.open(port);
-    //serial.set_option(asio::serial_port_base::baud_rate(bauderate));
-    //read();
-
+    m_id = ++m_idCounter;
+    m_type = 4; //Type 4 = Serial 
+    std::cout << "Created Serial Module: " << std::endl;
+    printInfo();
 }
 
-void CSerialHandler::run()
+CSerialHandler::~CSerialHandler()
 {
-
+    stop();
 }
 
-void CSerialHandler::stop()
+void CSerialHandler::init()
 {
-
-}
-
-void CSerialHandler::handler(
-    const asio::error_code& error, // Result of operation.
-    std::size_t bytes_transferred // Number of bytes read.
-) {};
-
-void CSerialHandler::handle_receive(const asio::error_code& error,
-    std::size_t bytes_transferred)
-{
-    if (!error)
+    if (m_context.stopped())
     {
-        std::cout << "Recieved:" << data << std::endl;
+        m_context.restart();
+    }
+
+    asio::io_context::work idleWork(m_context);
+
+    m_thrContext = std::thread([this]() {m_context.run(); });
+
+    asio::error_code ec;
+    m_serial.open(m_port, ec);
+    m_serial.set_option(asio::serial_port_base::baud_rate(m_baudrate), ec);
+
+    if (!ec)
+    {
+        std::cout << "Connected!" << std::endl;
+        read();
+    }
+    else
+    {
+        std::cout << "Failed to connect!" << std::endl;
+        m_context.stop();
+        if (m_thrContext.joinable()) m_thrContext.join();
     }
 }
 
 void CSerialHandler::output()
 {
+    for (std::string s : readBuffer)
+    {
+        std::cout << s << std::endl;
+    }
+    outputToConsole = true;
 }
 
 void CSerialHandler::read()
 {
-    serial.async_read_some(asio::buffer(data, max_length),
+    m_serial.async_read_some(asio::buffer(vBuffer.data(), vBuffer.size()),
         [this](std::error_code ec, std::size_t length)
         {
             if (!ec)
             {
-                std::cout << "Bytes available: " << length << std::endl;
-                std::cout << "Message is: ";
-                std::cout.write(data, length) << std::endl;
+                //std::cout << "\n\nRead " << length << " bytes\n\n";
+                std::string message = "";
+                for (int i = 0; i < length; i++)
+                {
+                    message += vBuffer[i];
+                    //std::cout << vBuffer[i];
+                }
+                readBuffer.push_back(message);
+                if (outputToConsole)
+                {
+                    std::cout << message << std::endl;
+                }
+                if (writeToListener)
+                {
+                    for (IIOModule* m : listenerTable)
+                    {
+                        m->write(message);
+                    }
+                }
                 read();
             }
         });
-
-    //char receive[max_length];
-    //serial.async_read_some(asio::buffer(receive, 512), &CSerialHandler::handler);
-    //serial.async_read_some(asio::buffer(data, max_length),
-    //    std::bind(&CSerialHandler::handle_receive,
-    //        this, std::placeholders::_1,
-    //        std::placeholders::_2));
-    //std::cout << "Message is: ";
-    //std::cout.write(data, max_length);
-    //std::cout << std::endl;
-}
-
-void CSerialHandler::connect()
-{
 }
 
 void CSerialHandler::write(std::string message)
 {
-    std::cout << "Enter message: ";
-    //char request[max_length];
-    std::cin.getline(data, max_length);
-    size_t request_length = std::strlen(data);
-    serial.async_write_some(asio::buffer(data, max_length),
-        std::bind(&CSerialHandler::handle_receive,
-            this, std::placeholders::_1,
-            std::placeholders::_2));
+    asio::error_code ec;
+    m_serial.write_some(asio::buffer(message.data(), message.size()), ec);
 }
 
-CSerialHandler::~CSerialHandler()
+std::vector<std::string> CSerialHandler::getInfo()
 {
+    std::vector<std::string> info;
+    info.push_back(std::to_string(m_id));
+    info.push_back(std::to_string(m_type));
+    info.push_back(m_port);
+    info.push_back(std::to_string(m_baudrate));
+    return info;
 }
 
-void CSerialHandler::init()
+void CSerialHandler::connect()
 {
+    for (IIOModule* m : listenerTable)
+    {
+        writeToListener = true;
+    }
+}
 
+void CSerialHandler::stop()
+{
+    writeToListener = false;
+    outputToConsole = false;
+    m_serial.close();
+    m_context.stop();
+    if (m_thrContext.joinable()) m_thrContext.join();
 }
 
 
 int CSerialHandler::getId()
 {
-    return 0;
+    return m_id;
 }
 
 void CSerialHandler::printInfo()
 {
-    std::cout << "ID: " << m_id << " | Port: " << m_Port << " | Spped: " << m_Baudrate << std::endl;
+    std::cout << "ID: " << m_id << " | Port: " << m_port << " | Baudrate: " << m_baudrate << std::endl;
 }

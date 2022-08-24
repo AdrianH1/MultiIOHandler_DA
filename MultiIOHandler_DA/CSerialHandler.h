@@ -1,38 +1,45 @@
 #pragma once
-//#include "IIOModule.h"
+#include "IIOModule.h"
 #include <string>
 
-class CSerialHandler /* : public IIOModule*/
+class CSerialHandler  : public IIOModule
 {
 public:
 
 
 	CSerialHandler() = default;
-	CSerialHandler(asio::io_service& io_service, std::string port, int bauderate);
+	CSerialHandler(std::string port, int bauderate);
 	~CSerialHandler();
 
-	int m_id;
-	std::string m_Port;
-	int m_Baudrate;
-	asio::serial_port serial;
+	int m_id = -1;
 
 	void run();
+	void init();
 	void stop();
+	int getId();
 
 private:
+	std::string m_port;
+	int m_baudrate;
 
-	void init();
 	void write(std::string message);
 	void read();
 	void connect();
-	void handler(const asio::error_code& error, std::size_t bytes_transferred);
-	void handle_receive(const asio::error_code& error, std::size_t bytes_transferred);
 	void output();
-	int getId();
+	void accept();
+	std::vector<std::string> getInfo();
 	void printInfo();
 
+	bool writeToListener = false;
+	bool outputToConsole = false;
 
-	enum { max_length = 1024 };
-	char data[max_length];
-	char receiveBuffer[max_length];
+	std::vector<char> vBuffer;
+	std::vector <std::string> readBuffer;
+	asio::io_context m_context;
+	asio::serial_port m_serial;
+	std::thread m_thrContext;
+
+	//enum { max_length = 1024 };
+	//char data[max_length];
+	//char receiveBuffer[max_length];
 };
