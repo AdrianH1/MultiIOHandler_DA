@@ -54,9 +54,10 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 						return false;
 					}
 				}
-				else if (type == "serial")
+				else if (type == "serial" && argsCount == 3)
 				{
-
+					//To do input check
+					return true;
 				}
 				else if (type == "file" && argsCount == 2)
 				{

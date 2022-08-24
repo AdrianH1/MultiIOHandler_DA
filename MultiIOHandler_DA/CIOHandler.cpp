@@ -19,9 +19,9 @@ void CIOHandler::createSocket(std::string ip, int unsigned port)
 
 void CIOHandler::createSerial(std::string port, int bauderate)
 {
-	//asio::io_service io_service;
-	//CSerialHandler* serial = new CSerialHandler(io_service, port, bauderate);
-	//modules.push_back(serial);
+	CSerialHandler* serial = new CSerialHandler(port, bauderate);
+	serial->init();
+	modules.push_back(serial);
 }
 
 void CIOHandler::createFile(std::string path)
@@ -57,6 +57,9 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 		}
 		else if (input->at(1) == "serial")
 		{
+			std::string port = input->at(2);
+			int baudrate = atoi(input->at(3).c_str());
+			createSerial(port, baudrate);
 		}
 		else if (input->at(1) == "file")
 		{
