@@ -11,11 +11,11 @@ void CJSONHandler::save(std::string path, std::vector<IIOModule*> &modules)
 	std::ofstream file(path);
 	for (int i = 0; i < modules.size(); i++)
 	{
+		//switch case verwenden@@@
 		if (modules.at(i)->m_type == 1) // Type 1 = Socket TCP
 		{
 			info = modules.at(i)->getInfo();
-			json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"ip", info.at(2)}, {"port", stoi(info.at(3))}};
-
+			json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"ip", info.at(2)}, {"port", stoi(info.at(3))} };
 		}
 		else if (modules.at(i)->m_type == 2) // Type 2 = Socket UDP
 		{
