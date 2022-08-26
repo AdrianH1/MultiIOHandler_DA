@@ -38,8 +38,4 @@ private:
 	asio::io_context m_context;
 	asio::serial_port m_serial;
 	std::thread m_thrContext;
-
-	//enum { max_length = 1024 };
-	//char data[max_length];
-	//char receiveBuffer[max_length];
 };

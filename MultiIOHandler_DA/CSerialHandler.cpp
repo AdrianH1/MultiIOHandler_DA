@@ -5,8 +5,8 @@
 CSerialHandler::CSerialHandler(std::string port, int bauderate)
     : m_port(port), m_baudrate(bauderate), m_serial(m_context)
 {
+    m_type = serial;
     m_id = ++m_idCounter;
-    m_type = 4; //Type 4 = Serial 
     std::cout << "Created Serial Module: " << std::endl;
     printInfo();
 }

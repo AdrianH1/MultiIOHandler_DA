@@ -38,6 +38,5 @@ private:
 	asio::ip::tcp::socket m_socket;
 	std::thread m_thrContext;
 
-	//enum { max_length = 1024 };
-	//char data[max_length];
+	
 };
