@@ -10,4 +10,33 @@ public:
 	CServerSocketHandler(std::string ip, int unsigned port);
 	~CServerSocketHandler();
 
+	void init();
+	void stop();
+	void output();
+
+
+private:
+	void write(std::string message);
+	void read();
+	void connect();
+	std::vector<std::string> getInfo();
+	void printInfo();
+	void accept();
+
+	std::string m_ip;
+	int unsigned m_port;
+
+	bool writeToListener = false;
+	bool outputToConsole = false;
+
+	std::vector<char> vBuffer;
+	std::vector <std::string> readBuffer;
+	asio::io_context m_context;
+	asio::ip::tcp::socket m_socket;
+	std::shared_ptr<asio::ip::tcp::socket> p_socket;
+	asio::ip::tcp::acceptor m_acceptor;
+	std::thread m_thrContext;
+
+	enum { max_length = 1024 };
+	char data[max_length];
 };

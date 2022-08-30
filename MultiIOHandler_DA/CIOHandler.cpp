@@ -2,6 +2,7 @@
 #include <iostream>
 #include "CIOHandler.h"
 #include "CClientSocketHandler.h"
+#include "CServerSocketHandler.h"
 #include "CSerialHandler.h"
 #include "CFileHandler.h"
 #include "IIOModule.h"
@@ -10,9 +11,16 @@
 
 bool running = true;
 
-void CIOHandler::createSocket(std::string ip, int unsigned port)
+void CIOHandler::createClientSocket(std::string ip, int unsigned port)
 {
 	CClientSocketHandler* socket = new CClientSocketHandler(ip, port);
+	socket->init();
+	modules.push_back(socket);
+}
+
+void CIOHandler::createServerSocket(std::string ip, int unsigned port)
+{
+	CServerSocketHandler* socket = new CServerSocketHandler(ip, port);
 	socket->init();
 	modules.push_back(socket);
 }
@@ -53,7 +61,13 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 		{
 			std::string ip = input->at(2);
 			unsigned int port = atoi(input->at(3).c_str());
-			createSocket(ip, port);
+			createClientSocket(ip, port);
+		}
+		if (input->at(1) == "serversocket")
+		{
+			std::string ip = input->at(2);
+			unsigned int port = atoi(input->at(3).c_str());
+			createServerSocket(ip, port);
 		}
 		else if (input->at(1) == "serial")
 		{
@@ -165,28 +179,4 @@ int main(int argc, char* argv[])
 		input = ui.readInput();
 		IOHandler.callFunction(&input);
 	}
-
-	//std::this_thread::sleep_for(std::chrono::seconds(10));
-
-	/*
-	//------Socket Test
-	createSocket("192.168.0.218", 65123);
-	//std::thread t1(static_cast<void(*)(std::string, int unsigned)>(createSocket), "192.168.193.100", 65000);
-	//th2->detach();
-
-	std::cout << "thread id: " << std::this_thread::get_id() << std::endl;
-
-	//------Serial Test
-	//std::thread t2(static_cast<void(*)(std::string, int)>(createModule), "COM1", 115200);
-
-	for (int i = 0; i < 10; i++)
-		std::cout << "test " << i << std::endl;
-
-	std::this_thread::sleep_for(std::chrono::seconds(60));
-
-	for (IIOModule* m : modules)
-	{
-		m->stop();
-	}
-	*/
 }
