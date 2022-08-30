@@ -146,6 +146,7 @@
     <ClInclude Include="CFileHandler.h" />
     <ClInclude Include="CJSONHandler.h" />
     <ClInclude Include="CServer.h" />
+    <ClInclude Include="CServerSocketHandler.h" />
     <ClInclude Include="CUIHandler.h" />
     <ClInclude Include="IIOModule.h" />
     <ClInclude Include="CIOHandler.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="CFileHandler.cpp" />
     <ClCompile Include="CJSONHandler.cpp" />
     <ClCompile Include="CServer.cpp" />
+    <ClCompile Include="CServerSocketHandler.cpp" />
     <ClCompile Include="CUIHandler.cpp" />
     <ClCompile Include="IOModule.cpp" />
     <ClCompile Include="CIOHandler.cpp" />
