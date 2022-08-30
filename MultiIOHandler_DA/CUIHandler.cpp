@@ -33,7 +33,7 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 			std::string type = input->at(1);
 			if (std::find(validModules.begin(), validModules.end(), type) != validModules.end())
 			{
-				if (type == "socket" && argsCount == 3)
+				if (type == "clientsocket" && argsCount == 3)
 				{
 					asio::ip::address::from_string(input->at(2), ec);
 					if (!ec)

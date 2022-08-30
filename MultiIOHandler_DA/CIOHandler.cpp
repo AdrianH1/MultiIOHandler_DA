@@ -49,7 +49,7 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 {
 	if (input->at(0) == "open")
 	{
-		if (input->at(1) == "socket")
+		if (input->at(1) == "clientsocket")
 		{
 			std::string ip = input->at(2);
 			unsigned int port = atoi(input->at(3).c_str());
