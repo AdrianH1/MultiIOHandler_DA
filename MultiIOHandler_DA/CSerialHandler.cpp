@@ -117,12 +117,6 @@ void CSerialHandler::stop()
     if (m_thrContext.joinable()) m_thrContext.join();
 }
 
-
-int CSerialHandler::getId()
-{
-    return m_id;
-}
-
 void CSerialHandler::printInfo()
 {
     std::cout << "ID: " << m_id << " | Port: " << m_port << " | Baudrate: " << m_baudrate << std::endl;

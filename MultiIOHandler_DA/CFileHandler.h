@@ -8,12 +8,9 @@ public:
 	CFileHandler(std::string path);
 	~CFileHandler();
 
-	int m_id = -1;
-	//void run();
 	void stop();
 	void init();
 	void output();
-	int getId();
 
 private:
 	std::string m_Path;

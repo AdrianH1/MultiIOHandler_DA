@@ -16,11 +16,6 @@ CFileHandler::~CFileHandler()
     stop();
 }
 
-//void CFileHandler::run()
-//{
-//
-//}
-
 void CFileHandler::stop()
 {
     writeToListener = false;
@@ -93,12 +88,6 @@ std::vector<std::string> CFileHandler::getInfo()
     info.push_back(m_Path);
     return info;
 }
-
-int CFileHandler::getId()
-{
-    return m_id;
-}
-
 
 void CFileHandler::printInfo()
 {

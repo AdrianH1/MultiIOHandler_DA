@@ -11,12 +11,8 @@ public:
 	CSerialHandler(std::string port, int bauderate);
 	~CSerialHandler();
 
-	int m_id = -1;
-
-	void run();
 	void init();
 	void stop();
-	int getId();
 
 private:
 	std::string m_port;

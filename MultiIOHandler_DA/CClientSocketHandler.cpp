@@ -140,11 +140,6 @@ void CClientSocketHandler::accept()
     
 }
 
-int CClientSocketHandler::getId()
-{
-    return m_id;
-}
-
 void CClientSocketHandler::printInfo()
 {
     std::cout << "ID: " << m_id << " | IP: " << m_ip << " | Port: " << m_port << std::endl;
