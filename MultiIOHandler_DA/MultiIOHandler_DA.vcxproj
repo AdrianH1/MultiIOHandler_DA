@@ -151,7 +151,7 @@
     <ClInclude Include="CIOHandler.h" />
     <ClInclude Include="CSerialHandler.h" />
     <ClInclude Include="Session.h" />
-    <ClInclude Include="CSocketHandler.h" />
+    <ClInclude Include="CClientSocketHandler.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -163,7 +163,7 @@
     <ClCompile Include="CIOHandler.cpp" />
     <ClCompile Include="CSerialHandler.cpp" />
     <ClCompile Include="Session.cpp" />
-    <ClCompile Include="CSocketHandler.cpp" />
+    <ClCompile Include="CClientSocketHandler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

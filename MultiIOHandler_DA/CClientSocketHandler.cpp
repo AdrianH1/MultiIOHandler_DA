@@ -1,10 +1,10 @@
-#include "CSocketHandler.h"
+#include "CClientSocketHandler.h"
 #include "Session.h"
 
 size_t bufferMax = 50;
 
 
-CSocketHandler::CSocketHandler(std::string ip, int unsigned port)
+CClientSocketHandler::CClientSocketHandler(std::string ip, int unsigned port)
     : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(1*512)
 {
     m_id = ++m_idCounter;
@@ -13,7 +13,7 @@ CSocketHandler::CSocketHandler(std::string ip, int unsigned port)
     printInfo();
 }
 
-CSocketHandler::~CSocketHandler()
+CClientSocketHandler::~CClientSocketHandler()
 {
     stop();
 }
@@ -27,7 +27,7 @@ CSocketHandler::~CSocketHandler()
 //    //init();
 //}
 
-void CSocketHandler::init()
+void CClientSocketHandler::init()
 {
     if (m_context.stopped())
     {
@@ -56,7 +56,7 @@ void CSocketHandler::init()
     }
 }
 
-void CSocketHandler::output()
+void CClientSocketHandler::output()
 {
     for (std::string s : readBuffer)
     {
@@ -65,7 +65,7 @@ void CSocketHandler::output()
     outputToConsole = true;
 }
 
-void CSocketHandler::read()
+void CClientSocketHandler::read()
 {
     if (readBuffer.size() == bufferMax)
     {
@@ -102,13 +102,13 @@ void CSocketHandler::read()
     );
 }
 
-void CSocketHandler::write(std::string message)
+void CClientSocketHandler::write(std::string message)
 {
     asio::error_code ec;
     m_socket.write_some(asio::buffer(message.data(), message.size()), ec);
 }
 
-std::vector<std::string> CSocketHandler::getInfo()
+std::vector<std::string> CClientSocketHandler::getInfo()
 {
     std::vector<std::string> info;
     info.push_back(std::to_string(m_id));
@@ -118,7 +118,7 @@ std::vector<std::string> CSocketHandler::getInfo()
     return info;
 }
 
-void CSocketHandler::connect()
+void CClientSocketHandler::connect()
 {
     for (IIOModule* m : listenerTable)
     {
@@ -126,7 +126,7 @@ void CSocketHandler::connect()
     }
 }
 
-void CSocketHandler::stop()
+void CClientSocketHandler::stop()
 {
     writeToListener = false;
     outputToConsole = false;
@@ -135,17 +135,17 @@ void CSocketHandler::stop()
     if (m_thrContext.joinable()) m_thrContext.join();
 }
 
-void CSocketHandler::accept()
+void CClientSocketHandler::accept()
 {
     
 }
 
-int CSocketHandler::getId()
+int CClientSocketHandler::getId()
 {
     return m_id;
 }
 
-void CSocketHandler::printInfo()
+void CClientSocketHandler::printInfo()
 {
     std::cout << "ID: " << m_id << " | IP: " << m_ip << " | Port: " << m_port << std::endl;
 }

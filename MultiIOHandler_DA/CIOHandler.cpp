@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include "CIOHandler.h"
-#include "CSocketHandler.h"
+#include "CClientSocketHandler.h"
 #include "CSerialHandler.h"
 #include "CFileHandler.h"
 #include "IIOModule.h"
@@ -12,7 +12,7 @@ bool running = true;
 
 void CIOHandler::createSocket(std::string ip, int unsigned port)
 {
-	CSocketHandler* socket = new CSocketHandler(ip, port);
+	CClientSocketHandler* socket = new CClientSocketHandler(ip, port);
 	socket->init();
 	modules.push_back(socket);
 }

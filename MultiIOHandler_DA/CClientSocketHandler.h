@@ -3,12 +3,12 @@
 #include "stdafx.h"
 #include "IIOModule.h"
 
-class CSocketHandler : public IIOModule
+class CClientSocketHandler : public IIOModule
 {
 public:
-	CSocketHandler() = default;
-	CSocketHandler(std::string ip, int unsigned port);
-	~CSocketHandler();
+	CClientSocketHandler() = default;
+	CClientSocketHandler(std::string ip, int unsigned port);
+	~CClientSocketHandler();
 
 	int m_id = -1;
 	//void run();

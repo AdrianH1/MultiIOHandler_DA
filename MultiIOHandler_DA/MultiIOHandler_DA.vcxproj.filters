@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CSocketHandler.h">
+    <ClInclude Include="CClientSocketHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IIOModule.h">
@@ -47,7 +47,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CSocketHandler.cpp">
+    <ClCompile Include="CClientSocketHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CIOHandler.cpp">

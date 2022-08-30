@@ -50,7 +50,7 @@ void CJSONHandler::load(std::string path, std::vector<IIOModule*>& modules)
 		{
 			std::string ip = data["Module" + std::to_string(i)]["ip"].get<std::string>();
 			int port = data["Module" + std::to_string(i)]["port"].get<int>();
-			CSocketHandler* socket = new CSocketHandler(ip, port);
+			CClientSocketHandler* socket = new CClientSocketHandler(ip, port);
 			socket->init();
 			modules.push_back(socket);
 		}
