@@ -7,8 +7,9 @@ public:
 	std::vector<std::string> readInput();
 
 private:
-	std::vector<std::string> validCmd = { "open", "connect", "show" , "init", "output", "stop", "remove", "save", "load", "help", "exit" };
-	std::vector<std::string> validModules = { "clientsocket", "file", "serial" };
+	std::vector<std::string> moduleCmd = { "open", "connect", "init", "output", "stop", "remove"};
+	std::vector<std::string> otherCmd = { "show", "save", "load", "help", "exit" };
+	std::vector<std::string> validModuleTypes = { "clientsocket", "serversocket", "file", "serial" };
 
 	bool inputValid(std::vector<std::string>*);
 	std::vector<std::string> separateInput(std::string* inputLine);
