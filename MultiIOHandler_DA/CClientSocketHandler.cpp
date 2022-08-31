@@ -1,7 +1,7 @@
 #include "CClientSocketHandler.h"
 #include "Session.h"
 
-size_t bufferMax = 50;
+static const size_t bufferMax = 50;
 
 
 CClientSocketHandler::CClientSocketHandler(std::string ip, int unsigned port)
