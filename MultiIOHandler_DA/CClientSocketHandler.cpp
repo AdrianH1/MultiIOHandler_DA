@@ -1,5 +1,4 @@
 #include "CClientSocketHandler.h"
-#include "Session.h"
 
 static const size_t bufferMax = 50;
 
