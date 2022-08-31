@@ -59,13 +59,7 @@
     <ClCompile Include="CFileHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Session.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CUIHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CJSONHandler.cpp">

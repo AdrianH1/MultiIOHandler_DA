@@ -156,13 +156,11 @@
   <ItemGroup>
     <ClCompile Include="CFileHandler.cpp" />
     <ClCompile Include="CJSONHandler.cpp" />
-    <ClCompile Include="CServer.cpp" />
     <ClCompile Include="CServerSocketHandler.cpp" />
     <ClCompile Include="CUIHandler.cpp" />
     <ClCompile Include="IOModule.cpp" />
     <ClCompile Include="CIOHandler.cpp" />
     <ClCompile Include="CSerialHandler.cpp" />
-    <ClCompile Include="Session.cpp" />
     <ClCompile Include="CClientSocketHandler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
