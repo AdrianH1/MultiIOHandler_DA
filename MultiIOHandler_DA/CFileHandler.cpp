@@ -24,7 +24,17 @@ void CFileHandler::stop()
 
 void CFileHandler::init()
 {
-    m_thrRead = std::thread([this]() {read(); });
+    std::ifstream file(m_Path);
+    if (file)
+    {
+        file.close();
+        m_thrRead = std::thread([this]() {read(); });
+    }
+    else
+    {
+        file.close();
+        std::cout << "File doesn't exist!" << std::endl;
+    }
 }
 
 void CFileHandler::write(std::string message)
