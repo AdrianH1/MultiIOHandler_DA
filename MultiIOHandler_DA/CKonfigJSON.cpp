@@ -1,4 +1,4 @@
-#include "CJSONHandler.h"
+#include "CKonfigJSON.h"
 #include "CClientSocketHandler.h"
 #include "CServerSocketHandler.h"
 #include "CFileHandler.h"
@@ -6,7 +6,7 @@
 
 using json = nlohmann::json;
 
-void CJSONHandler::save(std::string path, std::vector<IIOModule*> &modules)
+void CKonfigJSON::save(std::string path, std::vector<IIOModule*> &modules)
 {
 	std::vector<std::string> info;
 	json json;
@@ -39,7 +39,7 @@ void CJSONHandler::save(std::string path, std::vector<IIOModule*> &modules)
 }
 
 
-void CJSONHandler::load(std::string path, std::vector<IIOModule*>& modules)
+void CKonfigJSON::load(std::string path, std::vector<IIOModule*>& modules)
 {
 	std::cout << "Loading..." << std::endl;
 	std::fstream f(path);

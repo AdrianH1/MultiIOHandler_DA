@@ -3,7 +3,7 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 
-class CJSONHandler
+class CKonfigJSON
 {
 public:
 	void save(std::string path, std::vector<IIOModule*> &modules);
