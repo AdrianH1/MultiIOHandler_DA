@@ -14,15 +14,6 @@ CClientSocketHandler::~CClientSocketHandler()
     stop();
 }
 
-//void CSocketHandler::run()
-//{
-//    //asio::io_context::work idleWork(m_context);
-//
-//    //m_thrContext = std::thread([this]() {m_context.run(); });
-//
-//    //init();
-//}
-
 void CClientSocketHandler::init()
 {
     if (m_context.stopped())
@@ -73,12 +64,10 @@ void CClientSocketHandler::read()
         {
             if (!ec)
             {
-                //std::cout << "\n\nRead " << length << " bytes\n\n";
                 std::string message = "";
                 for (int i = 0; i < length; i++)
                 {
                     message += vBuffer[i];
-                    //std::cout << vBuffer[i];
                 }
                 readBuffer.push_back(message);
                 if (writeToListener)

@@ -40,21 +40,6 @@ void CServerSocketHandler::init()
 
 }
 
-//void CServerSocketHandler::accept()
-//{
-//	std::cout << "Server socket started, waiting for connection. Listen on " << m_ip << ":" << m_port << std::endl;
-//	m_acceptor.async_accept(m_socket,
-//		[this](std::error_code ec)
-//		{
-//			if (!ec)
-//			{
-//				std::cout << "client connected: " << m_socket.remote_endpoint() << std::endl;
-//				std::cout << std::endl << ">>>";
-//				read();
-//			}
-//		});
-//}
-
 void CServerSocketHandler::stop()
 {
     writeToListener = false;
@@ -83,12 +68,10 @@ void CServerSocketHandler::read()
         {
             if (!ec)
             {
-                //std::cout << "\n\nRead " << length << " bytes\n\n";
                 std::string message = "";
                 for (int i = 0; i < length; i++)
                 {
                     message += vBuffer[i];
-                    //std::cout << vBuffer[i];
                 }
                 readBuffer.push_back(message);
                 if (writeToListener)

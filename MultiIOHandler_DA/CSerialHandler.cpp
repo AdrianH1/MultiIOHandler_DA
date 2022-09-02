@@ -65,12 +65,10 @@ void CSerialHandler::read()
         {
             if (!ec)
             {
-                //std::cout << "\n\nRead " << length << " bytes\n\n";
                 std::string message = "";
                 for (int i = 0; i < length; i++)
                 {
                     message += vBuffer[i];
-                    //std::cout << vBuffer[i];
                 }
                 readBuffer.push_back(message);
                 if (writeToListener)

@@ -10,7 +10,6 @@ static const std::string sStop = "stop";
 static const std::string sRemove = "remove";
 static const std::string sHelp = "help";
 
-
 std::vector<std::string> CInputValidator::readInput()
 {
 	std::string inputLine;
@@ -129,8 +128,6 @@ std::string CInputValidator::lowerCase(std::string inputline)
 	}
 	return result;
 }
-
-
 
 void CInputValidator::displayError(std::string ec)
 {

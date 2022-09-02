@@ -22,7 +22,6 @@ private:
 	std::vector<std::string> getInfo();
 	void printInfo();
 
-	//std::string m_ip;
 	int unsigned m_port;
 
 	bool writeToListener = false;
@@ -33,7 +32,4 @@ private:
 	asio::ip::tcp::socket m_socket;
 	asio::ip::tcp::acceptor m_acceptor;
 	std::thread m_thrContext;
-
-	enum { max_length = 1024 };
-	char data[max_length];
 };

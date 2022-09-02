@@ -10,11 +10,9 @@ public:
 	CClientSocketHandler(std::string ip, int unsigned port);
 	~CClientSocketHandler();
 
-	//void run();
 	void stop();
 	void init();
 	void output();
-
 
 private:
 	std::string m_ip;

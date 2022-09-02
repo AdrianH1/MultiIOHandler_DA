@@ -10,10 +10,8 @@ public:
 	~CIOHandler();
 	void callFunction(std::vector<std::string>* input);
 
-
 private:
 	std::vector<IIOModule*> modules;
-
 
 	void createConsole();
 	void createClientSocket(std::string ip, int unsigned port);
@@ -29,6 +27,4 @@ private:
 	void loadJSON(std::string path);
 	void stopModule(int id);
 	void exitApp();
-
-
 };

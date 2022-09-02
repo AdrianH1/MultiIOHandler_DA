@@ -5,8 +5,6 @@
 class CSerialHandler  : public IIOModule
 {
 public:
-
-
 	CSerialHandler() = default;
 	CSerialHandler(std::string port, int bauderate);
 	~CSerialHandler();
@@ -22,7 +20,6 @@ private:
 	void read();
 	void connect();
 	void output();
-	void accept();
 	std::vector<std::string> getInfo();
 	void printInfo();
 
