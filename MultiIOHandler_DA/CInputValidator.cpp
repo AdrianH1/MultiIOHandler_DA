@@ -31,7 +31,7 @@ bool CInputValidator::inputValid(std::vector<std::string>* input)
 {
 	if (input->size() == 0) { return false; }
 	std::string command = input->at(0);
-	int argsCount = input->size();
+	size_t argsCount = input->size();
 
 	if (std::find(moduleCmd.begin(), moduleCmd.end(), command) != moduleCmd.end())
 	{
@@ -56,6 +56,7 @@ bool CInputValidator::inputValid(std::vector<std::string>* input)
 				{
 					return true;
 				}
+				return false;
 			}
 			else
 			{
@@ -71,6 +72,7 @@ bool CInputValidator::inputValid(std::vector<std::string>* input)
 				{
 					return true;
 				}
+				return false;
 			}
 			else
 			{
