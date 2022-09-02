@@ -6,7 +6,7 @@
 class CIOHandler
 {
 public:
-	CIOHandler() = default;
+	CIOHandler();
 	~CIOHandler();
 	void callFunction(std::vector<std::string>* input);
 
@@ -14,6 +14,8 @@ public:
 private:
 	std::vector<IIOModule*> modules;
 
+
+	void createConsole();
 	void createClientSocket(std::string ip, int unsigned port);
 	void createServerSocket(int unsigned port);
 	void createSerial(std::string port, int bauderate);

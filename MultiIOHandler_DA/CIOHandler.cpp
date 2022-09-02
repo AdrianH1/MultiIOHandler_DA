@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include "CIOHandler.h"
+#include "CConsoleHandler.h"
 #include "CClientSocketHandler.h"
 #include "CServerSocketHandler.h"
 #include "CSerialHandler.h"
@@ -27,6 +28,11 @@ static const std::string sClientSocket = "clientsocket";
 static const std::string sFile = "file";
 static const std::string sSerial = "serial";
 
+void CIOHandler::createConsole()
+{
+	CConsoleHandler* console = new CConsoleHandler();
+	modules.push_back(console);
+}
 
 void CIOHandler::createClientSocket(std::string ip, int unsigned port)
 {
@@ -78,7 +84,7 @@ void CIOHandler::connectModules(int id1, int id2)
 
 void CIOHandler::showModules()
 {
-	if (modules.size() == 0)
+	if (modules.size() == 1)
 	{
 		std::cout << "No modules available!";
 	}
@@ -97,6 +103,7 @@ void CIOHandler::outputToConsole(int id)
 	{
 		if (m->getId() == id)
 		{
+			m->listenerTable.push_back(modules.at(0));
 			m->output();
 			break;
 		}
@@ -160,6 +167,11 @@ void CIOHandler::exitApp()
 	running = false;
 }
 
+
+CIOHandler::CIOHandler()
+{
+	createConsole();
+}
 
 CIOHandler::~CIOHandler()
 {

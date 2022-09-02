@@ -50,7 +50,7 @@ void CSerialHandler::output()
     {
         std::cout << s << std::endl;
     }
-    outputToConsole = true;
+    writeToListener = true;
 }
 
 void CSerialHandler::read()
@@ -68,10 +68,6 @@ void CSerialHandler::read()
                     //std::cout << vBuffer[i];
                 }
                 readBuffer.push_back(message);
-                if (outputToConsole)
-                {
-                    std::cout << message << std::endl;
-                }
                 if (writeToListener)
                 {
                     for (IIOModule* m : listenerTable)

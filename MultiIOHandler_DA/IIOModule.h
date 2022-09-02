@@ -24,6 +24,7 @@ public:
 
 	enum type
 	{
+		console,
 		serverSocket,
 		clientSocket,
 		file,

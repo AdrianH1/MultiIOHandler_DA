@@ -92,10 +92,6 @@ void CServerSocketHandler::read()
                     //std::cout << vBuffer[i];
                 }
                 readBuffer.push_back(message);
-                if (outputToConsole)
-                {
-                    std::cout << message << std::endl;
-                }
                 if (writeToListener)
                 {
                     for (IIOModule* m : listenerTable)
@@ -123,7 +119,7 @@ void CServerSocketHandler::output()
     {
         std::cout << s << std::endl;
     }
-    outputToConsole = true;
+    writeToListener = true;
 }
 
 std::vector<std::string> CServerSocketHandler::getInfo()

@@ -61,7 +61,7 @@ void CClientSocketHandler::output()
     {
         std::cout << s << std::endl;
     }
-    outputToConsole = true;
+    writeToListener = true;
 }
 
 void CClientSocketHandler::read()
@@ -84,10 +84,6 @@ void CClientSocketHandler::read()
                     //std::cout << vBuffer[i];
                 }
                 readBuffer.push_back(message);
-                if (outputToConsole)
-                {
-                    std::cout << message << std::endl;
-                }
                 if (writeToListener)
                 {
                     for (IIOModule* m : listenerTable)

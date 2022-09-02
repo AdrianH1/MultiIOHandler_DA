@@ -53,10 +53,6 @@ void CFileHandler::read()
     {
         if (std::getline(m_fs, message))
         {
-            if (outputToConsole)
-            {
-                std::cout << message << std::endl;
-            }
             if (writeToListener)
             {
                 for (IIOModule* m : listenerTable)
@@ -78,7 +74,7 @@ void CFileHandler::read()
 
 void CFileHandler::output()
 {
-    outputToConsole = true;
+    writeToListener = true;
 }
 
 void CFileHandler::connect()
