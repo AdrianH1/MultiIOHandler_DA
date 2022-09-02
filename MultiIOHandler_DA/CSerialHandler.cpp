@@ -3,7 +3,7 @@
 
 
 CSerialHandler::CSerialHandler(std::string port, int bauderate)
-    : m_port(port), m_baudrate(bauderate), m_serial(m_context)
+    : m_port(port), m_baudrate(bauderate), m_serial(m_context), vBuffer(vBufferSize)
 {
     m_type = serial;
     m_id = ++m_idCounter;
@@ -55,6 +55,11 @@ void CSerialHandler::output()
 
 void CSerialHandler::read()
 {
+    if (readBuffer.size() == bufferMax)
+    {
+        readBuffer.erase(readBuffer.begin());
+    }
+
     m_serial.async_read_some(asio::buffer(vBuffer.data(), vBuffer.size()),
         [this](std::error_code ec, std::size_t length)
         {

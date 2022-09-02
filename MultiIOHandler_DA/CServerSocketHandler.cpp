@@ -1,9 +1,7 @@
 #include "CServerSocketHandler.h"
 
-static const size_t bufferMax = 50;
-
 CServerSocketHandler::CServerSocketHandler(int unsigned port)
-	: m_port(port), m_socket(m_context), vBuffer(1*512),
+	: m_port(port), m_socket(m_context), vBuffer(vBufferSize),
 	m_acceptor(m_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port))
 {
 	m_id = ++m_idCounter;

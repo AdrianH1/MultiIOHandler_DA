@@ -22,6 +22,9 @@ public:
 	int m_id = 0;
 	std::vector<IIOModule*> listenerTable;
 
+	static const size_t bufferMax = 50;
+	static const size_t vBufferSize = 1 * 512;
+
 	enum type
 	{
 		console,

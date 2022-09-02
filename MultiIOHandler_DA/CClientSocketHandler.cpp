@@ -1,10 +1,7 @@
 #include "CClientSocketHandler.h"
 
-static const size_t bufferMax = 50;
-
-
 CClientSocketHandler::CClientSocketHandler(std::string ip, int unsigned port)
-    : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(1*512)
+    : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(vBufferSize)
 {
     m_id = ++m_idCounter;
     m_type = clientSocket;
