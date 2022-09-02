@@ -28,7 +28,6 @@ private:
 	void connect();
 
 	bool writeToListener = false;
-	bool outputToConsole = false;
 
 	std::vector<char> vBuffer;
 	std::vector <std::string> readBuffer;

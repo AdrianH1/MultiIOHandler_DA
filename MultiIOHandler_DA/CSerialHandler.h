@@ -27,7 +27,6 @@ private:
 	void printInfo();
 
 	bool writeToListener = false;
-	bool outputToConsole = false;
 
 	std::vector<char> vBuffer;
 	std::vector <std::string> readBuffer;

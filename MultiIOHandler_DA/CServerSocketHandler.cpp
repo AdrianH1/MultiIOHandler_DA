@@ -59,11 +59,12 @@ void CServerSocketHandler::init()
 
 void CServerSocketHandler::stop()
 {
+    writeToListener = false;
+    listenerTable.clear();
+
 	m_context.stop();
 
 	if (m_thrContext.joinable()) m_thrContext.join();
-
-	std::cout << "Server stopped" << std::endl;
 }
 
 void CServerSocketHandler::write(std::string message)

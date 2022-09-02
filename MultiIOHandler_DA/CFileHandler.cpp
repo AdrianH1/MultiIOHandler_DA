@@ -19,6 +19,7 @@ CFileHandler::~CFileHandler()
 void CFileHandler::stop()
 {
     writeToListener = false;
+    listenerTable.clear();
     m_fs.close();
 }
 

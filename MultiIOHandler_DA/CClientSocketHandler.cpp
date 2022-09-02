@@ -124,7 +124,7 @@ void CClientSocketHandler::connect()
 void CClientSocketHandler::stop()
 {
     writeToListener = false;
-    outputToConsole = false;
+    listenerTable.clear();
     m_socket.close();
     m_context.stop();
     if (m_thrContext.joinable()) m_thrContext.join();

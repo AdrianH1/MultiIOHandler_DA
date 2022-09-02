@@ -26,7 +26,6 @@ private:
 	int unsigned m_port;
 
 	bool writeToListener = false;
-	bool outputToConsole = false;
 
 	std::vector<char> vBuffer;
 	std::vector <std::string> readBuffer;

@@ -17,7 +17,6 @@ private:
 	std::fstream m_fs;
 
 	bool writeToListener = false;
-	bool outputToConsole = false;
 
 	std::thread m_thrRead;
 	std::thread m_thrOutput;
