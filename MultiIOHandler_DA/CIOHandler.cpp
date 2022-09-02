@@ -6,7 +6,7 @@
 #include "CSerialHandler.h"
 #include "CFileHandler.h"
 #include "IIOModule.h"
-#include "CUIHandler.h"
+#include "CInputValidator.h"
 #include "CKonfigJSON.h"
 
 bool running = true;
@@ -229,7 +229,7 @@ int main(int argc, char* argv[])
 	CIOHandler IOHandler;
 
 	std::vector<std::string> input;
-	CUIHandler ui;
+	CInputValidator ui;
 
 	while (running)
 	{

@@ -1,5 +1,5 @@
 #include <sstream>
-#include "CUIHandler.h"
+#include "CInputValidator.h"
 #include "CFileHandler.h"
 
 static const std::string sOpen = "open";
@@ -11,7 +11,7 @@ static const std::string sRemove = "remove";
 static const std::string sHelp = "help";
 
 
-std::vector<std::string> CUIHandler::readInput()
+std::vector<std::string> CInputValidator::readInput()
 {
 	std::string inputLine;
 
@@ -27,7 +27,7 @@ std::vector<std::string> CUIHandler::readInput()
 	return input;
 }
 
-bool CUIHandler::inputValid(std::vector<std::string>* input)
+bool CInputValidator::inputValid(std::vector<std::string>* input)
 {
 	if (input->size() == 0) { return false; }
 	std::string command = input->at(0);
@@ -44,6 +44,7 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 			else
 			{
 				displayError("Invalid module type!");
+				return false;
 			}
 		}
 		else if (command == sConnect)
@@ -55,6 +56,7 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 			else
 			{
 				displayError("Invalid arguments!");
+				return false;
 			}
 		}
 		else if (command == sInit || command == sOutput || command == sStop || command == sRemove)
@@ -66,7 +68,13 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 			else
 			{
 				displayError("Invalid arguments!");
+				return false;
 			}
+		}
+		else
+		{
+			displayError("Invalid command!");
+			return false;
 		}
 	}
 	else if (std::find(otherCmd.begin(), otherCmd.end(), command) != otherCmd.end())
@@ -74,6 +82,7 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 		if (command == sHelp)
 		{
 			displayHelp();
+			return false;
 		}
 		return true;
 	}
@@ -84,7 +93,7 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 	}
 }
 
-std::vector<std::string> CUIHandler::separateInput(std::string* inputLine)
+std::vector<std::string> CInputValidator::separateInput(std::string* inputLine)
 {
 	std::vector<std::string> input;
 	std::stringstream ss(*inputLine);
@@ -98,11 +107,11 @@ std::vector<std::string> CUIHandler::separateInput(std::string* inputLine)
 	return input;
 }
 
-bool CUIHandler::isInteger(const std::string s) {
+bool CInputValidator::isInteger(const std::string s) {
 	return s.find_first_not_of("0123456789") == std::string::npos;
 }
 
-std::string CUIHandler::lowerCase(std::string inputline)
+std::string CInputValidator::lowerCase(std::string inputline)
 {
 	std::string result = "";
 	for (char c : inputline)
@@ -114,14 +123,14 @@ std::string CUIHandler::lowerCase(std::string inputline)
 
 
 
-void CUIHandler::displayError(std::string ec)
+void CInputValidator::displayError(std::string ec)
 {
 	std::cout << "ERROR: -----------------" << std::endl;
 	std::cout << ec << std::endl;
 	std::cout << "------------------------";
 }
 
-void CUIHandler::displayHelp()
+void CInputValidator::displayHelp()
 {
 	std::cout
 		<< "\t\t Help ----------------------------------------" << std::endl << std::endl

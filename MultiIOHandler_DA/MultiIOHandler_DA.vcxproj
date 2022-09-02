@@ -146,7 +146,7 @@
     <ClInclude Include="CFileHandler.h" />
     <ClInclude Include="CKonfigJSON.h" />
     <ClInclude Include="CServerSocketHandler.h" />
-    <ClInclude Include="CUIHandler.h" />
+    <ClInclude Include="CInputValidator.h" />
     <ClInclude Include="IIOModule.h" />
     <ClInclude Include="CIOHandler.h" />
     <ClInclude Include="CSerialHandler.h" />
@@ -157,7 +157,7 @@
     <ClCompile Include="CFileHandler.cpp" />
     <ClCompile Include="CKonfigJSON.cpp" />
     <ClCompile Include="CServerSocketHandler.cpp" />
-    <ClCompile Include="CUIHandler.cpp" />
+    <ClCompile Include="CInputValidator.cpp" />
     <ClCompile Include="IOModule.cpp" />
     <ClCompile Include="CIOHandler.cpp" />
     <ClCompile Include="CSerialHandler.cpp" />

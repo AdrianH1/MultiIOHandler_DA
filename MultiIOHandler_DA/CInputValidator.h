@@ -1,9 +1,9 @@
 #include "stdafx.h"
 
-class CUIHandler
+class CInputValidator
 {
 public:
-	CUIHandler() = default;
+	CInputValidator() = default;
 	std::vector<std::string> readInput();
 
 private:
