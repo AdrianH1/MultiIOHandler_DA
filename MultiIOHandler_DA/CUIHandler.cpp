@@ -8,6 +8,7 @@ static const std::string sInit = "init";
 static const std::string sOutput = "output";
 static const std::string sStop = "stop";
 static const std::string sRemove = "remove";
+static const std::string sHelp = "help";
 
 
 std::vector<std::string> CUIHandler::readInput()
@@ -70,6 +71,10 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 	}
 	else if (std::find(otherCmd.begin(), otherCmd.end(), command) != otherCmd.end())
 	{
+		if (command == sHelp)
+		{
+			displayHelp();
+		}
 		return true;
 	}
 	else
@@ -78,182 +83,6 @@ bool CUIHandler::inputValid(std::vector<std::string>* input)
 		return false;
 	}
 }
-
-//bool CUIHandler::inputValid(std::vector<std::string>* input)
-//{
-//	if (input->size() == 0) { return false; }
-//	size_t argsCount = input->size() - 1;
-//	std::string command = input->at(0);
-//	asio::error_code ec;
-//
-//	if (std::find(validCmd.begin(), validCmd.end(), command) != validCmd.end())
-//	{
-//		//Command open allows three arguments
-//		if (command == "open")
-//		{
-//			std::string type = input->at(1);
-//			if (std::find(validModules.begin(), validModules.end(), type) != validModules.end())
-//			{
-//				if ((type == "clientsocket" || type == "serversocket") && argsCount == 3)
-//				{
-//					asio::ip::address::from_string(input->at(2), ec);
-//					if (!ec)
-//					{
-//						if (atoi(input->at(3).c_str()) < 65535)
-//						{
-//							return true;
-//						}
-//						else
-//						{
-//							displayError("Invalid Port!");
-//							return false;
-//						}
-//					}
-//					else
-//					{
-//						displayError("Invalid IP!");
-//						return false;
-//					}
-//				}
-//				else if (type == "serial" && argsCount == 3)
-//				{
-//					//To do input check
-//					return true;
-//				}
-//				else if (type == "file" && argsCount == 2)
-//				{
-//					std::ifstream file(input->at(2));
-//					if (file)
-//					{
-//						return true;
-//					}
-//					else
-//					{
-//						displayError("File does not exist!");
-//						return false;
-//					}
-//				}
-//				else
-//				{
-//					displayError("Invalid arguments!");
-//					return false;
-//				}
-//			}
-//		}
-//		//Command init takes one argument
-//		else if (command == "init" && argsCount == 1)
-//		{
-//			if (isInteger(input->at(1)))
-//			{
-//				return true;
-//			}
-//			else
-//			{
-//				displayError("Invalid ID!");
-//				return false;
-//			}
-//		}
-//		//Command output takes one argument
-//		else if (command == "output" && argsCount == 1)
-//		{
-//			if (isInteger(input->at(1)))
-//			{
-//				return true;
-//			}
-//			else
-//			{
-//				displayError("Invalid ID!");
-//				return false;
-//			}
-//		}
-//		//Command show doesn't take arguments
-//		else if (command == "show" && argsCount == 0)
-//		{
-//			return true;
-//		}
-//		//Command connect takes two argument
-//		else if (command == "connect" && argsCount == 2)
-//		{
-//			if (isInteger(input->at(1)) && isInteger(input->at(2)))
-//			{
-//				return true;
-//			}
-//			else
-//			{
-//				displayError("Invalid IDs!");
-//				return false;
-//			}
-//		}
-//		//Command save takes one argument
-//		else if (command == "save" && argsCount == 1)
-//		{
-//			std::ifstream file(input->at(1));
-//			if (file)
-//			{
-//				return true;
-//			}
-//			else
-//			{
-//				displayError("File does not exist!");
-//				return false;
-//			}
-//		}
-//		//Command load takes one argument
-//		else if (command == "load" && argsCount == 1)
-//		{
-//			std::ifstream file(input->at(1));
-//			if (file)
-//			{
-//				return true;
-//			}
-//			else
-//			{
-//				displayError("File does not exist!");
-//				return false;
-//			}
-//		}
-//		//Command stop doesn't take arguments
-//		else if (command == "stop" && argsCount == 0)
-//		{
-//			return true;
-//		}
-//		//Command remove takes one argument
-//		else if (command == "remove" && argsCount == 1)
-//		{
-//			if (isInteger(input->at(1)))
-//			{
-//				return true;
-//			}
-//			else
-//			{
-//				displayError("Invalid ID!");
-//				return false;
-//			}
-//		}
-//		//Command help doesn't take arguments
-//		else if (command == "help" && argsCount == 0)
-//		{
-//			displayHelp();
-//			return true;
-//		}
-//		//Command exit doesn't take arguments
-//		else if (command == "exit" && argsCount == 0)
-//		{
-//			return true;
-//		}
-//		else
-//		{
-//			displayError("Invalid arguments!");
-//			return false;
-//		}
-//	}
-//	else
-//	{
-//		displayError("Invalid command!");
-//		return false;
-//	}
-//}
-
 
 std::vector<std::string> CUIHandler::separateInput(std::string* inputLine)
 {

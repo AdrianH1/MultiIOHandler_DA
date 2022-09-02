@@ -36,7 +36,7 @@
     <ClInclude Include="CUIHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CJSONHandler.h">
+    <ClInclude Include="CKonfigJSON.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CServerSocketHandler.h">
@@ -62,7 +62,7 @@
     <ClCompile Include="CUIHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CJSONHandler.cpp">
+    <ClCompile Include="CKonfigJSON.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CServerSocketHandler.cpp">

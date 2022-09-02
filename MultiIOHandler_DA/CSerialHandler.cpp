@@ -119,5 +119,5 @@ void CSerialHandler::stop()
 
 void CSerialHandler::printInfo()
 {
-    std::cout << "ID: " << m_id << " | Port: " << m_port << " | Baudrate: " << m_baudrate << std::endl;
+    std::cout << "ID: " << m_id << " | Type: " << "serial" << " | Port: " << m_port << " | Baudrate: " << m_baudrate << std::endl;
 }

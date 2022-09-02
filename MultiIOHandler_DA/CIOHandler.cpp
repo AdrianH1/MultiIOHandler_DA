@@ -7,7 +7,7 @@
 #include "CFileHandler.h"
 #include "IIOModule.h"
 #include "CUIHandler.h"
-#include "CJSONHandler.h"
+#include "CKonfigJSON.h"
 
 bool running = true;
 
@@ -21,6 +21,11 @@ static const std::string sShow = "show";
 static const std::string sSave = "save";
 static const std::string sLoad = "load";
 static const std::string sExit = "exit";
+
+static const std::string sServerSocket = "serversocket";
+static const std::string sClientSocket = "clientsocket";
+static const std::string sFile = "file";
+static const std::string sSerial = "serial";
 
 
 void CIOHandler::createClientSocket(std::string ip, int unsigned port)
@@ -86,6 +91,18 @@ void CIOHandler::showModules()
 	}
 }
 
+void CIOHandler::outputToConsole(int id)
+{
+	for (IIOModule* m : modules)
+	{
+		if (m->getId() == id)
+		{
+			m->output();
+			break;
+		}
+	}
+}
+
 void CIOHandler::initModules(int id)
 {
 	for (IIOModule* m : modules)
@@ -112,13 +129,13 @@ void CIOHandler::removeModule(int id)
 
 void CIOHandler::saveJSON(std::string path)
 {
-	CJSONHandler json;
+	CKonfigJSON json;
 	json.save(path, modules);
 }
 
 void CIOHandler::loadJSON(std::string path)
 {
-	CJSONHandler json;
+	CKonfigJSON json;
 	json.load(path, modules);
 }
 
@@ -152,19 +169,19 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 {
 	if (input->at(0) == sOpen)
 	{
-		if (input->at(1) == "clientsocket")
+		if (input->at(1) == sClientSocket)
 		{
 			createClientSocket(input->at(2), atoi(input->at(3).c_str()));
 		}
-		if (input->at(1) == "serversocket")
+		else if (input->at(1) == sServerSocket)
 		{
 			createServerSocket(atoi(input->at(2).c_str()));
 		}
-		else if (input->at(1) == "serial")
+		else if (input->at(1) == sSerial)
 		{
 			createSerial(input->at(2), atoi(input->at(3).c_str()));
 		}
-		else if (input->at(1) == "file")
+		else if (input->at(1) == sFile)
 		{
 			createFile(input->at(2));
 		}
@@ -177,16 +194,9 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 	{
 		initModules(atoi(input->at(1).c_str()));
 	}
-	else if (input->at(0) == "output")
+	else if (input->at(0) == sOutput)
 	{
-		for (IIOModule* m : modules)
-		{
-			if (m->getId() == atoi(input->at(1).c_str()))
-			{
-				m->output();
-				break;
-			}
-		}
+		outputToConsole(atoi(input->at(1).c_str()));
 	}
 	else if (input->at(0) == sConnect)
 	{

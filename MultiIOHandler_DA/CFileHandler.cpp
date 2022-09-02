@@ -101,5 +101,5 @@ std::vector<std::string> CFileHandler::getInfo()
 
 void CFileHandler::printInfo()
 {
-    std::cout << "ID: " << m_id << " | Path: " << m_Path << std::endl;
+    std::cout << "ID: " << m_id << " | Type: " << "file" << " | Path: " << m_Path << std::endl;
 }

@@ -137,5 +137,5 @@ std::vector<std::string> CServerSocketHandler::getInfo()
 
 void CServerSocketHandler::printInfo()
 {
-	std::cout << "ID: " << m_id << " | Port: " << m_port << std::endl;
+	std::cout << "ID: " << m_id << " | Type: " << "serverSocket" << " | Port: " << m_port << std::endl;
 }

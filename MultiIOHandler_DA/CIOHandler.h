@@ -20,6 +20,7 @@ private:
 	void createFile(std::string path);
 	void connectModules(int id1, int id2);
 	void showModules();
+	void outputToConsole(int id);
 	void initModules(int id);
 	void removeModule(int id);
 	void saveJSON(std::string path);

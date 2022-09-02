@@ -141,5 +141,5 @@ void CClientSocketHandler::accept()
 
 void CClientSocketHandler::printInfo()
 {
-    std::cout << "ID: " << m_id << " | IP: " << m_ip << " | Port: " << m_port << std::endl;
+    std::cout << "ID: " << m_id << " | Type: " << "clientSocket" << " | IP: " << m_ip << " | Port: " << m_port << std::endl;
 }
