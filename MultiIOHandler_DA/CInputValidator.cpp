@@ -31,6 +31,7 @@ bool CInputValidator::inputValid(std::vector<std::string>* input)
 {
 	if (input->size() == 0) { return false; }
 	std::string command = input->at(0);
+	int argsCount = input->size();
 
 	if (std::find(moduleCmd.begin(), moduleCmd.end(), command) != moduleCmd.end())
 	{
@@ -49,9 +50,12 @@ bool CInputValidator::inputValid(std::vector<std::string>* input)
 		}
 		else if (command == sConnect)
 		{
-			if (isInteger(input->at(1)) && isInteger(input->at(2)))
+			if (argsCount == 3)
 			{
-				return true;
+				if (isInteger(input->at(1)) && isInteger(input->at(2)))
+				{
+					return true;
+				}
 			}
 			else
 			{
@@ -61,9 +65,12 @@ bool CInputValidator::inputValid(std::vector<std::string>* input)
 		}
 		else if (command == sInit || command == sOutput || command == sStop || command == sRemove)
 		{
-			if (isInteger(input->at(1)))
+			if (argsCount == 2)
 			{
-				return true;
+				if (isInteger(input->at(1)))
+				{
+					return true;
+				}
 			}
 			else
 			{
@@ -133,14 +140,31 @@ void CInputValidator::displayError(std::string ec)
 void CInputValidator::displayHelp()
 {
 	std::cout
-		<< "\t\t Help ----------------------------------------" << std::endl << std::endl
-		<< "\t\t open \t\t -> \t This is a text for the open command" << std::endl
-		<< "\t\t show \t\t -> \t This is a text for the show command" << std::endl
-		<< "\t\t init \t\t -> \t This is a text for the init command" << std::endl
-		<< "\t\t output \t\t -> \t This is a text for the output command" << std::endl
-		<< "\t\t connect \t -> \t This is a text for the connect command" << std::endl
-		<< "\t\t help \t\t -> \t This is a text for the help command" << std::endl
-		<< "\t\t exit \t\t -> \t This is a text for the exit command" << std::endl << std::endl
-		<< "\t\t ---------------------------------------------"
+		<< "\t Help ----------------------------------------" << std::endl
+		<< std::endl << "\t open \t\t -> \t Creates an IO Module." << std::endl
+		<< "\t\t\t\t Parameters are different for each module type:" << std::endl
+		<< "\t\t\t\t serversocket: Port" << std::endl
+		<< "\t\t\t\t clientsocket: IP Port" << std::endl
+		<< "\t\t\t\t file: Path" << std::endl
+		<< "\t\t\t\t serial: Port baudrate" << std::endl << std::endl
+		<< "\t\t\t\t Example for clientsocket:" << std::endl
+		<< "\t\t\t\t open clientsocket 127.0.0.1 65123" << std::endl
+		<< std::endl << "\t show \t\t -> \t Displays all modules" << std::endl
+		<< "\t\t\t\t This command has no parameters" << std::endl
+		<< std::endl << "\t init \t\t -> \t Initializes a Module" << std::endl
+		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl << std::endl
+		<< "\t\t\t\t Example to initialize module with ID 3:" << std::endl
+		<< "\t\t\t\t init 3" << std::endl
+		<< std::endl << "\t output \t -> \t Writes data of a module to console" << std::endl
+		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl << std::endl
+		<< "\t\t\t\t Example to write data from module with ID 5 to console:" << std::endl
+		<< "\t\t\t\t output 5" << std::endl
+		<< std::endl << "\t connect \t -> \t Connects two modules unidirectional" << std::endl
+		<< "\t\t\t\t This command takes two IDs as a Parameters" << std::endl << std::endl
+		<< "\t\t\t\t Example to connect write data from module 1 to module 4:" << std::endl
+		<< "\t\t\t\t output 1 4" << std::endl
+		<< std::endl << "\t help \t\t -> \t Displays this help" << std::endl
+		<< std::endl << "\t exit \t\t -> \t Exit the application" << std::endl << std::endl
+		<< "\t ---------------------------------------------"
 		<< std::endl;
 }
