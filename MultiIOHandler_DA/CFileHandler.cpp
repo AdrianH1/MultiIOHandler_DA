@@ -19,8 +19,10 @@ CFileHandler::~CFileHandler()
 void CFileHandler::stop()
 {
     writeToListener = false;
+    reading = false;
     listenerTable.clear();
     m_fs.close();
+    if (m_thrRead.joinable()) m_thrRead.join();
 }
 
 void CFileHandler::init()
@@ -29,6 +31,7 @@ void CFileHandler::init()
     if (file)
     {
         file.close();
+        reading = true;
         m_thrRead = std::thread([this]() {read(); });
     }
     else
@@ -50,7 +53,7 @@ void CFileHandler::read()
 {
     m_fs.open(m_Path, std::ios::in);
     std::string message;
-    while (true)
+    while (reading)
     {
         if (std::getline(m_fs, message))
         {
