@@ -3,10 +3,11 @@
 
 
 CFileHandler::CFileHandler(std::string path)
-    : m_Path(path)
+    : m_path(path)
 {
     m_type = file;
     m_id = ++m_idCounter;
+    m_connected = false;
     std::cout << "Created File Module: " << std::endl;
     printInfo();
 }
@@ -20,6 +21,7 @@ void CFileHandler::stop()
 {
     writeToListener = false;
     reading = false;
+    m_connected = false;
     listenerTable.clear();
     m_fs.close();
     if (m_thrRead.joinable()) m_thrRead.join();
@@ -27,11 +29,13 @@ void CFileHandler::stop()
 
 void CFileHandler::init()
 {
-    std::ifstream file(m_Path);
+    std::ifstream file(m_path);
     if (file)
     {
         file.close();
         reading = true;
+        m_connected = true;
+        std::cout << "Connected!" << std::endl;
         m_thrRead = std::thread([this]() {read(); });
     }
     else
@@ -44,14 +48,14 @@ void CFileHandler::init()
 void CFileHandler::write(std::string message)
 {
     std::cout << "Writing to file" << std::endl;
-    m_fs.open(m_Path, std::ios::app);
+    m_fs.open(m_path, std::ios::app);
     m_fs << message << std::endl;
     m_fs.close();
 }
 
 void CFileHandler::read()
 {
-    m_fs.open(m_Path, std::ios::in);
+    m_fs.open(m_path, std::ios::in);
     std::string message;
     while (reading)
     {
@@ -95,11 +99,11 @@ std::vector<std::string> CFileHandler::getInfo()
     std::vector<std::string> info;
     info.push_back(std::to_string(m_id));
     info.push_back(std::to_string(m_type));
-    info.push_back(m_Path);
+    info.push_back(m_path);
     return info;
 }
 
 void CFileHandler::printInfo()
 {
-    std::cout << "ID: " << m_id << " | Type: " << "file" << " | Path: " << m_Path << std::endl;
+    std::cout << "ID: " << m_id << " | Type: " << "file" << " | Path: " << m_path << " | Connected: " << (m_connected ? "true" : "false") << std::endl;
 }

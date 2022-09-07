@@ -13,7 +13,7 @@ public:
 	void output();
 
 private:
-	std::string m_Path;
+	std::string m_path;
 	std::fstream m_fs;
 
 	bool writeToListener = false;

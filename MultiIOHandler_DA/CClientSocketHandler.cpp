@@ -5,6 +5,7 @@ CClientSocketHandler::CClientSocketHandler(std::string ip, int unsigned port)
 {
     m_id = ++m_idCounter;
     m_type = clientSocket;
+    m_connected = false;
     std::cout << "Created Socket Module: " << std::endl;
     printInfo();
 }
@@ -32,6 +33,7 @@ void CClientSocketHandler::init()
 
     if (!ec)
     {
+        m_connected = true;
         std::cout << "Connected!" << std::endl;
         read();
     }
@@ -110,6 +112,7 @@ void CClientSocketHandler::connect()
 void CClientSocketHandler::stop()
 {
     writeToListener = false;
+    m_connected = false;
     listenerTable.clear();
     m_socket.close();
     m_context.stop();
@@ -123,5 +126,5 @@ void CClientSocketHandler::accept()
 
 void CClientSocketHandler::printInfo()
 {
-    std::cout << "ID: " << m_id << " | Type: " << "clientSocket" << " | IP: " << m_ip << " | Port: " << m_port << std::endl;
+    std::cout << "ID: " << m_id << " | Type: " << "clientSocket" << " | IP: " << m_ip << " | Port: " << m_port << " | Connected: " << (m_connected ? "true" : "false") << std::endl;
 }

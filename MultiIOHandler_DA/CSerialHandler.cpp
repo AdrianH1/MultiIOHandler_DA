@@ -7,6 +7,7 @@ CSerialHandler::CSerialHandler(std::string port, int bauderate)
 {
     m_type = serial;
     m_id = ++m_idCounter;
+    m_connected = false;
     std::cout << "Created Serial Module: " << std::endl;
     printInfo();
 }
@@ -34,6 +35,7 @@ void CSerialHandler::init()
     if (!ec)
     {
         std::cout << "Connected!" << std::endl;
+        m_connected = true;
         read();
     }
     else
@@ -110,6 +112,7 @@ void CSerialHandler::connect()
 void CSerialHandler::stop()
 {
     writeToListener = false;
+    m_connected = false;
     listenerTable.clear();
     m_serial.close();
     m_context.stop();
@@ -118,5 +121,5 @@ void CSerialHandler::stop()
 
 void CSerialHandler::printInfo()
 {
-    std::cout << "ID: " << m_id << " | Type: " << "serial" << " | Port: " << m_port << " | Baudrate: " << m_baudrate << std::endl;
+    std::cout << "ID: " << m_id << " | Type: " << "serial" << " | Port: " << m_port << " | Baudrate: " << m_baudrate << " | Connected: " << (m_connected ? "true" : "false") << std::endl;
 }

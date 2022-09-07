@@ -6,6 +6,7 @@ CServerSocketHandler::CServerSocketHandler(int unsigned port)
 {
 	m_id = ++m_idCounter;
 	m_type = serverSocket;
+    m_connected = false;
 	std::cout << "Created Server Socket Module: " << std::endl;
 	printInfo();
 }
@@ -34,6 +35,7 @@ void CServerSocketHandler::init()
 			{
 				std::cout << "client connected: " << m_socket.remote_endpoint() << std::endl;
 				std::cout << std::endl << ">>>";
+                m_connected = true;
 				read();
 			}
 		});
@@ -43,6 +45,7 @@ void CServerSocketHandler::init()
 void CServerSocketHandler::stop()
 {
     writeToListener = false;
+    m_connected = false;
     listenerTable.clear();
 
 	m_context.stop();
@@ -115,5 +118,5 @@ std::vector<std::string> CServerSocketHandler::getInfo()
 
 void CServerSocketHandler::printInfo()
 {
-	std::cout << "ID: " << m_id << " | Type: " << "serverSocket" << " | Port: " << m_port << std::endl;
+	std::cout << "ID: " << m_id << " | Type: " << "serverSocket" << " | Port: " << m_port << " | Connected: " << (m_connected ? "true" : "false") << std::endl;
 }
