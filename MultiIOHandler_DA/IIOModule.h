@@ -16,15 +16,6 @@ public:
 	virtual std::vector<std::string> getInfo() = 0;
 	virtual void printInfo() = 0;
 
-	int getId() { return m_id; };
-
-	static int m_idCounter;
-	int m_id = 0;
-	std::vector<IIOModule*> listenerTable;
-
-	static const size_t bufferMax = 50;
-	static const size_t vBufferSize = 1 * 512;
-
 	enum type
 	{
 		console,
@@ -34,7 +25,22 @@ public:
 		serial
 	};
 
+	int m_id = 0;
+	static int m_idCounter;
 	type m_type;
+	bool m_connected;
+
+	
+	std::vector<IIOModule*> listenerTable;
+
+	static const size_t bufferMax = 50;
+	static const size_t vBufferSize = 1 * 512;
+
+
+		
 private:
+	
+
+	
 	
 };

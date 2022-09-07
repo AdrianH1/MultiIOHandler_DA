@@ -67,14 +67,14 @@ void CIOHandler::connectModules(int id1, int id2)
 	IIOModule* first{};
 	for (IIOModule* m : modules)
 	{
-		if (m->getId() == id1)
+		if (m->m_id == id1)
 		{
 			first = m;
 		}
 	}
 	for (IIOModule* m : modules)
 	{
-		if (m->getId() == id2 && first != nullptr)
+		if (m->m_id == id2 && first != nullptr)
 		{
 			first->listenerTable.push_back(m);
 			first->connect();
@@ -101,7 +101,7 @@ void CIOHandler::outputToConsole(int id)
 {
 	for (IIOModule* m : modules)
 	{
-		if (m->getId() == id)
+		if (m->m_id == id)
 		{
 			m->listenerTable.push_back(modules.at(0));
 			m->output();
@@ -114,7 +114,7 @@ void CIOHandler::initModules(int id)
 {
 	for (IIOModule* m : modules)
 	{
-		if (m->getId() == id)
+		if (m->m_id == id)
 		{
 			m->init();
 			break;
@@ -126,7 +126,7 @@ void CIOHandler::removeModule(int id)
 {
 	for (int i = 0; i < modules.size(); i++)
 	{
-		if (modules.at(i)->getId() == id)
+		if (modules.at(i)->m_id == id)
 		{
 			modules.erase(modules.begin() + i);
 			break;
@@ -150,7 +150,7 @@ void CIOHandler::stopModule(int id)
 {
 	for (IIOModule* m : modules)
 	{
-		if (m->getId() == id)
+		if (m->m_id == id)
 		{
 			m->stop();
 			break;

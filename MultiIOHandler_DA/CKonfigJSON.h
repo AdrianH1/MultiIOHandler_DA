@@ -7,7 +7,7 @@ class CKonfigJSON
 {
 public:
 	void save(std::string path, std::vector<IIOModule*> &modules);
-	void load(std::string path, std::vector<IIOModule*>& modules);
+	void load(std::string path, std::vector<IIOModule*> &modules);
 
 private:
 
