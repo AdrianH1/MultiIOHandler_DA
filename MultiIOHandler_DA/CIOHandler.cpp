@@ -103,6 +103,7 @@ void CIOHandler::outputToConsole(int id)
 	{
 		if (m->m_id == id)
 		{
+			//@@@check if module is connected
 			m->listenerTable.push_back(modules.at(0));
 			m->output();
 			break;

@@ -16,6 +16,8 @@ private:
 	std::string m_path;
 	std::fstream m_fs;
 
+	//@@@ add time in seconds for read
+
 	bool writeToListener = false;
 	bool reading = true;
 
