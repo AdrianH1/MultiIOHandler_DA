@@ -2,8 +2,8 @@
 
 CConsoleHandler::CConsoleHandler()
 {
-	m_id = 0;
-	m_tModule = console;
+	setId(0);
+	setModuleType(console);
 }
 
 CConsoleHandler::~CConsoleHandler()

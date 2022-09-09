@@ -6,7 +6,6 @@
 class IIOModule
 {
 public:
-
 	virtual void init() = 0;
 	virtual void stop() = 0;
 	virtual void write(std::string message) = 0; //@@@semaphore
@@ -27,18 +26,23 @@ public:
 		endOfType
 	} tModule;
 
-	int m_id = 0;
-	static int m_idCounter;
-	tModule m_tModule;
-	bool m_connected;
-
+	void setId(int id) { m_id = id; };
+	const int getId() { return m_id; };
+	void setModuleType(tModule tModule) { m_tModule = tModule; };
+	const int getModuleType() { return m_tModule; };
+	void setConnectedState(bool state) { m_connected = state; };
+	const int getConnectedState() { return m_connected; };
 	
 	std::vector<IIOModule*> listenerTable;
 
+	static int m_idCounter;
 	static const size_t bufferMax = 50;
 	static const size_t vBufferSize = 1 * 512;
 			
 private:
+	int m_id;
+	tModule m_tModule;
+	bool m_connected;
 	
 
 	

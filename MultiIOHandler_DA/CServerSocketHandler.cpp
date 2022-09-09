@@ -4,9 +4,9 @@ CServerSocketHandler::CServerSocketHandler(int unsigned port)
 	: m_port(port), m_socket(m_context), vBuffer(vBufferSize),
 	m_acceptor(m_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port))
 {
-	m_id = ++m_idCounter;
-	m_tModule = serverSocket;
-    m_connected = false;
+    setId(++m_idCounter);
+    setModuleType(serverSocket);
+    setConnectedState(false);
 	std::cout << "Created Server Socket Module: " << std::endl;
 	printInfo();
 }
@@ -35,7 +35,7 @@ void CServerSocketHandler::init()
 			{
 				std::cout << "client connected: " << m_socket.remote_endpoint() << std::endl;
 				std::cout << std::endl << ">>>";
-                m_connected = true;
+                setConnectedState(true);
 				read();
 			}
 		});
@@ -45,7 +45,7 @@ void CServerSocketHandler::init()
 void CServerSocketHandler::stop()
 {
     writeToListener = false;
-    m_connected = false;
+    setConnectedState(false);
     listenerTable.clear();
 
 	m_context.stop();
@@ -110,13 +110,13 @@ void CServerSocketHandler::output()
 std::vector<std::string> CServerSocketHandler::getInfo()
 {
     std::vector<std::string> info;
-    info.push_back(std::to_string(m_id));
-    info.push_back(std::to_string(m_tModule));
+    info.push_back(std::to_string(getId()));
+    info.push_back(std::to_string(getModuleType()));
     info.push_back(std::to_string(m_port));
     return info;
 }
 
 void CServerSocketHandler::printInfo()
 {
-	std::cout << "ID: " << m_id << " | Type: " << "serverSocket" << " | Port: " << m_port << " | Connected: " << (m_connected ? "true" : "false") << std::endl;
+	std::cout << "ID: " << getId() << " | Type: " << "serverSocket" << " | Port: " << m_port << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
 }

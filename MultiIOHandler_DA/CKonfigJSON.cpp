@@ -13,21 +13,21 @@ void CKonfigJSON::save(std::string path, std::vector<IIOModule*> &modules)
 	std::ofstream file(path);
 	for (int i = 0; i < modules.size(); i++)
 	{
-		switch (modules.at(i)->m_tModule)
+		switch (modules.at(i)->getModuleType())
 		{
-		case IIOModule::type::clientSocket:
+		case IIOModule::tModule::clientSocket:
 			info = modules.at(i)->getInfo();
 			json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"ip", info.at(2)}, {"port", stoi(info.at(3))}};
 			break;
-		case IIOModule::type::serverSocket:
+		case IIOModule::tModule::serverSocket:
 			info = modules.at(i)->getInfo();
 			json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"port", stoi(info.at(2))} };
 			break;
-		case IIOModule::type::file:
+		case IIOModule::tModule::file:
 			info = modules.at(i)->getInfo();
 			json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"path", info.at(2)} };
 			break;
-		case IIOModule::type::serial:
+		case IIOModule::tModule::serial:
 			info = modules.at(i)->getInfo();
 			json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"port", info.at(2)}, {"baudrate", stoi(info.at(3))} };
 		default:
@@ -46,14 +46,14 @@ void CKonfigJSON::load(std::string path, std::vector<IIOModule*>& modules)
 	json data = json::parse(f);
 	for (int i = 0; i < data.size(); i++)
 	{
-		if (data["Module" + std::to_string(i)]["type"] == IIOModule::type::serverSocket)
+		if (data["Module" + std::to_string(i)]["type"] == IIOModule::tModule::serverSocket)
 		{
 			int port = data["Module" + std::to_string(i)]["port"].get<int>();
 			CServerSocketHandler* socket = new CServerSocketHandler(port);
 			socket->init();
 			modules.push_back(socket);
 		}
-		else if (data["Module" + std::to_string(i)]["type"] == IIOModule::type::clientSocket)
+		else if (data["Module" + std::to_string(i)]["type"] == IIOModule::tModule::clientSocket)
 		{
 			std::string ip = data["Module" + std::to_string(i)]["ip"].get<std::string>();
 			int port = data["Module" + std::to_string(i)]["port"].get<int>();
@@ -61,14 +61,14 @@ void CKonfigJSON::load(std::string path, std::vector<IIOModule*>& modules)
 			socket->init();
 			modules.push_back(socket);
 		}
-		else if (data["Module" + std::to_string(i)]["type"] == IIOModule::type::file)
+		else if (data["Module" + std::to_string(i)]["type"] == IIOModule::tModule::file)
 		{
 			std::string path = data["Module" + std::to_string(i)]["path"].get<std::string>();
 			CFileHandler* file = new CFileHandler(path);
 			file->init();
 			modules.push_back(file);
 		}
-		else if (data["Module" + std::to_string(i)]["type"] == IIOModule::type::serial)
+		else if (data["Module" + std::to_string(i)]["type"] == IIOModule::tModule::serial)
 		{
 			std::string port = data["Module" + std::to_string(i)]["port"].get<std::string>();
 			int baudrate = data["Module" + std::to_string(i)]["baudrate"].get<int>();

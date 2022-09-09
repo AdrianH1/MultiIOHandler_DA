@@ -3,9 +3,9 @@
 CClientSocketHandler::CClientSocketHandler(std::string ip, int unsigned port)
     : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(vBufferSize)
 {
-    m_id = ++m_idCounter;
-    m_tModule = clientSocket;
-    m_connected = false;
+    setId(++m_idCounter);
+    setModuleType(clientSocket);
+    setConnectedState(false);
     std::cout << "Created Socket Module: " << std::endl;
     printInfo();
 }
@@ -33,7 +33,7 @@ void CClientSocketHandler::init()
 
     if (!ec)
     {
-        m_connected = true;
+        setConnectedState(true);
         std::cout << "Connected!" << std::endl;
         read();
     }
@@ -94,8 +94,8 @@ void CClientSocketHandler::write(std::string message)
 std::vector<std::string> CClientSocketHandler::getInfo()
 {
     std::vector<std::string> info;
-    info.push_back(std::to_string(m_id));
-    info.push_back(std::to_string(m_tModule));
+    info.push_back(std::to_string(getId()));
+    info.push_back(std::to_string(getModuleType()));
     info.push_back(m_ip);
     info.push_back(std::to_string(m_port));
     return info;
@@ -112,7 +112,7 @@ void CClientSocketHandler::connect()
 void CClientSocketHandler::stop()
 {
     writeToListener = false;
-    m_connected = false;
+    setConnectedState(false);
     listenerTable.clear();
     m_socket.close();
     m_context.stop();
@@ -126,5 +126,5 @@ void CClientSocketHandler::accept()
 
 void CClientSocketHandler::printInfo()
 {
-    std::cout << "ID: " << m_id << " | Type: " << "clientSocket" << " | IP: " << m_ip << " | Port: " << m_port << " | Connected: " << (m_connected ? "true" : "false") << std::endl;
+    std::cout << "ID: " << getId() << " | Type: " << "clientSocket" << " | IP: " << m_ip << " | Port: " << m_port << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
 }

@@ -5,9 +5,9 @@
 CSerialHandler::CSerialHandler(std::string port, int bauderate)
     : m_port(port), m_baudrate(bauderate), m_serial(m_context), vBuffer(vBufferSize)
 {
-    m_tModule = serial;
-    m_id = ++m_idCounter;
-    m_connected = false;
+    setId(++m_idCounter);
+    setModuleType(serial);
+    setConnectedState(false);
     std::cout << "Created Serial Module: " << std::endl;
     printInfo();
 }
@@ -35,7 +35,7 @@ void CSerialHandler::init()
     if (!ec)
     {
         std::cout << "Connected!" << std::endl;
-        m_connected = true;
+        setConnectedState(true);
         read();
     }
     else
@@ -94,8 +94,8 @@ void CSerialHandler::write(std::string message)
 std::vector<std::string> CSerialHandler::getInfo()
 {
     std::vector<std::string> info;
-    info.push_back(std::to_string(m_id));
-    info.push_back(std::to_string(m_tModule));
+    info.push_back(std::to_string(getId()));
+    info.push_back(std::to_string(getModuleType()));
     info.push_back(m_port);
     info.push_back(std::to_string(m_baudrate));
     return info;
@@ -112,7 +112,7 @@ void CSerialHandler::connect()
 void CSerialHandler::stop()
 {
     writeToListener = false;
-    m_connected = false;
+    setConnectedState(false);
     listenerTable.clear();
     m_serial.close();
     m_context.stop();
@@ -121,5 +121,5 @@ void CSerialHandler::stop()
 
 void CSerialHandler::printInfo()
 {
-    std::cout << "ID: " << m_id << " | Type: " << "serial" << " | Port: " << m_port << " | Baudrate: " << m_baudrate << " | Connected: " << (m_connected ? "true" : "false") << std::endl;
+    std::cout << "ID: " << getId() << " | Type: " << "serial" << " | Port: " << m_port << " | Baudrate: " << m_baudrate << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
 }
