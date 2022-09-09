@@ -5,7 +5,7 @@ CServerSocketHandler::CServerSocketHandler(int unsigned port)
 	m_acceptor(m_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port))
 {
 	m_id = ++m_idCounter;
-	m_type = serverSocket;
+	m_tModule = serverSocket;
     m_connected = false;
 	std::cout << "Created Server Socket Module: " << std::endl;
 	printInfo();
@@ -111,7 +111,7 @@ std::vector<std::string> CServerSocketHandler::getInfo()
 {
     std::vector<std::string> info;
     info.push_back(std::to_string(m_id));
-    info.push_back(std::to_string(m_type));
+    info.push_back(std::to_string(m_tModule));
     info.push_back(std::to_string(m_port));
     return info;
 }

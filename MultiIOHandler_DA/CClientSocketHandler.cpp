@@ -4,7 +4,7 @@ CClientSocketHandler::CClientSocketHandler(std::string ip, int unsigned port)
     : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(vBufferSize)
 {
     m_id = ++m_idCounter;
-    m_type = clientSocket;
+    m_tModule = clientSocket;
     m_connected = false;
     std::cout << "Created Socket Module: " << std::endl;
     printInfo();
@@ -95,7 +95,7 @@ std::vector<std::string> CClientSocketHandler::getInfo()
 {
     std::vector<std::string> info;
     info.push_back(std::to_string(m_id));
-    info.push_back(std::to_string(m_type));
+    info.push_back(std::to_string(m_tModule));
     info.push_back(m_ip);
     info.push_back(std::to_string(m_port));
     return info;

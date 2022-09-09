@@ -3,7 +3,7 @@
 CConsoleHandler::CConsoleHandler()
 {
 	m_id = 0;
-	m_type = console;
+	m_tModule = console;
 }
 
 CConsoleHandler::~CConsoleHandler()

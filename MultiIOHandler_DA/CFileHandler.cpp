@@ -5,7 +5,7 @@
 CFileHandler::CFileHandler(std::string path)
     : m_path(path)
 {
-    m_type = file;
+    m_tModule = file;
     m_id = ++m_idCounter;
     m_connected = false;
     std::cout << "Created File Module: " << std::endl;
@@ -98,7 +98,7 @@ std::vector<std::string> CFileHandler::getInfo()
 {
     std::vector<std::string> info;
     info.push_back(std::to_string(m_id));
-    info.push_back(std::to_string(m_type));
+    info.push_back(std::to_string(m_tModule));
     info.push_back(m_path);
     return info;
 }

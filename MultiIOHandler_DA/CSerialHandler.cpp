@@ -5,7 +5,7 @@
 CSerialHandler::CSerialHandler(std::string port, int bauderate)
     : m_port(port), m_baudrate(bauderate), m_serial(m_context), vBuffer(vBufferSize)
 {
-    m_type = serial;
+    m_tModule = serial;
     m_id = ++m_idCounter;
     m_connected = false;
     std::cout << "Created Serial Module: " << std::endl;
@@ -95,7 +95,7 @@ std::vector<std::string> CSerialHandler::getInfo()
 {
     std::vector<std::string> info;
     info.push_back(std::to_string(m_id));
-    info.push_back(std::to_string(m_type));
+    info.push_back(std::to_string(m_tModule));
     info.push_back(m_port);
     info.push_back(std::to_string(m_baudrate));
     return info;

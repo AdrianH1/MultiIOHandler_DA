@@ -13,7 +13,7 @@ void CKonfigJSON::save(std::string path, std::vector<IIOModule*> &modules)
 	std::ofstream file(path);
 	for (int i = 0; i < modules.size(); i++)
 	{
-		switch (modules.at(i)->m_type)
+		switch (modules.at(i)->m_tModule)
 		{
 		case IIOModule::type::clientSocket:
 			info = modules.at(i)->getInfo();

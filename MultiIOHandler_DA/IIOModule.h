@@ -16,7 +16,7 @@ public:
 	virtual std::vector<std::string> getInfo() = 0;
 	virtual void printInfo() = 0;
 
-	enum type //@@@ tModule
+	typedef enum
 	{
 		none,
 		console,
@@ -25,11 +25,11 @@ public:
 		file,
 		serial,
 		endOfType
-	};
+	} tModule;
 
 	int m_id = 0;
 	static int m_idCounter;
-	type m_type;
+	tModule m_tModule;
 	bool m_connected;
 
 	
