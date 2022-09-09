@@ -21,7 +21,7 @@ void CKonfigJSON::save(std::string path, std::vector<IIOModule*> &modules)
 			break;
 		case IIOModule::tModule::serverSocket:
 			info = modules.at(i)->getInfo();
-			json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"port", stoi(info.at(2))} };
+			json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"ip", info.at(2)}, {"port", stoi(info.at(3))} };
 			break;
 		case IIOModule::tModule::file:
 			info = modules.at(i)->getInfo();
@@ -48,8 +48,9 @@ void CKonfigJSON::load(std::string path, std::vector<IIOModule*>& modules)
 	{
 		if (data["Module" + std::to_string(i)]["type"] == IIOModule::tModule::serverSocket)
 		{
+			std::string ip = data["Module" + std::to_string(i)]["ip"].get<std::string>();
 			int port = data["Module" + std::to_string(i)]["port"].get<int>();
-			CServerSocketHandler* socket = new CServerSocketHandler(port);
+			CServerSocketHandler* socket = new CServerSocketHandler(ip, port);
 			socket->init();
 			modules.push_back(socket);
 		}

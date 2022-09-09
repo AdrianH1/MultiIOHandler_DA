@@ -41,9 +41,9 @@ void CIOHandler::createClientSocket(std::string ip, int unsigned port)
 	modules.push_back(socket);
 }
 
-void CIOHandler::createServerSocket(int unsigned port)
+void CIOHandler::createServerSocket(std::string ip, int unsigned port)
 {
-	CServerSocketHandler* socket = new CServerSocketHandler(port);
+	CServerSocketHandler* socket = new CServerSocketHandler(ip, port);
 	socket->init();
 	modules.push_back(socket);
 }
@@ -188,7 +188,7 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 		}
 		else if (input->at(1) == sServerSocket)
 		{
-			createServerSocket(atoi(input->at(2).c_str()));
+			createServerSocket(input->at(2), atoi(input->at(3).c_str()));
 		}
 		else if (input->at(1) == sSerial)
 		{

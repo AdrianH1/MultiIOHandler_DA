@@ -15,7 +15,7 @@ private:
 
 	void createConsole();
 	void createClientSocket(std::string ip, int unsigned port);
-	void createServerSocket(int unsigned port);
+	void createServerSocket(std::string ip, int unsigned port);
 	void createSerial(std::string port, int bauderate);
 	void createFile(std::string path);
 	void connectModules(int id1, int id2);

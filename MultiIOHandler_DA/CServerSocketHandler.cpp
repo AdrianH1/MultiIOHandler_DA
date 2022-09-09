@@ -1,8 +1,8 @@
 #include "CServerSocketHandler.h"
 
-CServerSocketHandler::CServerSocketHandler(int unsigned port)
+CServerSocketHandler::CServerSocketHandler(std::string ip, int unsigned port)
 	: m_port(port), m_socket(m_context), vBuffer(vBufferSize),
-	m_acceptor(m_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port))
+	m_acceptor(m_context, asio::ip::tcp::endpoint(asio::ip::make_address(ip), port))
 {
     setId(++m_idCounter);
     setModuleType(serverSocket);

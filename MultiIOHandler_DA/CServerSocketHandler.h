@@ -7,7 +7,7 @@ class CServerSocketHandler : public IIOModule
 {
 public:
 	CServerSocketHandler() = default;
-	CServerSocketHandler(int unsigned port);
+	CServerSocketHandler(std::string ip, int unsigned port);
 	~CServerSocketHandler();
 
 	void init();
