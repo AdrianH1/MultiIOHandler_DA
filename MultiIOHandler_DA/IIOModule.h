@@ -9,20 +9,22 @@ public:
 
 	virtual void init() = 0;
 	virtual void stop() = 0;
-	virtual void write(std::string message) = 0;
+	virtual void write(std::string message) = 0; //@@@semaphore
 	virtual void read() = 0;
 	virtual void connect() = 0;
 	virtual void output() = 0;
 	virtual std::vector<std::string> getInfo() = 0;
 	virtual void printInfo() = 0;
 
-	enum type
+	enum type //@@@ tModule
 	{
+		none,
 		console,
 		serverSocket,
 		clientSocket,
 		file,
-		serial
+		serial,
+		endOfType
 	};
 
 	int m_id = 0;
@@ -35,9 +37,7 @@ public:
 
 	static const size_t bufferMax = 50;
 	static const size_t vBufferSize = 1 * 512;
-
-
-		
+			
 private:
 	
 

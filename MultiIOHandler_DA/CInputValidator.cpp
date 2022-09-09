@@ -21,7 +21,7 @@ std::vector<std::string> CInputValidator::readInput()
 		std::cout << std::endl << ">>>";
 		std::getline(std::cin, inputLine);
 		inputLine = lowerCase(inputLine);
-		input = separateInput(&inputLine);
+		input = separateInput(&inputLine); //@@@ tokenize
 	}
 	return input;
 }
@@ -34,7 +34,7 @@ bool CInputValidator::inputValid(std::vector<std::string>* input)
 
 	if (std::find(moduleCmd.begin(), moduleCmd.end(), command) != moduleCmd.end())
 	{
-		if (command == sOpen)
+		if (command == sOpen) //@@@ compare
 		{
 			std::string type = input->at(1);
 			if (std::find(validModuleTypes.begin(), validModuleTypes.end(), type) != validModuleTypes.end())
