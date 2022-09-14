@@ -47,7 +47,6 @@ void CFileHandler::init()
 
 void CFileHandler::write(std::string message)
 {
-    std::cout << "Writing to file" << std::endl;
     m_fs.open(m_path, std::ios::app);
 
     if (filterIsSet())

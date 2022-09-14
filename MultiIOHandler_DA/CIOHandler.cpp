@@ -98,6 +98,7 @@ void CIOHandler::connectModules(int id1, int id2)
 			first->connect();
 		}
 	}
+	std::cout << "Modules connected!" << std::endl;
 }
 
 void CIOHandler::showModules()
@@ -126,7 +127,6 @@ void CIOHandler::outputToConsole(int id)
 	{
 		if (m->getId() == id)
 		{
-			//@@@check if module is connected
 			m->listenerTable.push_back(modules.at(0));
 			m->output();
 			break;
@@ -156,6 +156,7 @@ void CIOHandler::removeModule(int id)
 			break;
 		}
 	}
+	std::cout << "Module removed!" << std::endl;
 }
 
 void CIOHandler::addFilter(int moduleId, int filterId)
@@ -174,12 +175,14 @@ void CIOHandler::addFilter(int moduleId, int filterId)
 			}
 		}
 	}
+	std::cout << "Filter added!" << std::endl;
 }
 
 void CIOHandler::saveJSON(std::string path)
 {
 	CKonfigJSON json;
 	json.save(path, modules);
+	std::cout << "Modules saved!" << std::endl;
 }
 
 void CIOHandler::loadJSON(std::string path)
@@ -198,6 +201,7 @@ void CIOHandler::stopModule(int id)
 			break;
 		}
 	}
+	std::cout << "Module stopped!" << std::endl;
 }
 
 void CIOHandler::exitApp()

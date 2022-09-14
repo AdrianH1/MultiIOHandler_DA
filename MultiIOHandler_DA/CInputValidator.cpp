@@ -22,7 +22,7 @@ std::vector<std::string> CInputValidator::readInput()
 		std::cout << std::endl << ">>>";
 		std::getline(std::cin, inputLine);
 		inputLine = lowerCase(inputLine);
-		input = separateInput(&inputLine); //@@@ tokenize
+		input = separateInput(&inputLine);
 	}
 	return input;
 }
