@@ -9,6 +9,7 @@
 #include "IIOModule.h"
 #include "CInputValidator.h"
 #include "CKonfigJSON.h"
+#include "CFilterAlphanumeric.h"
 
 bool running = true;
 
@@ -18,6 +19,7 @@ static const std::string sInit = "init";
 static const std::string sOutput = "output";
 static const std::string sStop = "stop";
 static const std::string sRemove = "remove";
+static const std::string sFilter = "filter";
 static const std::string sShow = "show";
 static const std::string sSave = "save";
 static const std::string sLoad = "load";
@@ -27,6 +29,22 @@ static const std::string sServerSocket = "serversocket";
 static const std::string sClientSocket = "clientsocket";
 static const std::string sFile = "file";
 static const std::string sSerial = "serial";
+
+CIOHandler::CIOHandler()
+{
+	createConsole();
+	createFilter();
+}
+
+CIOHandler::~CIOHandler()
+{
+}
+
+void CIOHandler::createFilter()
+{
+	CFilterAlphanumeric* filterAlpha = new CFilterAlphanumeric();
+	filter.push_back(filterAlpha);
+}
 
 void CIOHandler::createConsole()
 {
@@ -84,16 +102,21 @@ void CIOHandler::connectModules(int id1, int id2)
 
 void CIOHandler::showModules()
 {
-	if (modules.size() == 1)
-	{
-		std::cout << "No modules available!";
-	}
-	else
+	std::cout << "Modules: " << std::endl;
 	{
 		for (IIOModule* m : modules)
 		{
 			m->printInfo();
 		}
+	}
+}
+
+void CIOHandler::showFilter()
+{
+	std::cout <<std ::endl << "Filter: " << std::endl;
+	for (IDataFilter* f : filter)
+	{
+		f->printInfo();
 	}
 }
 
@@ -135,6 +158,24 @@ void CIOHandler::removeModule(int id)
 	}
 }
 
+void CIOHandler::addFilter(int moduleId, int filterId)
+{
+	for (IIOModule* m : modules)
+	{
+		if (m->getId() == moduleId)
+		{
+			for (IDataFilter* f : filter)
+			{
+				if (f->getId() == filterId)
+				{
+					m->setFilter(f);
+					break;
+				}
+			}
+		}
+	}
+}
+
 void CIOHandler::saveJSON(std::string path)
 {
 	CKonfigJSON json;
@@ -169,15 +210,6 @@ void CIOHandler::exitApp()
 }
 
 
-CIOHandler::CIOHandler()
-{
-	createConsole();
-}
-
-CIOHandler::~CIOHandler()
-{
-}
-
 void CIOHandler::callFunction(std::vector<std::string>* input)
 {
 	if (input->at(0) == sOpen)
@@ -202,6 +234,7 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 	else if (input->at(0) == sShow)
 	{
 		showModules();
+		showFilter();
 	}
 	else if (input->at(0) == sInit)
 	{
@@ -214,6 +247,10 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 	else if (input->at(0) == sConnect)
 	{
 		connectModules(atoi(input->at(1).c_str()), atoi(input->at(2).c_str()));
+	}
+	else if (input->at(0) == sFilter)
+	{
+		addFilter(atoi(input->at(1).c_str()), atoi(input->at(2).c_str()));
 	}
 	else if (input->at(0) == sRemove)
 	{
@@ -239,6 +276,7 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 
 int main(int argc, char* argv[])
 {
+
 	CIOHandler IOHandler;
 
 	std::vector<std::string> input;

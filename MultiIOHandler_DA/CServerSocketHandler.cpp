@@ -56,7 +56,15 @@ void CServerSocketHandler::stop()
 void CServerSocketHandler::write(std::string message)
 {
     asio::error_code ec;
-    m_socket.write_some(asio::buffer(message.data(), message.size()), ec);
+    if (filterIsSet())
+    {
+        std::string filteredMessage = getFilter()->filterData(message);
+        m_socket.write_some(asio::buffer(filteredMessage.data(), filteredMessage.size()), ec);
+    }
+    else
+    {
+        m_socket.write_some(asio::buffer(message.data(), message.size()), ec);
+    }
 }
 
 void CServerSocketHandler::read()

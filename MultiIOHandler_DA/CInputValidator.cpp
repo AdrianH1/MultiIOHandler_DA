@@ -8,6 +8,7 @@ static const std::string sInit = "init";
 static const std::string sOutput = "output";
 static const std::string sStop = "stop";
 static const std::string sRemove = "remove";
+static const std::string sFilter = "filter";
 static const std::string sHelp = "help";
 
 std::vector<std::string> CInputValidator::readInput()
@@ -47,7 +48,7 @@ bool CInputValidator::inputValid(std::vector<std::string>* input)
 				return false;
 			}
 		}
-		else if (command == sConnect)
+		else if (command == sConnect || command == sFilter)
 		{
 			if (argsCount == 3)
 			{
@@ -162,6 +163,14 @@ void CInputValidator::displayHelp()
 		<< "\t\t\t\t This command takes two IDs as a Parameters" << std::endl << std::endl
 		<< "\t\t\t\t Example to connect write data from module 1 to module 4:" << std::endl
 		<< "\t\t\t\t output 1 4" << std::endl
+		<< std::endl << "\t stop \t\t -> \t Stop any connection or output for a module" << std::endl
+		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl << std::endl
+		<< "\t\t\t\t Example to write data from module with ID 3 to console:" << std::endl
+		<< "\t\t\t\t stop 3" << std::endl
+		<< std::endl << "\t remove \t -> \t Removes a module" << std::endl
+		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl << std::endl
+		<< "\t\t\t\t Example to write data from module with ID 6 to console:" << std::endl
+		<< "\t\t\t\t remove 6" << std::endl
 		<< std::endl << "\t help \t\t -> \t Displays this help" << std::endl
 		<< std::endl << "\t exit \t\t -> \t Exit the application" << std::endl << std::endl
 		<< "\t ---------------------------------------------"

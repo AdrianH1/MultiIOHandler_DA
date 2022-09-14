@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#include "IDataFilter.h"
 
 
 
@@ -32,6 +33,9 @@ public:
 	const int getModuleType() { return m_tModule; };
 	void setConnectedState(bool state) { m_connected = state; };
 	const int getConnectedState() { return m_connected; };
+	void setFilter(IDataFilter* filter) { m_dataFilter = filter; filterActive = true; };
+	IDataFilter* getFilter() { return m_dataFilter; };
+	bool filterIsSet() { return filterActive; };
 	
 	std::vector<IIOModule*> listenerTable;
 
@@ -43,7 +47,8 @@ private:
 	int m_id;
 	tModule m_tModule;
 	bool m_connected;
-	
+	bool filterActive = false;
+	IDataFilter* m_dataFilter;
 
 	
 	

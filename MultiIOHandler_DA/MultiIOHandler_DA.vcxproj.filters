@@ -45,6 +45,12 @@
     <ClInclude Include="CConsoleHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IDataFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CFilterAlphanumeric.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CClientSocketHandler.cpp">
@@ -72,6 +78,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CConsoleHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFilterAlphanumeric.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IDataFiler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

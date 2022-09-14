@@ -145,6 +145,8 @@
   <ItemGroup>
     <ClInclude Include="CConsoleHandler.h" />
     <ClInclude Include="CFileHandler.h" />
+    <ClInclude Include="CFilterAlphanumeric.h" />
+    <ClInclude Include="IDataFilter.h" />
     <ClInclude Include="CKonfigJSON.h" />
     <ClInclude Include="CServerSocketHandler.h" />
     <ClInclude Include="CInputValidator.h" />
@@ -157,9 +159,11 @@
   <ItemGroup>
     <ClCompile Include="CConsoleHandler.cpp" />
     <ClCompile Include="CFileHandler.cpp" />
+    <ClCompile Include="CFilterAlphanumeric.cpp" />
     <ClCompile Include="CKonfigJSON.cpp" />
     <ClCompile Include="CServerSocketHandler.cpp" />
     <ClCompile Include="CInputValidator.cpp" />
+    <ClCompile Include="IDataFiler.cpp" />
     <ClCompile Include="IOModule.cpp" />
     <ClCompile Include="CIOHandler.cpp" />
     <ClCompile Include="CSerialHandler.cpp" />

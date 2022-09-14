@@ -26,7 +26,16 @@ void CConsoleHandler::output()
 
 void CConsoleHandler::write(std::string message)
 {
-	std::cout << message << std::endl;
+	
+    if (filterIsSet())
+    {
+        std::string filteredMessage = getFilter()->filterData(message);
+        std::cout << filteredMessage << std::endl;
+    }
+    else
+    {
+        std::cout << message << std::endl;
+    }
 }
 
 void CConsoleHandler::read()
@@ -44,4 +53,5 @@ std::vector<std::string> CConsoleHandler::getInfo()
 
 void CConsoleHandler::printInfo()
 {
+    std::cout << "ID: " << getId() << " | Type: " << "console" << std::endl;
 }

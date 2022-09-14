@@ -88,7 +88,15 @@ void CSerialHandler::read()
 void CSerialHandler::write(std::string message)
 {
     asio::error_code ec;
-    m_serial.write_some(asio::buffer(message.data(), message.size()), ec);
+    if (filterIsSet())
+    {
+        std::string filteredMessage = getFilter()->filterData(message);
+        m_serial.write_some(asio::buffer(filteredMessage.data(), filteredMessage.size()), ec);
+    }
+    else
+    {
+        m_serial.write_some(asio::buffer(message.data(), message.size()), ec);
+    }
 }
 
 std::vector<std::string> CSerialHandler::getInfo()

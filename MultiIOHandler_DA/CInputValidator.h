@@ -7,7 +7,7 @@ public:
 	std::vector<std::string> readInput();
 
 private:
-	std::vector<std::string> moduleCmd = { "open", "connect", "init", "output", "stop", "remove"};
+	std::vector<std::string> moduleCmd = { "open", "connect", "init", "output", "stop", "remove", "filter"};
 	std::vector<std::string> otherCmd = { "show", "save", "load", "help", "exit" };
 	std::vector<std::string> validModuleTypes = { "clientsocket", "serversocket", "file", "serial" };
 

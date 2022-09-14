@@ -49,7 +49,17 @@ void CFileHandler::write(std::string message)
 {
     std::cout << "Writing to file" << std::endl;
     m_fs.open(m_path, std::ios::app);
-    m_fs << message << std::endl;
+
+    if (filterIsSet())
+    {
+        std::string filteredMessage = getFilter()->filterData(message);
+        m_fs << filteredMessage << std::endl;
+    }
+    else
+    {
+        m_fs << message << std::endl;
+    }
+    
     m_fs.close();
 }
 
