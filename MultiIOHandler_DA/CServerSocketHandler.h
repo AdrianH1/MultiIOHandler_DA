@@ -22,6 +22,7 @@ private:
 	std::vector<std::string> getInfo();
 	void printInfo();
 
+	std::string m_ip;
 	int unsigned m_port;
 
 	bool writeToListener = false;
