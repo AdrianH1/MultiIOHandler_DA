@@ -127,9 +127,17 @@ void CIOHandler::outputToConsole(int id)
 	{
 		if (m->getId() == id)
 		{
-			m->listenerTable.push_back(modules.at(0));
-			m->output();
-			break;
+
+			if (m->getConnectedState())
+			{
+				m->listenerTable.push_back(modules.at(0));
+				m->output();
+				break;
+			}
+			else
+			{
+				std::cout << "Module not connected!" << std::endl;
+			}
 		}
 	}
 }
@@ -140,8 +148,15 @@ void CIOHandler::initModules(int id)
 	{
 		if (m->getId() == id)
 		{
-			m->init();
-			break;
+			if (m->getConnectedState())
+			{
+				std::cout << "Already initialized!" << std::endl;
+			}
+			else
+			{
+				m->init();
+				break;	
+			}
 		}
 	}
 }
@@ -218,19 +233,19 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 {
 	if (input->at(0) == sOpen)
 	{
-		if (input->at(1) == sClientSocket)
+		if (input->at(1) == sClientSocket && input->size() == 4)
 		{
 			createClientSocket(input->at(2), atoi(input->at(3).c_str()));
 		}
-		else if (input->at(1) == sServerSocket)
+		else if (input->at(1) == sServerSocket && input->size() == 4)
 		{
 			createServerSocket(input->at(2), atoi(input->at(3).c_str()));
 		}
-		else if (input->at(1) == sSerial)
+		else if (input->at(1) == sSerial && input->size() == 4)
 		{
 			createSerial(input->at(2), atoi(input->at(3).c_str()));
 		}
-		else if (input->at(1) == sFile)
+		else if (input->at(1) == sFile && input->size() == 3)
 		{
 			createFile(input->at(2));
 		}

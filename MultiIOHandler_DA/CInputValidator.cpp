@@ -35,7 +35,7 @@ bool CInputValidator::inputValid(std::vector<std::string>* input)
 
 	if (std::find(moduleCmd.begin(), moduleCmd.end(), command) != moduleCmd.end())
 	{
-		if (command == sOpen) //@@@ compare
+		if (command == sOpen)
 		{
 			std::string type = input->at(1);
 			if (std::find(validModuleTypes.begin(), validModuleTypes.end(), type) != validModuleTypes.end())
