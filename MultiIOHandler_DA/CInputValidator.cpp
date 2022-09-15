@@ -143,7 +143,7 @@ void CInputValidator::displayHelp()
 		<< "\t Help ----------------------------------------" << std::endl
 		<< std::endl << "\t open \t\t -> \t Creates an IO Module." << std::endl
 		<< "\t\t\t\t Parameters are different for each module type:" << std::endl
-		<< "\t\t\t\t serversocket: Port" << std::endl
+		<< "\t\t\t\t serversocket: IP Port" << std::endl
 		<< "\t\t\t\t clientsocket: IP Port" << std::endl
 		<< "\t\t\t\t file: Path" << std::endl
 		<< "\t\t\t\t serial: Port baudrate" << std::endl << std::endl
