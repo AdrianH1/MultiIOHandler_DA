@@ -25,8 +25,6 @@ private:
 	void read();
 	void connect();
 
-	bool writeToListener = false;
-
 	std::vector<char> vBuffer;
 	std::vector <std::string> readBuffer;
 	asio::io_context m_context;

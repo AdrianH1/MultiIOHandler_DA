@@ -23,8 +23,6 @@ private:
 	std::vector<std::string> getInfo();
 	void printInfo();
 
-	bool writeToListener = false;
-
 	std::vector<char> vBuffer;
 	std::vector <std::string> readBuffer;
 	asio::io_context m_context;

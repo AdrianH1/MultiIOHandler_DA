@@ -19,7 +19,7 @@ CFileHandler::~CFileHandler()
 
 void CFileHandler::stop()
 {
-    writeToListener = false;
+    setWriteToListener(false);
     reading = false;
     setConnectedState(false);
     listenerTable.clear();
@@ -71,7 +71,7 @@ void CFileHandler::read()
     {
         if (std::getline(m_fs, message))
         {
-            if (writeToListener)
+            if (getWriteToListener())
             {
                 for (IIOModule* m : listenerTable)
                 {
@@ -92,7 +92,7 @@ void CFileHandler::read()
 
 void CFileHandler::output()
 {
-    writeToListener = true;
+    setWriteToListener(true);
 }
 
 void CFileHandler::connect()
@@ -100,7 +100,7 @@ void CFileHandler::connect()
     //activate write to listener
     for (IIOModule* m : listenerTable)
     {
-        writeToListener = true;
+        setWriteToListener(true);
     }
 }
 

@@ -52,7 +52,7 @@ void CSerialHandler::output()
     {
         std::cout << s << std::endl;
     }
-    writeToListener = true;
+    setWriteToListener(true);
 }
 
 void CSerialHandler::read()
@@ -73,7 +73,7 @@ void CSerialHandler::read()
                     message += vBuffer[i];
                 }
                 readBuffer.push_back(message);
-                if (writeToListener)
+                if (getWriteToListener())
                 {
                     for (IIOModule* m : listenerTable)
                     {
@@ -114,13 +114,13 @@ void CSerialHandler::connect()
 {
     for (IIOModule* m : listenerTable)
     {
-        writeToListener = true;
+        setWriteToListener(true);
     }
 }
 
 void CSerialHandler::stop()
 {
-    writeToListener = false;
+    setWriteToListener(false);
     setConnectedState(false);
     listenerTable.clear();
     m_serial.close();

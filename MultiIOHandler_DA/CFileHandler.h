@@ -16,7 +16,6 @@ private:
 	std::string m_path;
 	std::fstream m_fs;
 
-	bool writeToListener = false;
 	bool reading = true;
 
 	std::thread m_thrRead;

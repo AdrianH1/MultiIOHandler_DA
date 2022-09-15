@@ -9,7 +9,7 @@ class IIOModule
 public:
 	virtual void init() = 0;
 	virtual void stop() = 0;
-	virtual void write(std::string message) = 0; //@@@semaphore
+	virtual void write(std::string message) = 0;
 	virtual void read() = 0;
 	virtual void connect() = 0;
 	virtual void output() = 0;
@@ -31,11 +31,13 @@ public:
 	const int getId() { return m_id; };
 	void setModuleType(tModule tModule) { m_tModule = tModule; };
 	const int getModuleType() { return m_tModule; };
+	void setWriteToListener(bool state) { m_writeToListener = state; };
+	const int getWriteToListener() { return m_writeToListener; };
 	void setConnectedState(bool state) { m_connected = state; };
 	const int getConnectedState() { return m_connected; };
-	void setFilter(IDataFilter* filter) { m_dataFilter = filter; filterActive = true; };
+	void setFilter(IDataFilter* filter) { m_dataFilter = filter; m_filterActive = true; };
 	IDataFilter* getFilter() { return m_dataFilter; };
-	bool filterIsSet() { return filterActive; };
+	bool filterIsSet() { return m_filterActive; };
 	
 	std::vector<IIOModule*> listenerTable;
 
@@ -47,8 +49,9 @@ public:
 private:
 	int m_id;
 	tModule m_tModule;
-	bool m_connected;
-	bool filterActive = false;
+	bool m_writeToListener = false;
+	bool m_connected = false;
+	bool m_filterActive = false;
 	IDataFilter* m_dataFilter;
 	
 };

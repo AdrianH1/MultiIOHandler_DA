@@ -44,7 +44,7 @@ void CServerSocketHandler::init()
 
 void CServerSocketHandler::stop()
 {
-    writeToListener = false;
+    setWriteToListener(false);
     setConnectedState(false);
     listenerTable.clear();
 
@@ -86,7 +86,7 @@ void CServerSocketHandler::read()
                     message += vBuffer[i];
                 }
                 readBuffer.push_back(message);
-                if (writeToListener)
+                if (getWriteToListener())
                 {
                     for (IIOModule* m : listenerTable)
                     {
@@ -103,7 +103,7 @@ void CServerSocketHandler::connect()
 {
     for (IIOModule* m : listenerTable)
     {
-        writeToListener = true;
+        setWriteToListener(true);
     }
 }
 
@@ -113,7 +113,7 @@ void CServerSocketHandler::output()
     {
         std::cout << s << std::endl;
     }
-    writeToListener = true;
+    setWriteToListener(true);
 }
 
 std::vector<std::string> CServerSocketHandler::getInfo()

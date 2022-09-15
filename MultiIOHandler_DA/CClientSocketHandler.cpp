@@ -51,7 +51,7 @@ void CClientSocketHandler::output()
     {
         std::cout << s << std::endl;
     }
-    writeToListener = true;
+    setWriteToListener(true);
 }
 
 void CClientSocketHandler::read()
@@ -72,7 +72,7 @@ void CClientSocketHandler::read()
                     message += vBuffer[i];
                 }
                 readBuffer.push_back(message);
-                if (writeToListener)
+                if (getWriteToListener())
                 {
                     for (IIOModule* m : listenerTable)
                     {
@@ -114,13 +114,13 @@ void CClientSocketHandler::connect()
 {
     for (IIOModule* m : listenerTable)
     {
-        writeToListener = true;
+        setWriteToListener(true);
     }
 }
 
 void CClientSocketHandler::stop()
 {
-    writeToListener = false;
+    setWriteToListener(false);
     setConnectedState(false);
     listenerTable.clear();
     m_socket.close();
