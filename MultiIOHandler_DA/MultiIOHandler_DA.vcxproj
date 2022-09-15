@@ -164,7 +164,7 @@
     <ClCompile Include="CServerSocketHandler.cpp" />
     <ClCompile Include="CInputValidator.cpp" />
     <ClCompile Include="IDataFiler.cpp" />
-    <ClCompile Include="IOModule.cpp" />
+    <ClCompile Include="IIOModule.cpp" />
     <ClCompile Include="CIOHandler.cpp" />
     <ClCompile Include="CSerialHandler.cpp" />
     <ClCompile Include="CClientSocketHandler.cpp" />
