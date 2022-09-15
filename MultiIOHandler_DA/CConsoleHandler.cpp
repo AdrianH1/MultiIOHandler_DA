@@ -26,7 +26,7 @@ void CConsoleHandler::output()
 
 void CConsoleHandler::write(std::string message)
 {
-	
+    const std::lock_guard<std::mutex> lock(writeMutex);
     if (filterIsSet())
     {
         std::string filteredMessage = getFilter()->filterData(message);

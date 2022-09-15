@@ -55,6 +55,7 @@ void CServerSocketHandler::stop()
 
 void CServerSocketHandler::write(std::string message)
 {
+    const std::lock_guard<std::mutex> lock(writeMutex);
     asio::error_code ec;
     if (filterIsSet())
     {

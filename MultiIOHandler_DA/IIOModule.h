@@ -42,6 +42,7 @@ public:
 	static int m_idCounter;
 	static const size_t bufferMax = 50;
 	static const size_t vBufferSize = 1 * 512;
+	std::mutex writeMutex;
 			
 private:
 	int m_id;
@@ -49,7 +50,5 @@ private:
 	bool m_connected;
 	bool filterActive = false;
 	IDataFilter* m_dataFilter;
-
-	
 	
 };

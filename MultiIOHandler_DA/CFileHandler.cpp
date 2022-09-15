@@ -47,6 +47,7 @@ void CFileHandler::init()
 
 void CFileHandler::write(std::string message)
 {
+    const std::lock_guard<std::mutex> lock(writeMutex);
     m_fs.open(m_path, std::ios::app);
 
     if (filterIsSet())

@@ -87,6 +87,7 @@ void CSerialHandler::read()
 
 void CSerialHandler::write(std::string message)
 {
+    const std::lock_guard<std::mutex> lock(writeMutex);
     asio::error_code ec;
     if (filterIsSet())
     {
