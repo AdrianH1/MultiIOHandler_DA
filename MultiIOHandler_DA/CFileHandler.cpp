@@ -30,6 +30,7 @@ void CFileHandler::stop()
 void CFileHandler::init()
 {
     std::ifstream file(m_path);
+    //Check if file exists
     if (file)
     {
         file.close();
@@ -47,6 +48,7 @@ void CFileHandler::init()
 
 void CFileHandler::write(std::string message)
 {
+    //lock_guard to prevent simultaneous writing. Lock is released when block ends.
     const std::lock_guard<std::mutex> lock(writeMutex);
     m_fs.open(m_path, std::ios::app);
 
@@ -97,7 +99,6 @@ void CFileHandler::output()
 
 void CFileHandler::connect()
 {
-    //activate write to listener
     for (IIOModule* m : listenerTable)
     {
         setWriteToListener(true);

@@ -11,6 +11,7 @@
 #include "CKonfigJSON.h"
 #include "CFilterAlphanumeric.h"
 
+//Boolean for endless while loop unti user runs "exit" command
 bool running = true;
 
 static const std::string sOpen = "open";
@@ -32,6 +33,7 @@ static const std::string sSerial = "serial";
 
 CIOHandler::CIOHandler()
 {
+	//Console Module and Filter are created beforehand and not via user input
 	createConsole();
 	createFilter();
 }
@@ -82,6 +84,7 @@ void CIOHandler::createFile(std::string path)
 
 void CIOHandler::connectModules(int id1, int id2)
 {
+	//Search for first id and add a pointer of second id to its listener table
 	IIOModule* first{};
 	for (IIOModule* m : modules)
 	{
@@ -197,7 +200,6 @@ void CIOHandler::saveJSON(std::string path)
 {
 	CKonfigJSON json;
 	json.save(path, modules);
-	std::cout << "Modules saved!" << std::endl;
 }
 
 void CIOHandler::loadJSON(std::string path)
@@ -228,11 +230,12 @@ void CIOHandler::exitApp()
 	running = false;
 }
 
-
+//First string is always the command
 void CIOHandler::callFunction(std::vector<std::string>* input)
 {
 	if (input->at(0) == sOpen)
 	{
+		//Second string is always the module if the command is open
 		if (input->at(1) == sClientSocket && input->size() == 4)
 		{
 			createClientSocket(input->at(2), atoi(input->at(3).c_str()));
@@ -257,34 +260,42 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 	}
 	else if (input->at(0) == sInit)
 	{
+		//Second string is a module id
 		initModules(atoi(input->at(1).c_str()));
 	}
 	else if (input->at(0) == sOutput)
 	{
+		//Second string is a module id
 		outputToConsole(atoi(input->at(1).c_str()));
 	}
 	else if (input->at(0) == sConnect)
 	{
+		//Second and third string is a module id
 		connectModules(atoi(input->at(1).c_str()), atoi(input->at(2).c_str()));
 	}
 	else if (input->at(0) == sFilter)
 	{
+		//Second string is a module id. Third string is a filter id
 		addFilter(atoi(input->at(1).c_str()), atoi(input->at(2).c_str()));
 	}
 	else if (input->at(0) == sRemove)
 	{
+		//Second string is a module id
 		removeModule(atoi(input->at(1).c_str()));
 	}
 	else if (input->at(0) == sSave)
 	{
+		//Second string is a file path
 		saveJSON(input->at(1));
 	}
 	else if (input->at(0) == sLoad)
 	{
+		//Second string is a file path
 		loadJSON(input->at(1));
 	}
 	else if (input->at(0) == sStop)
 	{
+		//Second string is a module id
 		stopModule(atoi(input->at(1).c_str()));
 	}
 	else if (input->at(0) == sExit)
@@ -301,6 +312,7 @@ int main(int argc, char* argv[])
 	std::vector<std::string> input;
 	CInputValidator ui;
 
+	//Endless loop until user runs "exit" command
 	while (running)
 	{
 		input = ui.readInput();
