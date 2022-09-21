@@ -162,7 +162,7 @@ void CInputValidator::displayHelp()
 		<< std::endl << "\t connect \t -> \t Connects two modules unidirectional" << std::endl
 		<< "\t\t\t\t This command takes two IDs as a Parameters" << std::endl << std::endl
 		<< "\t\t\t\t Example to connect write data from module 1 to module 4:" << std::endl
-		<< "\t\t\t\t output 1 4" << std::endl
+		<< "\t\t\t\t connect 1 4" << std::endl
 		<< std::endl << "\t stop \t\t -> \t Stop any connection or output for a module" << std::endl
 		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl << std::endl
 		<< "\t\t\t\t Example to write data from module with ID 3 to console:" << std::endl
