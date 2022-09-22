@@ -10,6 +10,13 @@
 class IIOModule
 {
 public:
+
+	/**
+	* Virtual destructor so that every module must specify a destructor
+	* Child desctructor will be called when object is destroyed and stop all running tasks
+	*/
+	virtual ~IIOModule() {};
+
 	/**
 	* Virtual methods that have to be overriden by all modules
 	* Details to each override is described in the handler classes
