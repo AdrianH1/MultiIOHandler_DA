@@ -10,10 +10,10 @@ void CKonfigJSON::save(std::string path, std::vector<IIOModule*> &modules)
 {
 	std::vector<std::string> info;
 	//json object to store all data in 
-	json json;
 	std::ofstream file(path);
 	if (file)
 	{
+		json json;
 		std::cout << "Saving..." << std::endl;
 		for (int i = 0; i < modules.size(); i++)
 		{
@@ -57,9 +57,9 @@ void CKonfigJSON::load(std::string path, std::vector<IIOModule*>& modules)
 {
 	std::fstream file(path);
 	//json object to load data into from file
-	json data = json::parse(file);
 	if (file)
 	{
+		json data = json::parse(file);
 		std::cout << "Loading..." << std::endl;
 		for (int i = 0; i < data.size(); i++)
 		{
