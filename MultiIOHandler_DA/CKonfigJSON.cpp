@@ -56,9 +56,11 @@ void CKonfigJSON::save(std::string path, std::vector<IIOModule*> &modules)
 void CKonfigJSON::load(std::string path, std::vector<IIOModule*>& modules)
 {
 	std::fstream file(path);
-	//json object to load data into from file
-	if (file)
+	//Check if file exists and has a correct format
+	if (file && json::accept(file)) 
 	{
+		file.seekg(0);
+		//json object to load data into from file
 		json data = json::parse(file);
 		std::cout << "Loading..." << std::endl;
 		for (int i = 0; i < data.size(); i++)
@@ -109,6 +111,6 @@ void CKonfigJSON::load(std::string path, std::vector<IIOModule*>& modules)
 	}
 	else
 	{
-		std::cout << "File not found!" << std::endl;
+		std::cout << "File not found or wrong format!" << std::endl;
 	}
 }
