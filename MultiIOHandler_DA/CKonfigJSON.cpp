@@ -6,6 +6,15 @@
 
 using json = nlohmann::json;
 
+static const std::string sModule = "Module";
+static const std::string sId = "id";
+static const std::string sType = "type";
+static const std::string sIp = "ip";
+static const std::string sPort = "port";
+static const std::string sPath = "path";
+static const std::string sBaudrate = "baudrate";
+
+
 void CKonfigJSON::save(std::string path, std::vector<IIOModule*> &modules)
 {
 	std::vector<std::string> info;
@@ -23,19 +32,19 @@ void CKonfigJSON::save(std::string path, std::vector<IIOModule*> &modules)
 			//Add alle infos recieved from getInfo() to the json object
 			case IIOModule::tModule::clientSocket:
 				info = modules.at(i)->getInfo();
-				json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"ip", info.at(2)}, {"port", stoi(info.at(3))}};
+				json[sModule + std::to_string(i)] = { {sId, stoi(info.at(0))}, {sType, stoi(info.at(1))}, {sIp, info.at(2)}, {sPort, stoi(info.at(3))}};
 				break;
 			case IIOModule::tModule::serverSocket:
 				info = modules.at(i)->getInfo();
-				json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"ip", info.at(2)}, {"port", stoi(info.at(3))} };
+				json[sModule + std::to_string(i)] = { {sId, stoi(info.at(0))}, {sType, stoi(info.at(1))}, {sIp, info.at(2)}, {sPort, stoi(info.at(3))} };
 				break;
 			case IIOModule::tModule::file:
 				info = modules.at(i)->getInfo();
-				json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"path", info.at(2)} };
+				json[sModule + std::to_string(i)] = { {sId, stoi(info.at(0))}, {sType, stoi(info.at(1))}, {sPath, info.at(2)} };
 				break;
 			case IIOModule::tModule::serial:
 				info = modules.at(i)->getInfo();
-				json["Module" + std::to_string(i)] = { {"id", stoi(info.at(0))}, {"type", stoi(info.at(1))}, {"port", info.at(2)}, {"baudrate", stoi(info.at(3))} };
+				json[sModule + std::to_string(i)] = { {sId, stoi(info.at(0))}, {sType, stoi(info.at(1))}, {sPort, info.at(2)}, {sBaudrate, stoi(info.at(3))} };
 			default:
 				break;
 			}
@@ -67,40 +76,40 @@ void CKonfigJSON::load(std::string path, std::vector<IIOModule*>& modules)
 		{
 			//Connection infos are different for each module type
 			//Read module type from json format and compare to enum module type
-			if (data["Module" + std::to_string(i)]["type"] == IIOModule::tModule::serverSocket)
+			if (data[sModule + std::to_string(i)][sType] == IIOModule::tModule::serverSocket)
 			{
 				//Convert json data to needed type for module consturctor
-				std::string ip = data["Module" + std::to_string(i)]["ip"].get<std::string>();
-				int port = data["Module" + std::to_string(i)]["port"].get<int>();
+				std::string ip = data[sModule + std::to_string(i)][sIp].get<std::string>();
+				int port = data[sModule + std::to_string(i)][sPort].get<int>();
 				//Create module, initialize and add it to the modules list of the IOHandler 
 				CServerSocketHandler* socket = new CServerSocketHandler(ip, port);
 				socket->init();
 				modules.push_back(socket);
 			}
-			else if (data["Module" + std::to_string(i)]["type"] == IIOModule::tModule::clientSocket)
+			else if (data[sModule + std::to_string(i)][sType] == IIOModule::tModule::clientSocket)
 			{
 				//Convert json data to needed type for module consturctor
-				std::string ip = data["Module" + std::to_string(i)]["ip"].get<std::string>();
-				int port = data["Module" + std::to_string(i)]["port"].get<int>();
+				std::string ip = data[sModule + std::to_string(i)][sIp].get<std::string>();
+				int port = data[sModule + std::to_string(i)][sPort].get<int>();
 				//Create module, initialize and add it to the modules list of the IOHandler 
 				CClientSocketHandler* socket = new CClientSocketHandler(ip, port);
 				socket->init();
 				modules.push_back(socket);
 			}
-			else if (data["Module" + std::to_string(i)]["type"] == IIOModule::tModule::file)
+			else if (data[sModule + std::to_string(i)][sType] == IIOModule::tModule::file)
 			{
 				//Convert json data to needed type for module consturctor
-				std::string path = data["Module" + std::to_string(i)]["path"].get<std::string>();
+				std::string path = data[sModule + std::to_string(i)][sPath].get<std::string>();
 				//Create module, initialize and add it to the modules list of the IOHandler 
 				CFileHandler* file = new CFileHandler(path);
 				file->init();
 				modules.push_back(file);
 			}
-			else if (data["Module" + std::to_string(i)]["type"] == IIOModule::tModule::serial)
+			else if (data[sModule + std::to_string(i)][sType] == IIOModule::tModule::serial)
 			{
 				//Convert json data to needed type for module consturctor
-				std::string port = data["Module" + std::to_string(i)]["port"].get<std::string>();
-				int baudrate = data["Module" + std::to_string(i)]["baudrate"].get<int>();
+				std::string port = data[sModule + std::to_string(i)][sPort].get<std::string>();
+				int baudrate = data[sModule + std::to_string(i)][sBaudrate].get<int>();
 				//Create module, initialize and add it to the modules list of the IOHandler 
 				CSerialHandler* serial = new CSerialHandler(port, baudrate);
 				serial->init();
