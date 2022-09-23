@@ -23,6 +23,7 @@ void CFileHandler::stop()
     reading = false;
     setConnectedState(false);
     listenerTable.clear();
+    removeFilter();
     m_fs.close();
     if (m_thrRead.joinable()) m_thrRead.join();
 }

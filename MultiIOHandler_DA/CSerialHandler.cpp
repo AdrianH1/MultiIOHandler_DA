@@ -127,6 +127,7 @@ void CSerialHandler::stop()
     setWriteToListener(false);
     setConnectedState(false);
     listenerTable.clear();
+    removeFilter();
     m_serial.close();
     m_context.stop();
     if (m_thrContext.joinable()) m_thrContext.join();

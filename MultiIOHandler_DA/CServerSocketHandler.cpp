@@ -65,9 +65,8 @@ void CServerSocketHandler::stop()
     setWriteToListener(false);
     setConnectedState(false);
     listenerTable.clear();
-
+    removeFilter();
 	m_context.stop();
-
 	if (m_thrContext.joinable()) m_thrContext.join();
 }
 

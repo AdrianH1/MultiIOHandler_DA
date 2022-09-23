@@ -54,6 +54,7 @@ public:
 	void setFilter(IDataFilter* filter) { m_dataFilter = filter; m_filterActive = true; };
 	IDataFilter* getFilter() { return m_dataFilter; };
 	bool filterIsSet() { return m_filterActive; };
+	void removeFilter() { m_dataFilter = nullptr; m_filterActive = false; };
 	
 	//Listener table for storing pointer to other io modules
 	std::vector<IIOModule*> listenerTable;
