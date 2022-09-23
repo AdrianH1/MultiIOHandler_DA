@@ -225,6 +225,10 @@ void CIOHandler::exitApp()
 {
 	for (IIOModule* m : modules)
 	{
+		m->stop();
+	}
+	for (IIOModule* m : modules)
+	{
 		delete m;
 	}
 	running = false;
