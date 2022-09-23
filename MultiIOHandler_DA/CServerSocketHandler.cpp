@@ -2,7 +2,7 @@
 
 CServerSocketHandler::CServerSocketHandler(std::string ip, int unsigned port)
 	: m_ip(ip), m_port(port), m_socket(m_context), vBuffer(vBufferSize),
-	m_acceptor(m_context, asio::ip::tcp::endpoint(asio::ip::make_address(m_ip), port))
+	m_acceptor(m_context)
 {
     setId(++m_idCounter);
     setModuleType(serverSocket);
@@ -29,21 +29,35 @@ void CServerSocketHandler::init()
 
     //Run ASIO io_context in separate thread so that reading can be done parallel to main thread
 	m_thrContext = std::thread([this]() {m_context.run(); });
-    
-	std::cout << "Server socket started, waiting for connection" << std::endl;
-    //ASIO Acceptor waits for a client to connect and accept the connection
-	m_acceptor.async_accept(m_socket,
-		[this](std::error_code ec)
-		{
-			if (!ec)
-			{
-				std::cout << "client connected: " << m_socket.remote_endpoint() << std::endl;
-				std::cout << std::endl << ">>>";
-                setConnectedState(true);
-				read();
-			}
-		});
 
+    //Create ASIO Endpoint with user specific IP, Port
+    asio::ip::tcp::endpoint endpoint(asio::ip::make_address(m_ip), m_port);
+    m_acceptor.open(endpoint.protocol());
+    asio::error_code ec;
+    m_acceptor.bind(endpoint, ec);
+    if (!ec)
+    {
+        std::cout << "Server socket started, waiting for connection" << std::endl;
+        //ASIO Acceptor waits for a client to connect and accept the connection
+        m_acceptor.listen(2);
+        m_acceptor.async_accept(m_socket,
+            [this](std::error_code ec)
+            {
+                if (!ec)
+                {
+                    std::cout << "client connected: " << m_socket.remote_endpoint() << std::endl;
+                    std::cout << std::endl << ">>>";
+                    setConnectedState(true);
+                    read();
+                }
+            });
+    } 
+    else
+    {
+        std::cout << "Failed to connect because of wrong IP!" << std::endl;
+        m_context.stop();
+        if (m_thrContext.joinable()) m_thrContext.join();
+    }
 }
 
 void CServerSocketHandler::stop()
@@ -137,5 +151,5 @@ std::vector<std::string> CServerSocketHandler::getInfo()
 
 void CServerSocketHandler::printInfo()
 {
-	std::cout << "ID: " << getId() << " | Type: " << "serverSocket" << " | Port: " << m_port << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
+	std::cout << "ID: " << getId() << " | Type: " << "serverSocket" << " | IP: " << m_ip << " | Port: " << m_port << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
 }
