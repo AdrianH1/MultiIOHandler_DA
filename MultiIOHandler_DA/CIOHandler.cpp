@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include <iostream>
 #include "CIOHandler.h"
 #include "CConsoleHandler.h"
 #include "CClientSocketHandler.h"

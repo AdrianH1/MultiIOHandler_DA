@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "IIOModule.h"
-#include <fstream>
 #include <nlohmann/json.hpp>
 
 /**

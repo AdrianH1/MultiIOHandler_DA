@@ -1,5 +1,4 @@
-#include "stdafx.h"
-#include "cSerialHandler.h"
+#include "CSerialHandler.h"
 
 
 CSerialHandler::CSerialHandler(std::string port, int bauderate)

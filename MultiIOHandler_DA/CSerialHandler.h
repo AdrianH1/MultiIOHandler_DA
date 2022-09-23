@@ -1,6 +1,6 @@
 #pragma once
+#include "stdafx.h"
 #include "IIOModule.h"
-#include <string>
 
 /**
  * This class is a handler for all serial modules
