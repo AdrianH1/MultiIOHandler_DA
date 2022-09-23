@@ -99,10 +99,7 @@ void CFileHandler::output()
 
 void CFileHandler::connect()
 {
-    for (IIOModule* m : listenerTable)
-    {
-        setWriteToListener(true);
-    }
+     setWriteToListener(true);
 }
 
 std::vector<std::string> CFileHandler::getInfo()

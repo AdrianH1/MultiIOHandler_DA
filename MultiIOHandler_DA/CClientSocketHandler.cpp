@@ -120,10 +120,7 @@ std::vector<std::string> CClientSocketHandler::getInfo()
 
 void CClientSocketHandler::connect()
 {
-    for (IIOModule* m : listenerTable)
-    {
-        setWriteToListener(true);
-    }
+    setWriteToListener(true);
 }
 
 void CClientSocketHandler::stop()

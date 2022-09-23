@@ -119,10 +119,7 @@ std::vector<std::string> CSerialHandler::getInfo()
 
 void CSerialHandler::connect()
 {
-    for (IIOModule* m : listenerTable)
-    {
-        setWriteToListener(true);
-    }
+    setWriteToListener(true);
 }
 
 void CSerialHandler::stop()

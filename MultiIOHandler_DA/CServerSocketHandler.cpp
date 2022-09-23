@@ -124,10 +124,7 @@ void CServerSocketHandler::read()
 
 void CServerSocketHandler::connect()
 {
-    for (IIOModule* m : listenerTable)
-    {
-        setWriteToListener(true);
-    }
+    setWriteToListener(true);
 }
 
 void CServerSocketHandler::output()
