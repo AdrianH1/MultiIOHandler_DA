@@ -12,7 +12,7 @@
 class CSerialHandler  : public IIOModule
 {
 public:
-	CSerialHandler() = default;
+
 	/**
 	 * Constructor used to initialize the ASIO serial socket with the io_context
 	 * Sets Id and type for each instance
