@@ -8,9 +8,9 @@ CFilterAlphanumeric::CFilterAlphanumeric()
 	setDesc("Removes every character that is not alphanumeric");
 }
 
-std::string CFilterAlphanumeric::filterData(std::string message)
+std::vector<char> CFilterAlphanumeric::filterData(std::vector<char> message)
 {
-	std::string filteredMessage;
+	std::vector<char> filteredMessage;
 	for (char c : message)
 	{
 		/**
@@ -19,7 +19,7 @@ std::string CFilterAlphanumeric::filterData(std::string message)
 		*/
 		if (iswalnum(c))
 		{
-			filteredMessage += c;
+			filteredMessage.push_back(c);
 		}
 	}
 	return filteredMessage;

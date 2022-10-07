@@ -51,7 +51,7 @@ private:
 	 * Whole Function is locked with mutex
 	 * If a filter is active it is applied before writing to device
 	 */
-	void write(std::string message);
+	void write(std::vector<char> message);
 
 	/**
 	 * Read data from file and forward to all listener in listenerTable

@@ -50,9 +50,13 @@ void CClientSocketHandler::init()
 
 void CClientSocketHandler::output()
 {
-    for (std::string s : readBuffer)
+    for (std::vector<char> v : readBuffer)
     {
-        std::cout << s << std::endl;
+        for (char c : v)
+        {
+            std::cout << c;
+        }
+        std::cout << std::endl;
     }
     setWriteToListener(true);
 }
@@ -71,18 +75,13 @@ void CClientSocketHandler::read()
         {
             if (!ec)
             {
-                std::string message = "";
-                for (int i = 0; i < length; i++)
-                {
-                    message += vBuffer[i];
-                }
-                readBuffer.push_back(message);
+                readBuffer.push_back(vBuffer);
                 //Call write method of all listener in listener table with read data
                 if (getWriteToListener())
                 {
                     for (IIOModule* m : listenerTable)
                     {
-                        m->write(message);
+                        m->write(vBuffer);
                     }
                 }
                 //This is no endless recursion because async_read_some is only running if data is recieved
@@ -92,14 +91,14 @@ void CClientSocketHandler::read()
     );
 }
 
-void CClientSocketHandler::write(std::string message)
+void CClientSocketHandler::write(std::vector<char> message)
 {
     //lock_guard to prevent simultaneous writing. Lock is released when block ends.
     const std::lock_guard<std::mutex> lock(writeMutex);
     asio::error_code ec;
     if (filterIsSet())
     {
-        std::string filteredMessage = getFilter()->filterData(message);
+        std::vector<char> filteredMessage = getFilter()->filterData(message);
         m_socket.write_some(asio::buffer(filteredMessage.data(), filteredMessage.size()), ec);
     }
     else

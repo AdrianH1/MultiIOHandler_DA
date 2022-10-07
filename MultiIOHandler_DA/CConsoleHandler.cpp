@@ -24,18 +24,26 @@ void CConsoleHandler::output()
 {
 }
 
-void CConsoleHandler::write(std::string message)
+void CConsoleHandler::write(std::vector<char> message)
 {
     //lock_guard to prevent simultaneous writing. Lock is released when block ends.
     const std::lock_guard<std::mutex> lock(writeMutex);
     if (filterIsSet())
     {
-        std::string filteredMessage = getFilter()->filterData(message);
-        std::cout << filteredMessage << std::endl;
+        std::vector<char> filteredMessage = getFilter()->filterData(message);
+        for (char c : filteredMessage)
+        {
+            std::cout << c;
+        }
+        std::cout << std::endl;
     }
     else
     {
-        std::cout << message << std::endl;
+        for (char c : message)
+        {
+            std::cout << c;
+        }
+        std::cout << std::endl;
     }
 }
 

@@ -47,7 +47,7 @@ void CFileHandler::init()
     }
 }
 
-void CFileHandler::write(std::string message)
+void CFileHandler::write(std::vector<char> message)
 {
     //lock_guard to prevent simultaneous writing. Lock is released when block ends.
     const std::lock_guard<std::mutex> lock(writeMutex);
@@ -55,12 +55,14 @@ void CFileHandler::write(std::string message)
 
     if (filterIsSet())
     {
-        std::string filteredMessage = getFilter()->filterData(message);
-        m_fs << filteredMessage << std::endl;
+        std::vector<char> filteredMessage = getFilter()->filterData(message);
+        m_fs.write((char*)&filteredMessage, sizeof(filteredMessage));
+        m_fs << std::endl;
     }
     else
     {
-        m_fs << message << std::endl;
+        m_fs.write((char*)&message, sizeof(message));
+        m_fs << std::endl;
     }
     
     m_fs.close();
@@ -69,26 +71,32 @@ void CFileHandler::write(std::string message)
 void CFileHandler::read()
 {
     m_fs.open(m_path, std::ios::in);
-    std::string message;
+    std::vector<char> message;
+    char c;
+
     while (reading)
     {
-        if (std::getline(m_fs, message))
+        while (m_fs.get(c))
         {
-            if (getWriteToListener())
+            message.push_back(c);
+            if (c == '\n')
             {
-                for (IIOModule* m : listenerTable)
+                if (getWriteToListener())
                 {
-                    m->write(message);
+                    for (IIOModule* m : listenerTable)
+                    {
+                        m->write(message);
+                    }
                 }
+                message.clear();
+                std::this_thread::sleep_for(std::chrono::seconds(1));
             }
         }
-        else
-        {
-            //Set file pointer to the start of the file
-            m_fs.clear();
-            m_fs.seekg(0);
-        }
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+
+        //Set file pointer to the start of the file
+        m_fs.clear();
+        m_fs.seekg(0);
+
     }
     m_fs.close();
 }

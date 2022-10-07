@@ -52,7 +52,7 @@ private:
 	 * Whole Function is locked with mutex
 	 * If a filter is active it is applied before writing to device
 	 */
-	void write(std::string message);
+	void write(std::vector<char> message);
 
 	/**
 	 * Read data from device to a buffer and forward to all listener in listenerTable
@@ -81,7 +81,7 @@ private:
 	//Buffer for ASIO async_read_some function
 	std::vector<char> vBuffer;
 	//Buffer for storing already read data
-	std::vector <std::string> readBuffer;
+	std::vector <std::vector<char>> readBuffer;
 	//ASIO context, used to perform ASIO functions
 	asio::io_context m_context;
 	//ASIO serial port, used to read from device

@@ -24,7 +24,7 @@ public:
 	* Virtual method that have to be overriden by all filter
 	* Details to each override is described in the filter classes
 	*/
-	virtual std::string filterData(std::string message) = 0;
+	virtual std::vector<char> filterData(std::vector<char> message) = 0;
 
 	/**
 	 * Print filter information to console
