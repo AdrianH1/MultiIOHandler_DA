@@ -143,9 +143,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CClientSocketHandlerUDP.h" />
     <ClInclude Include="CConsoleHandler.h" />
     <ClInclude Include="CFileHandler.h" />
     <ClInclude Include="CFilterAlphanumeric.h" />
+    <ClInclude Include="CServerSocketHandlerUDP.h" />
     <ClInclude Include="IDataFilter.h" />
     <ClInclude Include="CKonfigJSON.h" />
     <ClInclude Include="CServerSocketHandler.h" />
@@ -157,12 +159,14 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CClientSocketHandlerUDP.cpp" />
     <ClCompile Include="CConsoleHandler.cpp" />
     <ClCompile Include="CFileHandler.cpp" />
     <ClCompile Include="CFilterAlphanumeric.cpp" />
     <ClCompile Include="CKonfigJSON.cpp" />
     <ClCompile Include="CServerSocketHandler.cpp" />
     <ClCompile Include="CInputValidator.cpp" />
+    <ClCompile Include="CServerSocketHandlerUDP.cpp" />
     <ClCompile Include="IDataFiler.cpp" />
     <ClCompile Include="IIOModule.cpp" />
     <ClCompile Include="CIOHandler.cpp" />

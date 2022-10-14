@@ -37,6 +37,8 @@ public:
 		console,
 		serverSocket,
 		clientSocket,
+		serverSocketUDP,
+		clientSocketUDP,
 		file,
 		serial,
 		endOfType

@@ -3,6 +3,8 @@
 #include "CConsoleHandler.h"
 #include "CClientSocketHandler.h"
 #include "CServerSocketHandler.h"
+#include "CClientSocketHandlerUDP.h"
+#include "CServerSocketHandlerUDP.h"
 #include "CSerialHandler.h"
 #include "CFileHandler.h"
 #include "IIOModule.h"
@@ -27,6 +29,8 @@ static const std::string sExit = "exit";
 
 static const std::string sServerSocket = "serversocket";
 static const std::string sClientSocket = "clientsocket";
+static const std::string sServerSocketUDP = "serversocketudp";
+static const std::string sClientSocketUDP = "clientsocketudp";
 static const std::string sFile = "file";
 static const std::string sSerial = "serial";
 
@@ -63,6 +67,20 @@ void CIOHandler::createClientSocket(std::string ip, int unsigned port)
 void CIOHandler::createServerSocket(std::string ip, int unsigned port)
 {
 	CServerSocketHandler* socket = new CServerSocketHandler(ip, port);
+	socket->init();
+	modules.push_back(socket);
+}
+
+void CIOHandler::createClientSocketUDP(std::string ip, int unsigned port)
+{
+	CClientSocketHandlerUDP* socket = new CClientSocketHandlerUDP(ip, port);
+	socket->init();
+	modules.push_back(socket);
+}
+
+void CIOHandler::createServerSocketUDP(std::string ip, int unsigned port)
+{
+	CServerSocketHandlerUDP* socket = new CServerSocketHandlerUDP(ip, port);
 	socket->init();
 	modules.push_back(socket);
 }
@@ -247,6 +265,14 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 		else if (input->at(1) == sServerSocket && input->size() == 4)
 		{
 			createServerSocket(input->at(2), atoi(input->at(3).c_str()));
+		}
+		else if (input->at(1) == sClientSocketUDP && input->size() == 4)
+		{
+			createClientSocketUDP(input->at(2), atoi(input->at(3).c_str()));
+		}
+		else if (input->at(1) == sServerSocketUDP && input->size() == 4)
+		{
+			createServerSocketUDP(input->at(2), atoi(input->at(3).c_str()));
 		}
 		else if (input->at(1) == sSerial && input->size() == 4)
 		{

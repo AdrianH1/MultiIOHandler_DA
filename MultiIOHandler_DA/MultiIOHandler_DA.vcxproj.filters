@@ -51,6 +51,12 @@
     <ClInclude Include="CFilterAlphanumeric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CClientSocketHandlerUDP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CServerSocketHandlerUDP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CClientSocketHandler.cpp">
@@ -84,6 +90,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IIOModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CClientSocketHandlerUDP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CServerSocketHandlerUDP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

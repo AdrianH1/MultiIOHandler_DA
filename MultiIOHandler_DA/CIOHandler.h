@@ -36,6 +36,8 @@ private:
 	void createFilter();
 	void createClientSocket(std::string ip, int unsigned port);
 	void createServerSocket(std::string ip, int unsigned port);
+	void createClientSocketUDP(std::string ip, int unsigned port);
+	void createServerSocketUDP(std::string ip, int unsigned port);
 	void createSerial(std::string port, int bauderate);
 	void createFile(std::string path);
 
