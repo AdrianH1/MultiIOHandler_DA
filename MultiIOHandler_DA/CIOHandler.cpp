@@ -169,7 +169,7 @@ void CIOHandler::removeModule(int id)
 	{
 		if (modules.at(i)->getId() == id)
 		{
-			delete modules.at(1);
+			delete modules.at(i);
 			modules.erase(modules.begin() + i);
 			break;
 		}
