@@ -2,8 +2,7 @@
 
 CClientSocketHandlerUDP::CClientSocketHandlerUDP(std::string ip, int unsigned port)
     : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(vBufferSize),
-    m_endpoint(asio::ip::udp::v4(), m_port)
-    //m_endpoint(asio::ip::make_address(m_ip), m_port)
+    m_endpoint(asio::ip::make_address(m_ip), m_port)
 {
     setId(++m_idCounter);
     setModuleType(clientSocketUDP);
