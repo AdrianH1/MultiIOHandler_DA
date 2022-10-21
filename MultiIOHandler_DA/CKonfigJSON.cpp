@@ -18,7 +18,7 @@ static const std::string sBaudrate = "baudrate";
 void CKonfigJSON::save(std::string path, std::vector<IIOModule*> &modules)
 {
 	std::vector<std::string> info;
-	//json object to store all data in 
+	//JSON object to store all data in 
 	std::ofstream file(path);
 	if (file)
 	{

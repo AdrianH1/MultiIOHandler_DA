@@ -26,7 +26,7 @@ void CConsoleHandler::output()
 
 void CConsoleHandler::write(std::string message)
 {
-    //lock_guard to prevent simultaneous writing. Lock is released when block ends.
+    //lock_guard to prevent simultaneous writing. Lock is released when block ends
     const std::lock_guard<std::mutex> lock(writeMutex);
     if (filterIsSet())
     {

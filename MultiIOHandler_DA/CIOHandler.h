@@ -89,7 +89,7 @@ private:
 	 * Each module will be saved with it's connection information for later use
 	 * Every module will be initialized when loaded
 	 *
-	 * @params - Path to json file. (File must exist)
+	 * @params - Path to json file
 	 */
 	void saveJSON(std::string path);
 	void loadJSON(std::string path);

@@ -21,7 +21,7 @@ public:
 	const std::string getDesc() { return m_desc; };
 
 	/**
-	* Virtual method that have to be overriden by all filter
+	* Virtual method that have to be overriden by all filter classes
 	* Details to each override is described in the filter classes
 	*/
 	virtual std::string filterData(std::string message) = 0;

@@ -17,7 +17,7 @@ public:
 	/**
 	 * Constructor used to initialize the ASIO socket and acceptor
 	 * Sets Id and type for each instance
-	 * Prints a summery for the created module
+	 * Prints a summary for the created module
 	 *
 	 * @params - IP and Port as connection infos for the socket
 	 */

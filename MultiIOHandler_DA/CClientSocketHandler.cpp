@@ -26,7 +26,7 @@ void CClientSocketHandler::init()
     //Give the ASIO io_context fake work to keep it running
     asio::io_context::work idleWork(m_context);
 
-    //Run ASIO io_context in separate thread so that reading can be done parallel to main thread
+    //Run ASIO io_context in separate thread so that reading can be done parallel to the main thread
     m_thrContext = std::thread([this]() {m_context.run(); });
 
     asio::error_code ec;

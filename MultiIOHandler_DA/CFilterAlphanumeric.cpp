@@ -14,7 +14,7 @@ std::string CFilterAlphanumeric::filterData(std::string message)
 	for (char c : message)
 	{
 		/**
-		* iswalnum is a standard library function found in <cwctype>
+		* Function iswalnum is a standard library function found in <cwctype>
 		* It returns true if the character is alphanumeric
 		*/
 		if (iswalnum(c))

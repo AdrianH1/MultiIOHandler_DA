@@ -3,8 +3,8 @@
 #include "IIOModule.h"
 
 /**
- * This class is a handler for the console module
- * It inherits the IIOModule interface an overwrites all virtual functions
+ * This class is a handler for the console module.
+ * It inherits the IIOModule interface an overwrites all virtual functions.
  * Console is a special module and most functions are empty
  */
 

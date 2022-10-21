@@ -3,7 +3,7 @@
 #include <nlohmann/json.hpp>
 
 /**
- * This class contains the saving and loading to json function 
+ * This class contains the saving and loading to json function.
  * It uses the third-party library "JSON for Modern C++" by nlohmann
  */
 

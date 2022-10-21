@@ -16,7 +16,7 @@ public:
 	/**
 	 * Constructor used to initialize the ASIO serial socket with the io_context
 	 * Sets Id and type for each instance
-	 * Prints a summery for the created module
+	 * Prints a summary for the created module
 	 *
 	 * @params - serial port and baudrate as connection infos for the serial port
 	 */

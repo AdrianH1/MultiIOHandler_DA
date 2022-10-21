@@ -4,10 +4,10 @@
 #include "IIOModule.h"
 
 /**
- * This class is a handler for all client socket modules
- * The IOHandler acts as a client to connect to a server listening on a IP/Port
- * It uses the third-party library ASIO
- * It inherits the IIOModule interface an overwrites all virtual functions
+ * This class is a handler for all client socket modules.
+ * The IOHandler acts as a client to connect to a server listening on a IP/Port.
+ * It uses the third-party library ASIO.
+ * It inherits the IIOModule interface an overwrites all virtual functions.
  */
 
 class CClientSocketHandler : public IIOModule
@@ -17,7 +17,7 @@ public:
 	/**
 	 * Constructor used to initialize the ASIO socket with the io_context
 	 * Sets Id and type for each instance
-	 * Prints a summery for the created module
+	 * Prints a summary for the created module
 	 * 
 	 * @params - IP and Port as connection infos for the socket
 	 */

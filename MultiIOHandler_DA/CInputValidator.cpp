@@ -33,13 +33,13 @@ bool CInputValidator::inputValid(std::vector<std::string>* input)
 	std::string command = input->at(0);
 	size_t argsCount = input->size();
 
-	//Search if the given command is part of the moduleCmd vector and therefore is a valid command
+	//Search if the given command is part of the moduleCmd vector and therefore is a valid command.
 	if (std::find(moduleCmd.begin(), moduleCmd.end(), command) != moduleCmd.end())
 	{
 		if (command == sOpen)
 		{
 			std::string type = input->at(1);
-			//Search if the given type is part of the validModuleTypes vector and therefore is a valid type
+			//Search if the given type is part of the validModuleTypes vector and therefore is a valid type.
 			if (std::find(validModuleTypes.begin(), validModuleTypes.end(), type) != validModuleTypes.end())
 			{
 				return true;

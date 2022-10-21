@@ -6,7 +6,7 @@ class CFilterAlphanumeric : public IDataFilter
 {
 public:
 	/**
-	 * Constructor used set id, name and description
+	 * Constructor used to set id, name and description
 	 */
 	CFilterAlphanumeric();
 

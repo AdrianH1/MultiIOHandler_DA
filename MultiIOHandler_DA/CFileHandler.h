@@ -2,9 +2,9 @@
 #include "IIOModule.h"
 
 /**
- * This class is a handler for all file modules
- * The IOHandler reads/writes from a file
- * It inherits the IIOModule interface an overwrites all virtual functions
+ * This class is a handler for all file modules.
+ * The IOHandler reads/writes from a file.
+ * It inherits the IIOModule interface an overwrites all virtual functions.
  */
 
 class CFileHandler : public IIOModule
@@ -14,7 +14,7 @@ public:
 	/**
 	 * Constructor used to initialize the file path
 	 * Sets Id and type for each instance
-	 * Prints a summery for the created module
+	 * Prints a summary for the created module
 	 * 
 	 * @params - Path to a file
 	 */
@@ -66,7 +66,7 @@ private:
 	void connect();
 
 	/**
-	 * Function to collect modul information, user by json export
+	 * Function to collect modul information, used by json export
 	 *
 	 * @return - A string vector with modul information
 	 */

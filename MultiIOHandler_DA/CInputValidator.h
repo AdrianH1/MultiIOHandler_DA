@@ -1,8 +1,8 @@
 #include "stdafx.h"
 
 /**
- * This class is responsible for reading user input and validating it
- * It contains a readInput() function which reads the user input
+ * This class is responsible for reading user input and validating it.
+ * It contains a readInput() function which reads the user input.
  */
 
 class CInputValidator

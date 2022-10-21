@@ -279,7 +279,7 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 	}
 	else if (input->at(0) == sFilter)
 	{
-		//Second string is a module id. Third string is a filter id
+		//Second string is a module id. Third string is a filter id.
 		addFilter(atoi(input->at(1).c_str()), atoi(input->at(2).c_str()));
 	}
 	else if (input->at(0) == sRemove)
