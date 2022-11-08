@@ -8,7 +8,7 @@
 #include "CSerialHandler.h"
 #include "CFileHandler.h"
 #include "IIOModule.h"
-#include "CInputValidator.h"
+//#include "CInputValidator.h"
 #include "CKonfigJSON.h"
 #include "CFilterAlphanumeric.h"
 
@@ -339,13 +339,15 @@ int main(int argc, char* argv[])
 
 	CIOHandler IOHandler;
 
+	CConsoleHandler* console = static_cast<CConsoleHandler*>(IOHandler.modules.at(0));
+
 	std::vector<std::string> input;
-	CInputValidator ui;
+	//CInputValidator ui;
 
 	//Endless loop until user runs "exit" command
 	while (running)
 	{
-		input = ui.readInput();
+		input = console->readInput();
 		IOHandler.callFunction(&input);
 	}
 }

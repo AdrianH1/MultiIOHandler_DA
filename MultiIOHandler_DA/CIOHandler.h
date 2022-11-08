@@ -22,9 +22,10 @@ public:
 	 */
 	void callFunction(std::vector<std::string>* input);
 
-private:
 	std::vector<IIOModule*> modules;
 	std::vector<IDataFilter*> filter;
+
+private:
 
 	/**
 	 * All createXYZ functions create an instance of a module handler

@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "IIOModule.h"
+#include "CInputValidator.h"
 
 /**
  * This class is a handler for the console module
@@ -16,6 +17,8 @@ public:
 	 */
 	CConsoleHandler();
 	~CConsoleHandler();
+
+	std::vector<std::string> readInput();
 
 	//Not used
 	void init();
@@ -34,11 +37,16 @@ private:
 	 */
 	void printInfo();
 
-	//Not used
 	void read();
+
+	std::string inputLine;
+	std::vector<std::string> input;
+
+	//Not used
 	void connect();
 	std::vector<std::string> getInfo();
 
+	CInputValidator validator;
 };
 
 
