@@ -31,10 +31,9 @@ void CClientSocketHandlerUDP::init()
     m_thrContext = std::thread([this]() {m_context.run(); });
 
     asio::error_code ec;
-    //asio::ip::udp::endpoint endpoint(asio::ip::make_address(m_ip, ec), m_port);
-    //m_socket.open(asio::ip::udp::v4());
-    //m_socket.bind(m_endpoint, ec);
-    //m_socket.connect(endpoint, ec);
+    m_socket.open(asio::ip::udp::v4());
+    m_socket.bind(m_endpoint, ec);
+
 
     if (!ec)
     {

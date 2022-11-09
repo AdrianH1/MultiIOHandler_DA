@@ -31,9 +31,7 @@ void CServerSocketHandlerUDP::init()
     m_thrContext = std::thread([this]() {m_context.run(); });
 
     asio::error_code ec;
-    //asio::ip::udp::endpoint endpoint(asio::ip::make_address(m_ip, ec), m_port);
-
-    m_socket.open(asio::ip::udp::v4());
+    m_socket.open(asio::ip::udp::v4(), ec);
     m_socket.bind(m_endpoint, ec);
 
     if (!ec)
@@ -84,8 +82,10 @@ void CServerSocketHandlerUDP::read()
         readBuffer.erase(readBuffer.begin());
     }
 
+    asio::ip::udp::endpoint remote_endpoint_;
+
     //Async read function from ASIO
-    m_socket.async_receive(asio::buffer(vBuffer.data(), vBuffer.size()),
+    m_socket.async_receive_from(asio::buffer(vBuffer.data(), vBuffer.size()), m_endpoint,
         [&](std::error_code ec, std::size_t length)
         {
             if (!ec)
