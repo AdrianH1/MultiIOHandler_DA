@@ -2,7 +2,7 @@
 
 CMulticastHandler::CMulticastHandler(std::string ip, int unsigned port, std::string multicastIP)
 	:m_ip(ip), m_port(port), m_multicast(multicastIP), m_socket(m_context), vBuffer(vBufferSize),
-	m_endpoint(asio::ip::make_address(m_ip), m_port)
+	m_endpoint(asio::ip::make_address(m_ip), m_port), m_senderEndpoint(asio::ip::make_address(multicastIP), m_port)
 {
 	setId(++m_idCounter);
 	setModuleType(multicast);
@@ -87,11 +87,11 @@ void CMulticastHandler::write(std::vector<char> message)
 	if (filterIsSet())
 	{
 		std::vector<char> filteredMessage = getFilter()->filterData(message);
-		m_socket.send(asio::buffer(filteredMessage.data(), filteredMessage.size()));
+		m_socket.send_to(asio::buffer(message.data(), message.size()), m_senderEndpoint);
 	}
 	else
 	{
-		m_socket.send(asio::buffer(message.data(), message.size()));
+		m_socket.send_to(asio::buffer(message.data(), message.size()), m_senderEndpoint);
 	}
 }
 

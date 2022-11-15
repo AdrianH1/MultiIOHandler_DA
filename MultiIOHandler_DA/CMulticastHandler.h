@@ -31,6 +31,7 @@ private:
 	std::vector<std::vector<char>> readBuffer;
 	asio::io_context m_context;
 	asio::ip::udp::endpoint m_endpoint;
+	asio::ip::udp::endpoint m_senderEndpoint;
 	asio::ip::udp::socket m_socket;
 	std::thread m_thrContext;
 };
