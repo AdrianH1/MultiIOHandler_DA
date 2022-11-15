@@ -21,6 +21,10 @@ std::vector<char> CFilterAlphanumeric::filterData(std::vector<char> message)
 		{
 			filteredMessage.push_back(c);
 		}
+		else
+		{
+			filteredMessage.push_back('.');
+		}
 	}
 	return filteredMessage;
 }
