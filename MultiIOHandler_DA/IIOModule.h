@@ -41,6 +41,7 @@ public:
 		clientSocketUDP,
 		file,
 		serial,
+		multicast,
 		endOfType
 	} tModule;
 

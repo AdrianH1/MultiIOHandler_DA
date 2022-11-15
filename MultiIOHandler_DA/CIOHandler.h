@@ -41,6 +41,7 @@ private:
 	void createServerSocketUDP(std::string ip, int unsigned port);
 	void createSerial(std::string port, int bauderate);
 	void createFile(std::string path);
+	void createMulticast(std::string ip, int unsigned port, std::string multicast);
 
 	/**
 	 * Connects to modules with each other to forward traffic

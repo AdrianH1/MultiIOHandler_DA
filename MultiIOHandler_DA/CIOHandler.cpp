@@ -7,6 +7,7 @@
 #include "CServerSocketHandlerUDP.h"
 #include "CSerialHandler.h"
 #include "CFileHandler.h"
+#include "CMulticastHandler.h"
 #include "IIOModule.h"
 //#include "CInputValidator.h"
 #include "CKonfigJSON.h"
@@ -33,6 +34,7 @@ static const std::string sServerSocketUDP = "serversocketudp";
 static const std::string sClientSocketUDP = "clientsocketudp";
 static const std::string sFile = "file";
 static const std::string sSerial = "serial";
+static const std::string sMulticast = "multicast";
 
 CIOHandler::CIOHandler()
 {
@@ -97,6 +99,13 @@ void CIOHandler::createFile(std::string path)
 	CFileHandler* file = new CFileHandler(path);
 	file->init();
 	modules.push_back(file);
+}
+
+void CIOHandler::createMulticast(std::string ip, int unsigned port, std::string multicastIP)
+{
+	CMulticastHandler* multicast = new CMulticastHandler(ip, port, multicastIP);
+	multicast->init();
+	modules.push_back(multicast);
 }
 
 void CIOHandler::connectModules(int id1, int id2)
@@ -281,6 +290,10 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 		else if (input->at(1) == sFile && input->size() == 3)
 		{
 			createFile(input->at(2));
+		}
+		else if (input->at(1) == sMulticast && input->size() == 5)
+		{
+			createMulticast(input->at(2), atoi(input->at(3).c_str()), input->at(4));
 		}
 	}
 	else if (input->at(0) == sShow)
