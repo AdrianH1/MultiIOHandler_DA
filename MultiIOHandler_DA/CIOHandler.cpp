@@ -196,7 +196,7 @@ void CIOHandler::removeModule(int id)
 	{
 		if (modules.at(i)->getId() == id)
 		{
-			delete modules.at(1);
+			delete modules.at(i);
 			modules.erase(modules.begin() + i);
 			break;
 		}
@@ -231,7 +231,7 @@ void CIOHandler::saveJSON(std::string path)
 
 void CIOHandler::loadJSON(std::string path)
 {
-	CKonfigJSON json;
+	CKonfigJSON json(this);
 	json.load(path, modules);
 }
 
