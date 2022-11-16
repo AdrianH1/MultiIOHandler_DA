@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "IIOModule.h"
+#include "CIOHandler.h"
 #include <nlohmann/json.hpp>
 
 /**
@@ -10,6 +11,10 @@
 class CKonfigJSON
 {
 public:
+
+	CKonfigJSON() = default;
+	CKonfigJSON(CIOHandler *ioHandler);
+
 	/**
 	 * Saves all currently created modules to a json file
 	 * Every module is saved with all connection informations
@@ -29,4 +34,7 @@ public:
 	 * @params - Pointer to the list of currently created modules
 	 */
 	void load(std::string path, std::vector<IIOModule*> &modules);
+
+private:
+	CIOHandler* m_ioHandler;
 };
