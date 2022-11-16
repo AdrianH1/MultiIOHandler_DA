@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "IDataFilter.h"
+#include <map>
 
 /**
  * This interface gives every module a default structure, functions and variables
@@ -27,7 +28,7 @@ public:
 	virtual void read() = 0;
 	virtual void connect() = 0;
 	virtual void output() = 0;
-	virtual std::vector<std::string> getInfo() = 0;
+	virtual std::vector<std::vector<std::string>> getInfo() = 0;
 	virtual void printInfo() = 0;
 
 	//Enum for the module type

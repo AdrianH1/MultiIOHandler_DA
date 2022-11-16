@@ -1,5 +1,6 @@
 #include "CSerialHandler.h"
 
+static const std::string sType = "serial";
 
 CSerialHandler::CSerialHandler(std::string port, int bauderate)
     : m_port(port), m_baudrate(bauderate), m_serial(m_context), vBuffer(vBufferSize)
@@ -106,13 +107,27 @@ void CSerialHandler::write(std::vector<char> message)
     }
 }
 
-std::vector<std::string> CSerialHandler::getInfo()
+std::vector<std::vector<std::string>> CSerialHandler::getInfo()
 {
-    std::vector<std::string> info;
-    info.push_back(std::to_string(getId()));
-    info.push_back(std::to_string(getModuleType()));
-    info.push_back(m_port);
-    info.push_back(std::to_string(m_baudrate));
+    std::vector<std::vector<std::string>> info;
+    std::vector<std::string> parameter;
+
+    parameter.push_back("Type");
+    //Use string instead of enum, otherwise there is an int for type in json export
+    parameter.push_back(sType);
+    info.push_back(parameter);
+    parameter.clear();
+
+    parameter.push_back("Port");
+    parameter.push_back(m_port);
+    info.push_back(parameter);
+    parameter.clear();
+
+    parameter.push_back("Baudrate");
+    parameter.push_back(std::to_string(m_baudrate));
+    info.push_back(parameter);
+    parameter.clear();
+
     return info;
 }
 
@@ -134,5 +149,5 @@ void CSerialHandler::stop()
 
 void CSerialHandler::printInfo()
 {
-    std::cout << "ID: " << getId() << " | Type: " << "serial" << " | Port: " << m_port << " | Baudrate: " << m_baudrate << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
+    std::cout << "ID: " << getId() << " | Type: " << sType << " | Port: " << m_port << " | Baudrate: " << m_baudrate << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
 }

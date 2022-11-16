@@ -73,7 +73,7 @@ private:
 	 *
 	 * @return - A string vector with modul information
 	 */
-	std::vector<std::string> getInfo();
+	std::vector<std::vector<std::string>> getInfo();
 
 	/**
 	 * Print module information to console

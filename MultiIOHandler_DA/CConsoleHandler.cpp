@@ -71,9 +71,9 @@ void CConsoleHandler::connect()
 
 }
 
-std::vector<std::string> CConsoleHandler::getInfo()
+std::vector<std::vector<std::string>> CConsoleHandler::getInfo()
 {
-	return std::vector<std::string>();
+	return std::vector<std::vector<std::string>>();
 }
 
 void CConsoleHandler::printInfo()

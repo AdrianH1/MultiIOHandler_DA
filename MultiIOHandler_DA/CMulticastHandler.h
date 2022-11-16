@@ -24,7 +24,7 @@ private:
 	void read() override;
 	void write(std::vector<char> message) override;
 	void connect() override;
-	std::vector<std::string> getInfo() override;
+	std::vector<std::vector<std::string>> getInfo() override;
 	void printInfo() override;
 
 	std::vector<char> vBuffer;

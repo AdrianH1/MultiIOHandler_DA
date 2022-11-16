@@ -44,7 +44,7 @@ private:
 
 	//Not used
 	void connect();
-	std::vector<std::string> getInfo();
+	std::vector<std::vector<std::string>> getInfo();
 
 	CInputValidator validator;
 };

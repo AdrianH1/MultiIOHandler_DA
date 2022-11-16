@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CFileHandler.h"
 
+static const std::string sType = "file";
 
 CFileHandler::CFileHandler(std::string path)
     : m_path(path)
@@ -111,16 +112,26 @@ void CFileHandler::connect()
      setWriteToListener(true);
 }
 
-std::vector<std::string> CFileHandler::getInfo()
+std::vector<std::vector<std::string>> CFileHandler::getInfo()
 {
-    std::vector<std::string> info;
-    info.push_back(std::to_string(getId()));
-    info.push_back(std::to_string(getModuleType()));
-    info.push_back(m_path);
+    std::vector<std::vector<std::string>> info;
+    std::vector<std::string> parameter;
+
+    parameter.push_back("Type");
+    //Use string instead of enum, otherwise there is an int for type in json export
+    parameter.push_back(sType);
+    info.push_back(parameter);
+    parameter.clear();
+
+    parameter.push_back("Path");
+    parameter.push_back(m_path);
+    info.push_back(parameter);
+    parameter.clear();
+
     return info;
 }
 
 void CFileHandler::printInfo()
 {
-    std::cout << "ID: " << getId() << " | Type: " << "file" << " | Path: " << m_path << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
+    std::cout << "ID: " << getId() << " | Type: " << sType << " | Path: " << m_path << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
 }

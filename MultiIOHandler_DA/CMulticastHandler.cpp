@@ -1,5 +1,7 @@
 #include "CMulticastHandler.h"
 
+static const std::string sType = "multicast";
+
 CMulticastHandler::CMulticastHandler(std::string ip, int unsigned port, std::string multicastIP)
 	:m_ip(ip), m_port(port), m_multicast(multicastIP), m_socket(m_context), vBuffer(vBufferSize),
 	m_endpoint(asio::ip::make_address(m_ip), m_port), m_senderEndpoint(asio::ip::make_address(multicastIP), m_port)
@@ -124,19 +126,37 @@ void CMulticastHandler::output()
 	setWriteToListener(true);
 }
 
-std::vector<std::string> CMulticastHandler::getInfo()
+std::vector<std::vector<std::string>> CMulticastHandler::getInfo()
 {
-	std::vector<std::string> info;
-	info.push_back(std::to_string(getId()));
-	info.push_back(std::to_string(getModuleType()));
-	info.push_back(m_ip);
-	info.push_back(std::to_string(m_port));
-	info.push_back(m_multicast);
+	std::vector<std::vector<std::string>> info;
+	std::vector<std::string> parameter;
+
+	parameter.push_back("Type");
+	//Use string instead of enum, otherwise there is an int for type in json export
+	parameter.push_back(sType);
+	info.push_back(parameter);
+	parameter.clear();
+
+	parameter.push_back("IP");
+	parameter.push_back(m_ip);
+	info.push_back(parameter);
+	parameter.clear();
+
+	parameter.push_back("Port");
+	parameter.push_back(std::to_string(m_port));
+	info.push_back(parameter);
+	parameter.clear();
+
+	parameter.push_back("Multicast");
+	parameter.push_back(m_multicast);
+	info.push_back(parameter);
+	parameter.clear();
+
 	return info;
 }
 
 void CMulticastHandler::printInfo()
 {
-	std::cout << "ID: " << getId() << " | Type: " << "multicast" << " | IP: " << m_ip << " | Port: " << m_port << " | Multicast: " << m_multicast << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
+	std::cout << "ID: " << getId() << " | Type: " << sType << " | IP: " << m_ip << " | Port: " << m_port << " | Multicast: " << m_multicast << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
 
 }

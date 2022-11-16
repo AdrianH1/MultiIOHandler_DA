@@ -1,5 +1,7 @@
 #include "CClientSocketHandler.h"
 
+static const std::string sType = "clientsocket";
+
 CClientSocketHandler::CClientSocketHandler(std::string ip, int unsigned port)
     : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(vBufferSize)
 {
@@ -107,13 +109,27 @@ void CClientSocketHandler::write(std::vector<char> message)
     }
 }
 
-std::vector<std::string> CClientSocketHandler::getInfo()
+std::vector<std::vector<std::string>> CClientSocketHandler::getInfo()
 {
-    std::vector<std::string> info;
-    info.push_back(std::to_string(getId()));
-    info.push_back(std::to_string(getModuleType()));
-    info.push_back(m_ip);
-    info.push_back(std::to_string(m_port));
+    std::vector<std::vector<std::string>> info;
+    std::vector<std::string> parameter;
+
+    parameter.push_back("Type");
+    //Use string instead of enum, otherwise there is an int for type in json export
+    parameter.push_back(sType);
+    info.push_back(parameter);
+    parameter.clear();
+
+    parameter.push_back("IP");
+    parameter.push_back(m_ip);
+    info.push_back(parameter);
+    parameter.clear();
+
+    parameter.push_back("Port");
+    parameter.push_back(std::to_string(m_port));
+    info.push_back(parameter);
+    parameter.clear();
+
     return info;
 }
 
@@ -135,5 +151,5 @@ void CClientSocketHandler::stop()
 
 void CClientSocketHandler::printInfo()
 {
-    std::cout << "ID: " << getId() << " | Type: " << "clientSocket" << " | IP: " << m_ip << " | Port: " << m_port << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
+    std::cout << "ID: " << getId() << " | Type: " << sType << " | IP: " << m_ip << " | Port: " << m_port << " | Connected: " << (getConnectedState() ? "true" : "false") << std::endl;
 }
