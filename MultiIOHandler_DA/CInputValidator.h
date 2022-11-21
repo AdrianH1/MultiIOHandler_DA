@@ -24,7 +24,7 @@ private:
 	 */
 	std::vector<std::string> moduleCmd = { "open", "connect", "init", "output", "stop", "remove", "filter"};
 	std::vector<std::string> otherCmd = { "show", "save", "load", "help", "exit" };
-	std::vector<std::string> validModuleTypes = { "clientsocket", "serversocket", "serversocketudp", "clientsocketudp", "file", "serial" };
+	std::vector<std::string> validModuleTypes = { "clientsocket", "serversocket", "serversocketudp", "clientsocketudp", "file", "serial", "multicast"};
 
 	/**
 	 * Validates user input for correct command, modul type and argument count 
