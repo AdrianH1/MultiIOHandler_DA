@@ -59,9 +59,9 @@ void CMulticastHandler::init()
 void CMulticastHandler::read()
 {
 
-	asio::ip::udp::endpoint sender_endpoint_;
+	asio::ip::udp::endpoint senderEndpoint;
 	//Async read function from ASIO
-	m_socket.async_receive_from(asio::buffer(vBuffer.data(), vBuffer.size()), sender_endpoint_,
+	m_socket.async_receive_from(asio::buffer(vBuffer.data(), vBuffer.size()), senderEndpoint,
 		[&](std::error_code ec, std::size_t length)
 		{
 			if (!ec)
