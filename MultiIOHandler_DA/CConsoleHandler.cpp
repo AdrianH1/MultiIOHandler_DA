@@ -13,7 +13,7 @@ CConsoleHandler::~CConsoleHandler()
 
 void CConsoleHandler::init()
 {
-   
+
 }
 
 void CConsoleHandler::stop()
@@ -47,28 +47,12 @@ void CConsoleHandler::write(std::vector<char> message)
     }
 }
 
-std::vector<std::string> CConsoleHandler::readInput()
-{
-    read();
-    return input;
-}
-
 void CConsoleHandler::read()
 {
-    input.clear();
-
-    while (!validator.inputValid(&input))
-    {
-        std::cout << std::endl << ">>>";
-        std::getline(std::cin, inputLine);
-        inputLine = validator.lowerCase(inputLine);
-        input = validator.separateInput(&inputLine);
-    }
 }
 
 void CConsoleHandler::connect()
 {
-
 }
 
 std::vector<std::vector<std::string>> CConsoleHandler::getInfo()
