@@ -6,6 +6,7 @@ static const std::string sOpen = "open";
 static const std::string sConnect = "connect";
 static const std::string sInit = "init";
 static const std::string sOutput = "output";
+static const std::string sInput = "input";
 static const std::string sStop = "stop";
 static const std::string sRemove = "remove";
 static const std::string sFilter = "filter";
@@ -66,7 +67,7 @@ bool CInputValidator::inputValid(std::vector<std::string>* input)
 				return false;
 			}
 		}
-		else if (command == sInit || command == sOutput || command == sStop || command == sRemove)
+		else if (command == sInit || command == sOutput || command == sInput || command == sStop || command == sRemove)
 		{
 			if (argsCount == 2)
 			{

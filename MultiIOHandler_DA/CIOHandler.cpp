@@ -20,6 +20,7 @@ static const std::string sOpen = "open";
 static const std::string sConnect = "connect";
 static const std::string sInit = "init";
 static const std::string sOutput = "output";
+static const std::string sInput = "input";
 static const std::string sStop = "stop";
 static const std::string sRemove = "remove";
 static const std::string sFilter = "filter";
@@ -171,6 +172,27 @@ void CIOHandler::outputToConsole(int id)
 	}
 }
 
+void CIOHandler::inputFromConsole(int id)
+{
+	for (IIOModule* m : modules)
+	{
+		if (m->getId() == id)
+		{
+			if (m->getConnectedState())
+			{
+				modules.at(0)->listenerTable.push_back(m);
+				CConsoleHandler* c = dynamic_cast<CConsoleHandler*>(modules.at(0));
+				c->input();
+				break;
+			}
+			else
+			{
+				std::cout << "Module not connected!" << std::endl;
+			}
+		}
+	}
+}
+
 void CIOHandler::initModules(int id)
 {
 	for (IIOModule* m : modules)
@@ -192,16 +214,21 @@ void CIOHandler::initModules(int id)
 
 void CIOHandler::removeModule(int id)
 {
+	if (id == 0)
+	{
+		std::cout << "Removing console module is not possible" << std::endl;
+		return;
+	}
 	for (int i = 0; i < modules.size(); i++)
 	{
 		if (modules.at(i)->getId() == id)
 		{
 			delete modules.at(i);
 			modules.erase(modules.begin() + i);
+			std::cout << "Module removed!" << std::endl;
 			break;
 		}
 	}
-	std::cout << "Module removed!" << std::endl;
 }
 
 void CIOHandler::addFilter(int moduleId, int filterId)
@@ -310,6 +337,11 @@ void CIOHandler::callFunction(std::vector<std::string>* input)
 	{
 		//Second string is a module id
 		outputToConsole(atoi(input->at(1).c_str()));
+	}
+	else if (input->at(0) == sInput)
+	{
+		//Second string is a module id
+		inputFromConsole(atoi(input->at(1).c_str()));
 	}
 	else if (input->at(0) == sConnect)
 	{

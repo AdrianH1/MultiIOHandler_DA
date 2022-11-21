@@ -65,6 +65,14 @@ private:
 	void outputToConsole(int id);
 
 	/**
+	 * Reads messages from console to send to modules
+	 * Adds the module specified by id as a listener to the console modul
+	 *
+	 * @params - ID of module to send input to
+	 */
+	void inputFromConsole(int id);
+
+	/**
 	 * Initializes the module if it is not already connected to a device
 	 * Tries to connect to device and starts reading from it if successfull
 	 *

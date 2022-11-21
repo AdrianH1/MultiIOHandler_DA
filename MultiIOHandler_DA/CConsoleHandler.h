@@ -21,8 +21,13 @@ public:
 	void init();
 	void stop();
 	void output();
+	void input();
 
 private:
+
+	std::string inputLine;
+	bool sendUserInput;
+
 	/**
 	 * Writes message in parameter to the console (std::cout)
 	 * Whole Function is locked with mutex

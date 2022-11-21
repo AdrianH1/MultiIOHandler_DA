@@ -22,7 +22,7 @@ private:
 	/**
 	 * Valid commands and module types used for validation
 	 */
-	std::vector<std::string> moduleCmd = { "open", "connect", "init", "output", "stop", "remove", "filter"};
+	std::vector<std::string> moduleCmd = { "open", "connect", "init", "output", "input", "stop", "remove", "filter"};
 	std::vector<std::string> otherCmd = { "show", "save", "load", "help", "exit" };
 	std::vector<std::string> validModuleTypes = { "clientsocket", "serversocket", "serversocketudp", "clientsocketudp", "file", "serial", "multicast"};
 

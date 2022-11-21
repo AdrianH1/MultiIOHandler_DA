@@ -1,9 +1,12 @@
 #include "CConsoleHandler.h"
 
+static const std::string sStop = "stop";
+
 CConsoleHandler::CConsoleHandler()
 {
 	setId(0);
 	setModuleType(console);
+    sendUserInput = true;
 }
 
 CConsoleHandler::~CConsoleHandler()
@@ -22,6 +25,28 @@ void CConsoleHandler::stop()
 
 void CConsoleHandler::output()
 {
+}
+
+void CConsoleHandler::input()
+{
+    std::cout << "Sending Input from console to Module. Stop this mode by writing 'stop'" << std::endl;
+    while (sendUserInput)
+    {
+        std::cout << std::endl << "Message: ";
+        std::getline(std::cin, inputLine);
+        if (inputLine == sStop)
+        {
+            sendUserInput = false;
+            std::cout << "Sending console input to module stopped. Retrun to normal mode";
+        }
+        else
+        {
+            read();
+        }
+    }
+
+    //Reset so input command can be executed again
+    sendUserInput = true;
 }
 
 void CConsoleHandler::write(std::vector<char> message)
@@ -49,6 +74,11 @@ void CConsoleHandler::write(std::vector<char> message)
 
 void CConsoleHandler::read()
 {
+    std::vector<char> message(inputLine.begin(), inputLine.end());
+    for (IIOModule* m : listenerTable)
+    {
+        m->write(message);
+    }
 }
 
 void CConsoleHandler::connect()
