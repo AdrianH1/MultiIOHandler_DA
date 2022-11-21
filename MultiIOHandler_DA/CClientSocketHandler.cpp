@@ -89,6 +89,10 @@ void CClientSocketHandler::read()
                 //This is no endless recursion because async_read_some is only running if data is recieved
                 read();
             }
+            else
+            {
+                std::cout << std::endl << "ERROR: " << ec.message() << std::endl;
+            }
         }
     );
 }
