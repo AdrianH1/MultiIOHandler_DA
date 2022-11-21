@@ -17,5 +17,5 @@ public:
 	 * @params - String which is read from device/file/serial
 	 * @return - A filtered string without alphanumeric characters
 	 */
-	std::vector<char> filterData(std::vector<char> message);
+	std::vector<char> filterData(std::vector<char> message) override;
 };

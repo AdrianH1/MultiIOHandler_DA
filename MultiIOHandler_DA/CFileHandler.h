@@ -25,19 +25,19 @@ public:
 	 * Stops thread and closes file access
 	 * Sets state of module to "uninitialized"
 	 */
-	void stop();
+	void stop() override;
 
 	/**
 	 * Initializes modul and checks if file exists and is accessible
 	 * Runs read() function if connection is successfull. Otherwise shows error.
 	 */
-	void init();
+	void init() override;
 
 	/**
 	 * Writes all data in readBuffer to console
 	 * Sets WriteToListener bool to true
 	 */
-	void output();
+	void output() override;
 
 private:
 	//Member variable for connection information
@@ -51,31 +51,31 @@ private:
 	 * Whole Function is locked with mutex
 	 * If a filter is active it is applied before writing to device
 	 */
-	void write(std::vector<char> message);
+	void write(std::vector<char> message) override;
 
 	/**
 	 * Read data from file and forward to all listener in listenerTable
 	 * Reading is done line by line in a one second intervall
 	 */
-	void read();
+	void read() override;
 
 	/**
 	 * Sets writeToListener boolean to true
 	 * Read function will then forward all data to the listeners
 	 */
-	void connect();
+	void connect() override;
 
 	/**
 	 * Function to collect modul information, user by json export
 	 *
 	 * @return - A string vector with modul information
 	 */
-	std::vector<std::vector<std::string>> getInfo();
+	std::vector<std::vector<std::string>> getInfo() override;
 
 	/**
 	 * Print module information to console
 	 */
-	void printInfo();
+	void printInfo() override;
 
 	//Thread to run read funciton separatly from main thread
 	std::thread m_thrRead;

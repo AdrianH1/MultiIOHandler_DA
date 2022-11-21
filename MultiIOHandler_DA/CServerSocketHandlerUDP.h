@@ -28,20 +28,20 @@ public:
 	 * Stops thread and io_context and clears listener table
 	 * Sets state of module to "uninitialized"
 	 */
-	void stop();
+	void stop() override;
 
 	/**
 	 * Initializes modul and starts a ASIO async_accept to listen for connections
 	 * ASIO acceptor waits for any connection to the given IP/Port
 	 * Runs read() function if client connected successfully.
 	 */
-	void init();
+	void init() override;
 
 	/**
 	 * Writes all data in readBuffer to console
 	 * Sets WriteToListener bool to true
 	 */
-	void output();
+	void output() override;
 
 
 private:
@@ -54,31 +54,31 @@ private:
 	 * Whole Function is locked with mutex
 	 * If a filter is active it is applied before writing to device
 	 */
-	void write(std::vector<char> message);
+	void write(std::vector<char> message) override;
 
 	/**
 	 * Read data from device to a buffer and forward to all listener in listenerTable
 	 * Reading is done asynchronously with ASIO async_read_some function
 	 */
-	void read();
+	void read() override;
 
 	/**
 	 * Sets writeToListener boolean to true
 	 * Read function will then forward all data to the listeners
 	 */
-	void connect();
+	void connect() override;
 
 	/**
 	 * Function to collect modul information, user by json export
 	 *
 	 * @return - A string vector with modul information
 	 */
-	std::vector<std::vector<std::string>> getInfo();
+	std::vector<std::vector<std::string>> getInfo() override;
 
 	/**
 	 * Print module information to console
 	 */
-	void printInfo();
+	void printInfo() override;
 
 	//Buffer for ASIO async_read_some function
 	std::vector<char> vBuffer;

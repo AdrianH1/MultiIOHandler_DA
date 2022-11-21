@@ -18,9 +18,13 @@ public:
 	~CConsoleHandler();
 
 	//Not used
-	void init();
-	void stop();
-	void output();
+	void init() override;
+	void stop() override;
+	void output() override;
+
+	/**
+	 * Reads and saves user input and calls read() Method
+	 */
 	void input();
 
 private:
@@ -33,15 +37,20 @@ private:
 	 * Whole Function is locked with mutex
 	 * If a filter is active it is applied before writing to device
 	 */
-	void write(std::vector<char> message);
+	void write(std::vector<char> message) override;
 	/**
 	 * Print module information to console
 	 */
-	void printInfo();
+	void printInfo() override;
 
-	//Not used
-	void read();
-	void connect();
+	/**
+	 * Forwards read user input to modules in listener table
+	 */
+	void read() override;
+
+	//not used
+	void connect() override;
+
 	std::vector<std::vector<std::string>> getInfo();
 
 };
