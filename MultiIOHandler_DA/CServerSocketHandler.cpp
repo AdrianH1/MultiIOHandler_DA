@@ -4,7 +4,7 @@ static const std::string sType = "serversocket";
 
 CServerSocketHandler::CServerSocketHandler(std::string ip, int unsigned port)
 	: m_ip(ip), m_port(port), m_socket(m_context), vBuffer(vBufferSize),
-	m_acceptor(m_context)
+	m_acceptor(m_context), m_resolver(m_context)
 {
     setId(++m_idCounter);
     setModuleType(serverSocket);
@@ -33,9 +33,9 @@ void CServerSocketHandler::init()
 	m_thrContext = std::thread([this]() {m_context.run(); });
 
     //Create ASIO Endpoint with user specific IP, Port
-    asio::ip::tcp::endpoint endpoint(asio::ip::make_address(m_ip), m_port);
-    m_acceptor.open(endpoint.protocol());
     asio::error_code ec;
+    asio::ip::tcp::endpoint endpoint = *m_resolver.resolve(m_ip, std::to_string(m_port), ec);
+    m_acceptor.open(endpoint.protocol());
     m_acceptor.bind(endpoint, ec);
     if (!ec)
     {

@@ -3,7 +3,7 @@
 static const std::string sType = "clientsocket";
 
 CClientSocketHandler::CClientSocketHandler(std::string ip, int unsigned port)
-    : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(vBufferSize)
+    : m_ip(ip), m_port(port), m_socket(m_context), m_resolver(m_context), vBuffer(vBufferSize)
 {
     setId(++m_idCounter);
     setModuleType(clientSocket);
@@ -32,7 +32,7 @@ void CClientSocketHandler::init()
     m_thrContext = std::thread([this]() {m_context.run(); });
 
     asio::error_code ec;
-    asio::ip::tcp::endpoint endpoint(asio::ip::make_address(m_ip, ec), m_port);
+    asio::ip::tcp::endpoint endpoint = *m_resolver.resolve(m_ip, std::to_string(m_port), ec);
 
     m_socket.connect(endpoint, ec);
 

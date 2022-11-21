@@ -86,6 +86,8 @@ private:
 	std::vector<std::vector<char>> readBuffer;
 	//ASIO context, used to perform ASIO functions
 	asio::io_context m_context;
+	//ASIO resolver, used to resolve hostnames or IPs
+	asio::ip::udp::resolver m_resolver;
 	//ASIO endpoint, used to read from device
 	asio::ip::udp::endpoint m_endpoint;
 	//ASIO socket, used to read from device

@@ -3,8 +3,8 @@
 static const std::string sType = "clientsocketudp";
 
 CClientSocketHandlerUDP::CClientSocketHandlerUDP(std::string ip, int unsigned port)
-    : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(vBufferSize),
-    m_endpoint(asio::ip::make_address(m_ip), m_port)
+    : m_ip(ip), m_port(port), m_socket(m_context), vBuffer(vBufferSize), m_resolver(m_context),
+    m_endpoint(asio::ip::udp::v4(), m_port)
 {
     setId(++m_idCounter);
     setModuleType(clientSocketUDP);
@@ -33,6 +33,7 @@ void CClientSocketHandlerUDP::init()
     m_thrContext = std::thread([this]() {m_context.run(); });
 
     asio::error_code ec;
+    m_endpoint = *m_resolver.resolve(m_ip, std::to_string(m_port), ec);
     m_socket.open(asio::ip::udp::v4());
     m_socket.bind(m_endpoint, ec);
 

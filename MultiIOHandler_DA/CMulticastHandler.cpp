@@ -3,8 +3,8 @@
 static const std::string sType = "multicast";
 
 CMulticastHandler::CMulticastHandler(std::string ip, int unsigned port, std::string multicastIP)
-	:m_ip(ip), m_port(port), m_multicast(multicastIP), m_socket(m_context), vBuffer(vBufferSize),
-	m_endpoint(asio::ip::make_address(m_ip), m_port), m_senderEndpoint(asio::ip::make_address(multicastIP), m_port)
+	:m_ip(ip), m_port(port), m_multicast(multicastIP), m_socket(m_context), vBuffer(vBufferSize), m_resolver(m_context),
+	m_endpoint(asio::ip::udp::v4(), m_port), m_multicastEndpoint(asio::ip::udp::v4(), m_port)
 {
 	setId(++m_idCounter);
 	setModuleType(multicast);
@@ -33,13 +33,14 @@ void CMulticastHandler::init()
 	m_thrContext = std::thread([this]() {m_context.run(); });
 
 	asio::error_code ec;
+	m_endpoint = *m_resolver.resolve(m_ip, std::to_string(m_port), ec);
+	m_multicastEndpoint = *m_resolver.resolve(m_multicast, std::to_string(m_port), ec);
+
 	m_socket.open(m_endpoint.protocol(), ec);
 	m_socket.set_option(asio::ip::udp::socket::reuse_address(true), ec);
 	m_socket.bind(m_endpoint, ec);
 
-	const asio::ip::address& listenAddress = asio::ip::make_address(m_ip);
-	const asio::ip::address& multicastAddress = asio::ip::make_address(m_multicast);
-	m_socket.set_option(asio::ip::multicast::join_group(multicastAddress.to_v4(), listenAddress.to_v4()), ec);
+	m_socket.set_option(asio::ip::multicast::join_group(m_multicastEndpoint.address().to_v4(), m_endpoint.address().to_v4()), ec);
 
 	if (!ec)
 	{
@@ -89,11 +90,11 @@ void CMulticastHandler::write(std::vector<char> message)
 	if (filterIsSet())
 	{
 		std::vector<char> filteredMessage = getFilter()->filterData(message);
-		m_socket.send_to(asio::buffer(message.data(), message.size()), m_senderEndpoint);
+		m_socket.send_to(asio::buffer(message.data(), message.size()), m_multicastEndpoint);
 	}
 	else
 	{
-		m_socket.send_to(asio::buffer(message.data(), message.size()), m_senderEndpoint);
+		m_socket.send_to(asio::buffer(message.data(), message.size()), m_multicastEndpoint);
 	}
 }
 
