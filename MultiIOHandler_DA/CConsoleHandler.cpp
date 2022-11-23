@@ -37,7 +37,7 @@ void CConsoleHandler::input()
         if (inputLine == sStop)
         {
             sendUserInput = false;
-            std::cout << "Sending console input to module stopped. Retrun to normal mode";
+            std::cout << "Sending console input to module stopped. Return to normal mode";
         }
         else
         {
