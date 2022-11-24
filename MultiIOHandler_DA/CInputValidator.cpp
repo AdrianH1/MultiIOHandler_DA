@@ -144,38 +144,44 @@ void CInputValidator::displayHelp()
 {
 	std::cout
 		<< "\t Help ----------------------------------------" << std::endl
-		<< std::endl << "\t open \t\t -> \t Creates an IO Module." << std::endl
+		<< "\t open \t\t -> \t Creates an IO Module." << std::endl
 		<< "\t\t\t\t Parameters are different for each module type:" << std::endl
-		<< "\t\t\t\t serversocket: IP Port" << std::endl
-		<< "\t\t\t\t clientsocket: IP Port" << std::endl
+		<< "\t\t\t\t serversocket/serversocketudp: IP Port" << std::endl
+		<< "\t\t\t\t clientsocket/clientsocketudp: IP Port" << std::endl
 		<< "\t\t\t\t file: Path" << std::endl
-		<< "\t\t\t\t serial: Port baudrate" << std::endl << std::endl
+		<< "\t\t\t\t serial: Port Baudrate" << std::endl
+		<< "\t\t\t\t multicast: IP Port Multicast" << std::endl
 		<< "\t\t\t\t Example for clientsocket:" << std::endl
 		<< "\t\t\t\t open clientsocket 127.0.0.1 65123" << std::endl
-		<< std::endl << "\t show \t\t -> \t Displays all modules" << std::endl
+		<< "\t show \t\t -> \t Displays all modules" << std::endl
 		<< "\t\t\t\t This command has no parameters" << std::endl
-		<< std::endl << "\t init \t\t -> \t Initializes a Module" << std::endl
-		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl << std::endl
+		<< "\t init \t\t -> \t Initializes a Module" << std::endl
+		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl
 		<< "\t\t\t\t Example to initialize module with ID 3:" << std::endl
 		<< "\t\t\t\t init 3" << std::endl
-		<< std::endl << "\t output \t -> \t Writes data of a module to console" << std::endl
-		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl << std::endl
+		<< "\t output \t -> \t Writes data of a module to console" << std::endl
+		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl
 		<< "\t\t\t\t Example to write data from module with ID 5 to console:" << std::endl
 		<< "\t\t\t\t output 5" << std::endl
-		<< std::endl << "\t connect \t -> \t Connects two modules unidirectional" << std::endl
-		<< "\t\t\t\t This command takes two IDs as a Parameters" << std::endl << std::endl
+		<< "\t input \t\t -> \t To write user input via console to a module " << std::endl
+		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl
+		<< "\t\t\t\t End input mode with 'stop'" << std::endl
+		<< "\t\t\t\t Example to write user input to module with ID 5:" << std::endl
+		<< "\t\t\t\t input 5" << std::endl
+		<< "\t connect \t -> \t Connects two modules unidirectional" << std::endl
+		<< "\t\t\t\t This command takes two IDs as a Parameters" << std::endl
 		<< "\t\t\t\t Example to connect write data from module 1 to module 4:" << std::endl
 		<< "\t\t\t\t connect 1 4" << std::endl
-		<< std::endl << "\t stop \t\t -> \t Stop any connection or output for a module" << std::endl
-		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl << std::endl
+		<< "\t stop \t\t -> \t Stop any connection or output for a module" << std::endl
+		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl
 		<< "\t\t\t\t Example to write data from module with ID 3 to console:" << std::endl
 		<< "\t\t\t\t stop 3" << std::endl
-		<< std::endl << "\t remove \t -> \t Removes a module" << std::endl
-		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl << std::endl
+		<< "\t remove \t -> \t Removes a module" << std::endl
+		<< "\t\t\t\t This command takes an ID as a Parameter" << std::endl
 		<< "\t\t\t\t Example to write data from module with ID 6 to console:" << std::endl
 		<< "\t\t\t\t remove 6" << std::endl
-		<< std::endl << "\t help \t\t -> \t Displays this help" << std::endl
-		<< std::endl << "\t exit \t\t -> \t Exit the application" << std::endl << std::endl
+		<< "\t help \t\t -> \t Displays this help" << std::endl
+		<< "\t exit \t\t -> \t Exit the application" << std::endl << std::endl
 		<< "\t ---------------------------------------------"
 		<< std::endl;
 }
