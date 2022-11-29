@@ -35,6 +35,14 @@ void CSerialHandler::init()
     m_serial.open(m_port, ec);
     m_serial.set_option(asio::serial_port_base::baud_rate(m_baudrate), ec);
 
+    //m_serial.set_option(asio::serial_port_base::baud_rate(115200), ec);
+    //m_serial.set_option(asio::serial_port_base::flow_control(asio::serial_port_base::flow_control::none), ec);
+    //m_serial.set_option(asio::serial_port_base::parity(asio::serial_port_base::parity::even), ec);
+    //m_serial.set_option(asio::serial_port_base::stop_bits(asio::serial_port_base::stop_bits::one), ec);
+    //m_serial.set_option(asio::serial_port_base::character_size(8), ec);
+   
+    //auto test = static_cast<asio::serial_port_base::stop_bits::type>(0);
+
     if (!ec)
     {
         std::cout << "Connected!" << std::endl;
