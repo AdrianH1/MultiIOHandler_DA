@@ -147,7 +147,6 @@
     <ClInclude Include="CConsoleHandler.h" />
     <ClInclude Include="CFileHandler.h" />
     <ClInclude Include="CFilterAlphanumeric.h" />
-    <ClInclude Include="CInputReader.h" />
     <ClInclude Include="CMulticastHandler.h" />
     <ClInclude Include="CServerSocketHandlerUDP.h" />
     <ClInclude Include="IDataFilter.h" />
@@ -165,7 +164,6 @@
     <ClCompile Include="CConsoleHandler.cpp" />
     <ClCompile Include="CFileHandler.cpp" />
     <ClCompile Include="CFilterAlphanumeric.cpp" />
-    <ClCompile Include="CInputReader.cpp" />
     <ClCompile Include="CKonfigJSON.cpp" />
     <ClCompile Include="CMulticastHandler.cpp" />
     <ClCompile Include="CServerSocketHandler.cpp" />

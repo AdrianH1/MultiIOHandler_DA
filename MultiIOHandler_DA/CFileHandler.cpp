@@ -77,21 +77,22 @@ void CFileHandler::read()
 
     while (reading)
     {
-        while (m_fs.get(c))
+      std::string str{};
+      while (std::getline(m_fs, str))
         {
+          for (char c : str)
+          {
             message.push_back(c);
-            if (c == '\n')
-            {
-                if (getWriteToListener())
-                {
-                    for (IIOModule* m : listenerTable)
-                    {
-                        m->write(message);
-                    }
-                }
-                message.clear();
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-            }
+          }
+          if (getWriteToListener())
+          {
+              for (IIOModule* m : listenerTable)
+              {
+                  m->write(message);
+              }
+              message.clear();
+          }
+          std::this_thread::sleep_for(std::chrono::seconds(1));
         }
 
         //Set file pointer to the start of the file
